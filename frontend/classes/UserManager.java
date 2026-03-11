@@ -240,8 +240,9 @@ public class UserManager {
                 String dayRegistered = parts[8].trim();
                 
                 String normalizedUsername = normalizeUsername(username);
+                User u = users.get(normalizedUsername);
 
-                Vehicle vehicle = new Vehicle(vinNumber, make, model, licensePlate, year, Double.parseDouble(approxTime), dayRegistered);
+                Vehicle vehicle = new Vehicle(vinNumber, make, model, licensePlate, year, Double.parseDouble(approxTime), dayRegistered, u.getUserId());
                 
                 // Add the vehicle to the corresponding owner
                 for (User user : users.values()) {
@@ -336,9 +337,11 @@ public class UserManager {
                 String jobDeadline = parts[4].trim();
                 
                 String normalizedUsername = normalizeUsername(username);
+                User u = users.get(normalizedUsername);
 
-                Job job = new Job(jobDescription, Double.parseDouble(approximateJobDuration), LocalDateTime.parse(jobDeadline));
-                
+                Job job = new Job(jobDescription, Double.parseDouble(approximateJobDuration), LocalDateTime.parse(jobDeadline), u.getUserId());
+                job.setStatusPending();
+
                 // Add the job to the corresponding client
                 for (User user : users.values()) {
                     if (user instanceof Client && normalizeUsername(user.getUsername()).equals(normalizedUsername)) {
@@ -430,6 +433,7 @@ public class UserManager {
                 String username = parts[0].trim();
                 String userType = parts[1].trim();
                 String normalizedUsername = normalizeUsername(username);
+                User u = users.get(normalizedUsername);
                 if(userType.equals("Owner")) {
                     String vin = parts[3].trim();
                     String model = parts[4].trim();
@@ -438,7 +442,7 @@ public class UserManager {
                     String year = parts[7].trim();
                     String approxTime = parts[8].trim();
                     String dayRegistered = parts[9].trim();
-                    Vehicle v = new Vehicle(vin, make, model, plate, year, Double.parseDouble(approxTime), dayRegistered);
+                    Vehicle v = new Vehicle(vin, make, model, plate, year, Double.parseDouble(approxTime), dayRegistered, u.getUserId());
                     Admin.addPendingVehicle(users.get(normalizedUsername), v, false);
                 }
                 else {
@@ -446,7 +450,7 @@ public class UserManager {
                     String hrs = parts[4].trim();
                     String deadline = parts[5].trim();
                     String jobdId = parts[6].trim();
-                    Job j = new Job(desc, hrs, LocalDateTime.parse(deadline), jobdId);
+                    Job j = new Job(desc, hrs, LocalDateTime.parse(deadline), jobdId, u.getUserId());
                     Admin.addPendingJob(users.get(normalizedUsername), j, false);
                 }
             }

@@ -186,7 +186,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
             }
 
             //make new vehicle from form information
-            Vehicle v = new Vehicle(VIN_NUMBER, make, model, licensePlate, year, arrivalText, departureText);
+            Vehicle v = new Vehicle(VIN_NUMBER, make, model, licensePlate, year, arrivalText, departureText, user.getUserId());
             
             //add the vehicle and user to pending for admin to look at
             Admin.addPendingVehicle(user, v, true);

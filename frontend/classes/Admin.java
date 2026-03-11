@@ -151,6 +151,7 @@ public class Admin extends User {
                 pendingJobs.get(u).remove(i);
 
                 UserManager.updateJobFile(u);
+                j.setStatusPending();
 
                 try { 
                     UserManager.transactionUpdate(j.getJobId(), true, u.getUsername(), "Client"); 

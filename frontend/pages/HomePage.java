@@ -128,6 +128,13 @@ public class HomePage extends JPanel implements Refreshable {
         jobCard.add(Box.createVerticalStrut(20));
         jobCard.add(new JLabel("Duration: " + j.getApproximateJobDuration()));
 
+        JLabel jobStatus = new JLabel();
+        if (j.getJobStatus().equals("pending")) {
+            jobStatus.setText("Status: Pending");
+        }
+        jobCard.add(Box.createVerticalStrut(20));
+        jobCard.add(jobStatus);
+
         jobCard.setBorder(BorderFactory.createLineBorder(Color.black, 3));
         
         jobCard.setBackground(new Color(153, 204, 255));

@@ -30,16 +30,19 @@ public class Vehicle {
     private double approxResidencyTime; // in hrs
     private String dayRegistered;
 
+    private String userId;
+
     // constructor
     // ---------------------------------------------------------------
     // add user as parameter in constructor
 
-    public Vehicle(String VIN_NUMBER, String make, String model, String licensePlate, String year, String arrive, String depart) {
+    public Vehicle(String VIN_NUMBER, String make, String model, String licensePlate, String year, String arrive, String depart, String userId) {
         this.VIN_NUMBER = VIN_NUMBER;
         this.make = make;
         this.model = model;
         this.licensePlate = licensePlate;
         this.year = year;
+        this.userId = userId;
 
         LocalDateTime arrival = LocalDateTime.parse(arrive, formatter);
         LocalDateTime departure = LocalDateTime.parse(depart, formatter);
@@ -57,7 +60,8 @@ public class Vehicle {
     }
 
     //overloading from reading from vehicle file
-    public Vehicle(String VIN_NUMBER, String make, String model, String licensePlate, String year, double approxTime, String dayRegistered) {
+    public Vehicle(String VIN_NUMBER, String make, String model, String licensePlate, String year, double approxTime, String dayRegistered
+        , String userId) {
         this.VIN_NUMBER = VIN_NUMBER;
         this.make = make;
         this.model = model;
@@ -65,6 +69,7 @@ public class Vehicle {
         this.year = year;
         this.approxResidencyTime = approxTime;
         this.dayRegistered = dayRegistered;
+        this.userId = userId;
     }
 
     // implementing the getters in order to access the private variables
@@ -109,6 +114,12 @@ public class Vehicle {
 
     public String getDayRegistered() {
         return dayRegistered;
+
     }
+
+    public String getOwnerId() {
+        return userId;
+    }
+
 
 }
