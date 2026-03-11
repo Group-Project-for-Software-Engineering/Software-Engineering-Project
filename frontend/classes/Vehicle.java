@@ -32,6 +32,8 @@ public class Vehicle {
 
     private String userId;
 
+    private boolean isParked = false; //is the vehicle able to be used. Default value is no.
+
     // constructor
     // ---------------------------------------------------------------
     // add user as parameter in constructor
@@ -121,5 +123,16 @@ public class Vehicle {
         return userId;
     }
 
+    public boolean isAvailable() {
+        return isParked;
+    }
+
+    public void isParked() {
+        isParked = true;
+    }
+
+    public void hasDeparted() {
+        isParked = false;
+    }
 
 }

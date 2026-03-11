@@ -103,6 +103,28 @@ public class HomePage extends JPanel implements Refreshable {
         vehicleCard.add(Box.createVerticalStrut(20)); 
         vehicleCard.add(new JLabel("Day Registered: " + v.getDayRegistered()));
 
+        JButton isParkedBtn = new JButton();
+
+        if(v.isAvailable()) { //vehicle is currently parked and must be sent to leaving
+            vehicleCard.add(Box.createVerticalStrut(20));
+            isParkedBtn.setText("Vehicle is departing");
+            isParkedBtn.addActionListener(e -> {
+                v.hasDeparted();
+                refresh();
+            });
+            
+        }
+        else { //vehicle is not parked and is arriving
+            vehicleCard.add(Box.createVerticalStrut(20));
+            isParkedBtn.setText("Vehicle has arrived");
+            isParkedBtn.addActionListener(e -> {
+                v.isParked();
+                refresh();
+            });
+        }
+
+        vehicleCard.add(isParkedBtn);
+        
         vehicleCard.setBorder(BorderFactory.createLineBorder(Color.black, 3));
 
         
