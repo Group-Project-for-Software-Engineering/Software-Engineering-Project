@@ -11,9 +11,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class AdminHome extends JPanel implements Refreshable {
 
@@ -153,8 +153,10 @@ public class AdminHome extends JPanel implements Refreshable {
             Job j = allJobs.get(i);
             result.append("Job ID: ").append(j.getJobId())
                   .append(" | Duration: ").append(String.format("%.1f", j.getApproximateJobDuration()))
+                  .append(" hours")
                   .append(" | Completion Time: ").append(String.format("%.1f", completionTimes.get(i)))
-                  .append("\n");
+                  .append(" hours")
+                  .append(" \n");
         }
        // shows the completion times in a popup window
         JOptionPane.showMessageDialog(this, new JScrollPane(new JTextArea(result.toString())),
