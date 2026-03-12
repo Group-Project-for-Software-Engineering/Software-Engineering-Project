@@ -9,6 +9,7 @@ package pages;
 
 import classes.Job;
 import classes.Owner;
+import classes.Admin;
 import classes.Client;
 import classes.User;
 import classes.UserManager;
@@ -109,6 +110,7 @@ public class HomePage extends JPanel implements Refreshable {
             vehicleCard.add(Box.createVerticalStrut(20));
             isParkedBtn.setText("Vehicle is departing");
             isParkedBtn.addActionListener(e -> {
+                Admin.removeVehicle(v);
                 v.hasDeparted();
                 refresh();
             });
@@ -118,6 +120,7 @@ public class HomePage extends JPanel implements Refreshable {
             vehicleCard.add(Box.createVerticalStrut(20));
             isParkedBtn.setText("Vehicle has arrived");
             isParkedBtn.addActionListener(e -> {
+                Admin.addVehicle(v);
                 v.isParked();
                 refresh();
             });

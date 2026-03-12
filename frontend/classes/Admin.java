@@ -16,6 +16,8 @@ public class Admin extends User {
     private static int increment = 0;
     private static Map<User, ArrayList<Vehicle>> pendingVehicles= new HashMap<>(); //stores vehicles yet to be approved
     private static Map<User, ArrayList<Job>> pendingJobs = new HashMap<>(); //stores jobs yet to be approved
+
+    private static ArrayList<Vehicle> availableVehicles = new ArrayList<>();
     //--------------------------------------------
 
     public Admin(String username, String password) {
@@ -45,6 +47,18 @@ public class Admin extends User {
         return adminId;
     }
     //--------------------------
+
+    public ArrayList<Vehicle> getAvailableVehicles() { //returns the list of vehicles that can be assigned jobs
+        return availableVehicles;
+    }
+
+    public static void addVehicle(Vehicle v) { //adds to the list of current usable vehicles
+        availableVehicles.add(v);
+    }
+
+    public static void removeVehicle(Vehicle v) {
+        availableVehicles.remove(v);
+    }
 
     /* 
     This method adds pending vehicles to the hashmap
