@@ -186,7 +186,25 @@ public class Admin extends User {
         }
         
     }
-    //---------------------
+
+    // caculates completion time for a list of jobs
+    // FIFO (First In, First Out) structure
+    // Jobs are added into the arraylist in the order they are submitted 
+    public static ArrayList<Double> computeCompletionTimes(ArrayList<Job> jobs) { // returns arraylist of completed times for all jobs in the order they were submitted
+        ArrayList<Double> completionTimes = new ArrayList<>();
+        double totalTime = 0;
+
+        // iterates through all jobs 
+        for(Job j : jobs) {
+            // adds the current job's duration to the total time
+            totalTime += j.getApproximateJobDuration();
+            // stores the total time for a specific job
+            completionTimes.add(totalTime);
+        }
+        // returns the arraylist of all completion times for all jobs 
+        return completionTimes;
+    }
+    //--------------------
 
 
 }
