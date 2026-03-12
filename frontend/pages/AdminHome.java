@@ -13,6 +13,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.util.Map;
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class AdminHome extends JPanel implements Refreshable {
 
@@ -20,6 +21,7 @@ public class AdminHome extends JPanel implements Refreshable {
     private UserManager users;
     private JPanel listPanel;
     private JLabel name_of_view;
+    private JButton calculateCompletionTimesBtn;
 
     public AdminHome(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
         // user = person logged in
@@ -31,6 +33,11 @@ public class AdminHome extends JPanel implements Refreshable {
         add(new NavBar(cards, user, registry), BorderLayout.NORTH); //create navbar
         
         name_of_view = new JLabel("", SwingConstants.CENTER);
+
+        calculateCompletionTimesBtn = new JButton("Calculate Completion Times");
+        calculateCompletionTimesBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+        calculateCompletionTimesBtn.addActionListener(e -> showCompletionTimes());
+
         name_of_view.setFont(new Font("Arial", Font.BOLD, 24));
         name_of_view.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -46,6 +53,7 @@ public class AdminHome extends JPanel implements Refreshable {
         scroll.setBorder(BorderFactory.createEmptyBorder());
         
         viewPanel.add(name_of_view);
+        viewPanel.add(calculateCompletionTimesBtn);
         viewPanel.add(scroll);
 
         add(viewPanel, BorderLayout.CENTER);
@@ -111,6 +119,46 @@ public class AdminHome extends JPanel implements Refreshable {
         userCard.setOpaque(true);
 
         return userCard; 
+    }
+
+
+    // helper method to show the completion times for all jobs
+    // computes the completion times using the FIFO (First In, First Out) structure
+    // jobs are added into the arraylist in the order they are submitted
+    private void showCompletionTimes() {
+        // stores all of the jobs that are submitted by the client that is approved by controller
+        ArrayList<Job> allJobs = new ArrayList<>();
+    
+        // iterates through all of the users and gets their jobs if they are a client
+        for (User u : users.getAllUsers().values()) {
+            if ("Client".equals(u.getUserType())) {
+                allJobs.addAll(((Client) u).getClientJobs());
+            }
+        }
+        // if there are no jobs, show a message stating this 
+        if (allJobs.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No jobs available.");
+            return;
+        }
+    
+        // computes the completion times for all jobs
+        // references admin.java computerCompletionTimes() method 
+        ArrayList<Double> completionTimes = Admin.computeCompletionTimes(allJobs);
+    
+        // stores the completion times in a stringbuilder
+        StringBuilder result = new StringBuilder("Completion Times for all jobs: \n\n");
+    
+        // iterates through all of the jobs and adds the completion times to the stringbuilder
+        for (int i = 0; i < allJobs.size(); i++) {
+            Job j = allJobs.get(i);
+            result.append("Job ID: ").append(j.getJobId())
+                  .append(" | Duration: ").append(String.format("%.1f", j.getApproximateJobDuration()))
+                  .append(" | Completion Time: ").append(String.format("%.1f", completionTimes.get(i)))
+                  .append("\n");
+        }
+       // shows the completion times in a popup window
+        JOptionPane.showMessageDialog(this, new JScrollPane(new JTextArea(result.toString())),
+                "Completion Times", JOptionPane.INFORMATION_MESSAGE);
     }
     //-----------------------------------------
 }
