@@ -9,6 +9,7 @@
 package pages;
 
 import classes.Admin;
+import classes.Owner;
 import classes.PlaceHolderTextField;
 import classes.User;
 import classes.UserManager;
@@ -18,14 +19,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
-import classes.Owner;
 
 // ---------------------------------------------------------------
 // class that controls the offer vehicle page
 public class OfferVehiclePage extends JPanel implements Refreshable {
 
-    // Saving/Loading information from transactions.txt.
-    private static final String OUTPUT_FILE = "frontend/transactions.txt";
+    // Date Format
     private static final DateTimeFormatter TS_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Look up vehicles by VIN.

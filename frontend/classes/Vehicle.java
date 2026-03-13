@@ -9,7 +9,6 @@ package classes;
 //Focus on the backend and make necessary classes to store information for the user and their vehicles (Sebastian)
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

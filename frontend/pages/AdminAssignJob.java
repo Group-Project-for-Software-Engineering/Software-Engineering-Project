@@ -1,7 +1,11 @@
 package pages;
 
+import classes.User;
+import classes.UserManager;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Font;
 import java.util.Map;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -9,19 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-
-import classes.User;
-import classes.UserManager;
-import java.awt.BorderLayout;
-import classes.Admin;
-import classes.Client;
-import classes.Job;
-import classes.Owner;
-import classes.Vehicle;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import javax.swing.*;
 
 public class AdminAssignJob extends JPanel implements Refreshable{
 
