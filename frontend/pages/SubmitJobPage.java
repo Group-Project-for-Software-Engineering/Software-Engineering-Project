@@ -9,8 +9,8 @@
 package pages;
 
 import classes.Admin;
+import classes.Client;
 import classes.Job;
-import classes.Owner;
 import classes.PlaceHolderTextField;
 import classes.User;
 import classes.UserManager;
@@ -20,15 +20,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
-import classes.Client;
 
 
 // ---------------------------------------------------------------
 // Submit Job Page
 public class SubmitJobPage extends JPanel implements Refreshable {
 
-    // Saving/Loading information from transactions.txt.
-    private static final String OUTPUT_FILE = "frontend/transactions.txt";
+    // Date Format
     private static final DateTimeFormatter DEADLINE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Look up vehicles by JobID.
@@ -36,10 +34,6 @@ public class SubmitJobPage extends JPanel implements Refreshable {
     private final JTextArea STATUS_AREA = new JTextArea(6, 50);
 
     private final User user;
-
-    private JTextField durationField;
-    private JTextField deadlineField;
-    private JTextField jobDescField;
 
     private JTextField jobDescription;
     private JTextField jobDuration;
