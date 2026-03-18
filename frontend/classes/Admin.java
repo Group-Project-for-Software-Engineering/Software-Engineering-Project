@@ -18,6 +18,7 @@ public class Admin extends User {
     private static Map<User, ArrayList<Job>> pendingJobs = new HashMap<>(); //stores jobs yet to be approved
 
     private static ArrayList<Vehicle> availableVehicles = new ArrayList<>();
+    private static ArrayList<Vehicle> jobs = new ArrayList<>();
     //--------------------------------------------
 
     public Admin(String username, String password) {
@@ -53,11 +54,15 @@ public class Admin extends User {
     }
 
     public static void addVehicle(Vehicle v) { //adds to the list of current usable vehicles
-        availableVehicles.add(v);
+        if(!availableVehicles.contains(v)) {
+            availableVehicles.add(v);
+        }
+        System.out.println(availableVehicles);
     }
 
     public static void removeVehicle(Vehicle v) {
         availableVehicles.remove(v);
+        System.out.println(availableVehicles);
     }
 
     /* 

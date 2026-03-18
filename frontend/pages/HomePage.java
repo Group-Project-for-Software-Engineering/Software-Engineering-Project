@@ -18,7 +18,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
-
+import java.awt.event.ActionListener;
 // ---------------------------------------------------------------
 public class HomePage extends JPanel implements Refreshable {
 
@@ -109,6 +109,10 @@ public class HomePage extends JPanel implements Refreshable {
         if(v.isAvailable()) { //vehicle is currently parked and must be sent to leaving
             vehicleCard.add(Box.createVerticalStrut(20));
             isParkedBtn.setText("Vehicle is departing");
+            
+            for (ActionListener al : isParkedBtn.getActionListeners()) {
+                isParkedBtn.removeActionListener(al);
+            }
             isParkedBtn.addActionListener(e -> {
                 Admin.removeVehicle(v);
                 v.hasDeparted();
@@ -119,6 +123,11 @@ public class HomePage extends JPanel implements Refreshable {
         else { //vehicle is not parked and is arriving
             vehicleCard.add(Box.createVerticalStrut(20));
             isParkedBtn.setText("Vehicle has arrived");
+            
+            for (ActionListener al : isParkedBtn.getActionListeners()) {
+                isParkedBtn.removeActionListener(al);
+            }
+            
             isParkedBtn.addActionListener(e -> {
                 Admin.addVehicle(v);
                 v.isParked();

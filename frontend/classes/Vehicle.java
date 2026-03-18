@@ -129,10 +129,12 @@ public class Vehicle {
 
     public void isParked() {
         isParked = true;
+        Admin.addVehicle(this);
     }
 
     public void hasDeparted() {
         isParked = false;
+        Admin.removeVehicle(this);
     }
 
 }
