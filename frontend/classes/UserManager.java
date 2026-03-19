@@ -336,14 +336,16 @@ public class UserManager {
                 String jobDescription = parts[2].trim();
                 String approximateJobDuration = parts[3].trim();
                 String jobDeadline = parts[4].trim();
+                String id = parts[5].trim();
 
                 String jobClientId = parts[6].trim();
                 
                 String normalizedUsername = normalizeUsername(username);
                 User u = users.get(normalizedUsername);
 
-                Job job = new Job(jobDescription, Double.parseDouble(approximateJobDuration), LocalDateTime.parse(jobDeadline), u.getUserId(), jobClientId);
+                Job job = new Job(jobDescription, approximateJobDuration, LocalDateTime.parse(jobDeadline), id, u.getUserId(), jobClientId);
                 job.setStatusPending();
+                Admin.addJob(job);
 
                 // Add the job to the corresponding client
                 for (User user : users.values()) {

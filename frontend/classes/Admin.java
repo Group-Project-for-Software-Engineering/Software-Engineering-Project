@@ -18,7 +18,7 @@ public class Admin extends User {
     private static Map<User, ArrayList<Job>> pendingJobs = new HashMap<>(); //stores jobs yet to be approved
 
     private static ArrayList<Vehicle> availableVehicles = new ArrayList<>();
-    private static ArrayList<Vehicle> jobs = new ArrayList<>();
+    private static ArrayList<Job> jobs = new ArrayList<>();
     //--------------------------------------------
 
     public Admin(String username, String password) {
@@ -65,6 +65,13 @@ public class Admin extends User {
         System.out.println(availableVehicles);
     }
 
+    public static void addJob(Job j) {
+        jobs.add(j);
+    }
+
+    public static ArrayList<Job> getJobs() {
+        return jobs;
+    }
     /* 
     This method adds pending vehicles to the hashmap
     If it's the first time we are seeing the request, it also adds it to the pending requests file
@@ -171,6 +178,7 @@ public class Admin extends User {
 
                 UserManager.updateJobFile(u);
                 j.setStatusPending();
+                Admin.addJob(j);
 
                 try { 
                     UserManager.transactionUpdate(j.getJobId(), true, u.getUsername(), "Client"); 
@@ -209,7 +217,7 @@ public class Admin extends User {
     // caculates completion time for a list of jobs
     // FIFO (First In, First Out) structure
     // Jobs are added into the arraylist in the order they are submitted 
-    public static ArrayList<Double> computeCompletionTimes(ArrayList<Job> jobs) { // returns arraylist of completed times for all jobs in the order they were submitted
+    public static ArrayList<Double> computeCompletionTimes() { // returns arraylist of completed times for all jobs in the order they were submitted
         ArrayList<Double> completionTimes = new ArrayList<>();
         double totalTime = 0;
 

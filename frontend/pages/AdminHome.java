@@ -129,13 +129,17 @@ public class AdminHome extends JPanel implements Refreshable {
     private void showCompletionTimes() {
         // stores all of the jobs that are submitted by the client that is approved by controller
         ArrayList<Job> allJobs = new ArrayList<>();
-    
+        allJobs = Admin.getJobs();
+
+        /* 
         // iterates through all of the users and gets their jobs if they are a client
         for (User u : users.getAllUsers().values()) {
             if ("Client".equals(u.getUserType())) {
                 allJobs.addAll(((Client) u).getClientJobs());
             }
         }
+        */
+
         // if there are no jobs, show a message stating this 
         if (allJobs.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No jobs available.");
@@ -144,7 +148,7 @@ public class AdminHome extends JPanel implements Refreshable {
     
         // computes the completion times for all jobs
         // references admin.java computerCompletionTimes() method 
-        ArrayList<Double> completionTimes = Admin.computeCompletionTimes(allJobs);
+        ArrayList<Double> completionTimes = Admin.computeCompletionTimes();
     
         // stores the completion times in a stringbuilder
         StringBuilder result = new StringBuilder("Completion Times for all jobs: \n\n");
