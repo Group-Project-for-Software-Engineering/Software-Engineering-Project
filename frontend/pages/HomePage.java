@@ -102,6 +102,8 @@ public class HomePage extends JPanel implements Refreshable {
         vehicleCard.add(Box.createVerticalStrut(20)); 
         vehicleCard.add(new JLabel("Approximate Residency: " + v.approxTime()));
         vehicleCard.add(Box.createVerticalStrut(20)); 
+        vehicleCard.add(new JLabel("Owner Id: " + v.getVehicleOwnerId()));
+        vehicleCard.add(Box.createVerticalStrut(20)); 
         vehicleCard.add(new JLabel("Day Registered: " + v.getDayRegistered()));
 
         JButton isParkedBtn = new JButton();
@@ -152,7 +154,7 @@ public class HomePage extends JPanel implements Refreshable {
      private JPanel jobCard(Job j) {
         JPanel jobCard = new JPanel();
         jobCard.setLayout(new BoxLayout(jobCard, BoxLayout.Y_AXIS));
-        jobCard.add(new JLabel("Job Id: " + j.getJobId()));
+        jobCard.add(new JLabel("Job Id: " + j.getJobClientId()));
         jobCard.add(Box.createVerticalStrut(20));
         jobCard.add(new JLabel("Client Id: " + ((Client)user).getClientId())); 
         jobCard.add(Box.createVerticalStrut(20));

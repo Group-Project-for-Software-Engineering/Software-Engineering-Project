@@ -99,15 +99,16 @@ public class AdminHome extends JPanel implements Refreshable {
             userCard.add(new JLabel("Vehicles:"));
             for(Vehicle v: ((Owner)u).getVehicles()) {
                 userCard.add(new JLabel("[Make: " + v.getMake() + " || Model: " + v.getModel() + " || VIN: " + v.getNumber() 
-                + " || License Plate: " + v.getLicensePlate() + " || Year: " + v.getYear() + " || Approximate parked time: " + v.approxTime() +
-                " || Day Registered " + v.getDayRegistered() + "]"));
+                + " || License Plate: " + v.getLicensePlate() + " || Year: " + v.getYear() + " || Approximate parked time: " + v.approxTime()
+                + " || Owner Vehicle Id: " + v.getVehicleOwnerId() 
+                +" || Day Registered " + v.getDayRegistered() + "]"));
             }
         }
         else if (u.getUserType().equals("Client")) {
             userCard.add(new JLabel("Client Id: " + ((Client)u).getClientId()));
             userCard.add(new JLabel("Jobs:"));
             for(Job j: ((Client)u).getClientJobs()) {
-                userCard.add(new JLabel("[Job Id: " + j.getJobId() + " || Job duration: " + j.getApproximateJobDuration() + 
+                userCard.add(new JLabel("[Job Id: " + j.getJobId() +" || Job Client Id: " + j.getJobClientId() + " || Job duration: " + j.getApproximateJobDuration() + 
                 " || Deadline: " + j.getJobDeadline() + " || Description: " + j.getJobDescription() + "]"));
             }
         }

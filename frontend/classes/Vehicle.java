@@ -20,6 +20,8 @@ public class Vehicle {
     private String make;
     private String model;
     private String licensePlate;
+
+    private String vehicleOwnerId;
     
     private String year;
 
@@ -37,13 +39,14 @@ public class Vehicle {
     // ---------------------------------------------------------------
     // add user as parameter in constructor
 
-    public Vehicle(String VIN_NUMBER, String make, String model, String licensePlate, String year, String arrive, String depart, String userId) {
+    public Vehicle(String VIN_NUMBER, String make, String model, String licensePlate, String year, String arrive, String depart, String userId, String id) {
         this.VIN_NUMBER = VIN_NUMBER;
         this.make = make;
         this.model = model;
         this.licensePlate = licensePlate;
         this.year = year;
         this.userId = userId;
+        this.vehicleOwnerId = id;
 
         LocalDateTime arrival = LocalDateTime.parse(arrive, formatter);
         LocalDateTime departure = LocalDateTime.parse(depart, formatter);
@@ -62,7 +65,7 @@ public class Vehicle {
 
     //overloading from reading from vehicle file
     public Vehicle(String VIN_NUMBER, String make, String model, String licensePlate, String year, double approxTime, String dayRegistered
-        , String userId) {
+        , String userId, String vehicleOwnerId) {
         this.VIN_NUMBER = VIN_NUMBER;
         this.make = make;
         this.model = model;
@@ -71,6 +74,7 @@ public class Vehicle {
         this.approxResidencyTime = approxTime;
         this.dayRegistered = dayRegistered;
         this.userId = userId;
+        this.vehicleOwnerId = vehicleOwnerId;
     }
 
     // implementing the getters in order to access the private variables
@@ -134,6 +138,10 @@ public class Vehicle {
     public void hasDeparted() {
         isParked = false;
         Admin.removeVehicle(this);
+    }
+
+    public String getVehicleOwnerId() {
+        return vehicleOwnerId;
     }
 
 }

@@ -39,7 +39,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
     private JTextField jobDuration;
     private JTextField jobDeadline;
 
-    private JTextField clientdField;
+    private JTextField clientIdField;
 
     // ---------------------------------------------------------------
        // ---------------------------------------------------------------
@@ -80,9 +80,9 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         //clientId.setForeground(new Color(65, 105, 255));
        // clientId.setFont(new Font("Arial", Font.PLAIN, 36));
 
-        clientdField = new PlaceHolderTextField("Enter your client id:", 36); // adds more graphics to regular textfield
-        clientdField.setMaximumSize(clientdField.getPreferredSize());
-        clientdField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        clientIdField = new PlaceHolderTextField("Enter client id for this job:", 36); // adds more graphics to regular textfield
+        clientIdField.setMaximumSize(clientIdField.getPreferredSize());
+        clientIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         jobDescription = new PlaceHolderTextField("Job Description                    (Enter Job Description)", 36); // adds more graphics to regular textfield
         jobDescription.setMaximumSize(jobDescription.getPreferredSize());
@@ -107,8 +107,8 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         jobForm.add(Box.createVerticalGlue());
         jobForm.add(jobTitle);
         jobForm.add(Box.createVerticalStrut(20)); // creates padding between elements
-        jobForm.add(clientdField);
-        jobForm.add(createFormatLabel("Your Client Id: " + ((Client)user).getClientId()));
+        jobForm.add(clientIdField);
+        //jobForm.add(createFormatLabel("Your Client Id: " + ((Client)user).getClientId()));
         jobForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         jobForm.add(jobDescription);
         jobForm.add(createFormatLabel("Enter Job Description"));
@@ -130,15 +130,10 @@ public class SubmitJobPage extends JPanel implements Refreshable {
             String idText = jobDescription.getText().trim();
             String durationText = jobDuration.getText().trim();
             String deadlineText = jobDeadline.getText().trim();
-            String id = clientdField.getText().trim();
+            String id = clientIdField.getText().trim();
 
             if(idText.isEmpty() || durationText.isEmpty() || deadlineText.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Fields cannot be empty.");
-                return;
-            }
-
-            if(!id.equals(((Client)user).getClientId())) {
-                JOptionPane.showMessageDialog(this, "Client id is incorrect.");
                 return;
             }
 
@@ -165,7 +160,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
             }
 
             //make new vehicle from form information
-            Job j = new Job(idText, duration, deadline, user.getUserId());
+            Job j = new Job(idText, duration, deadline, user.getUserId(), id);
             
             //add user and job to pending so admin can look at it 
             Admin.addPendingJob(user, j, true);
@@ -183,7 +178,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         jobDeadline.setText("");
         jobDuration.setText("");
         jobDescription.setText("");
-        clientdField.setText("");
+        clientIdField.setText("");
     }
 
     private JLabel createFormatLabel(String text) {

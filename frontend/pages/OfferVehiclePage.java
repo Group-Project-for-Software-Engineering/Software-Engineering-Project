@@ -82,7 +82,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
        // ownerId.setFont(new Font("Arial", Font.PLAIN, 36));
 
         
-        ownerIdField= new PlaceHolderTextField("Enter your owner id", 36); // adds more graphics to regular textfield
+        ownerIdField= new PlaceHolderTextField("Enter an owner id for this vehicle", 36); // adds more graphics to regular textfield
         ownerIdField.setMaximumSize(ownerIdField.getPreferredSize());
         ownerIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -130,7 +130,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         //vehicleForm.add(ownerId);
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(ownerIdField);
-        vehicleForm.add(createFormatLabel("Your Owner Id: " + ((Owner)user).getOwnerId()));
+        //vehicleForm.add(createFormatLabel("Your Owner Id: " + ((Owner)user).getOwnerId()));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         //vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(vehicleVin);
@@ -179,13 +179,9 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                 JOptionPane.showMessageDialog(this, "Fields cannot be empty.");
                 return;
             }
-            if(!id.equals(((Owner)user).getOwnerId())) {
-                JOptionPane.showMessageDialog(this, "Your Owner id is incorrect.");
-                return;
-            }
 
             //make new vehicle from form information
-            Vehicle v = new Vehicle(VIN_NUMBER, make, model, licensePlate, year, arrivalText, departureText, user.getUserId());
+            Vehicle v = new Vehicle(VIN_NUMBER, make, model, licensePlate, year, arrivalText, departureText, user.getUserId(), id);
             
             //add the vehicle and user to pending for admin to look at
             Admin.addPendingVehicle(user, v, true);

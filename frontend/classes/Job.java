@@ -25,9 +25,11 @@ public class Job {
     private String userId;
     private String jobStatus; //this can be pending, in progress, completed, or approved
 
+    private String jobClientId;
+
     // ---------------------------------------------------------------
     // constructor
-    public Job(String description, double approximateJobDuration, LocalDateTime jobDeadline, String userId) {
+    public Job(String description, double approximateJobDuration, LocalDateTime jobDeadline, String userId, String jobClientId) {
         increment++;
         this.JOB_ID = Integer.toString(increment);
         this.approximateJobDuration = approximateJobDuration;
@@ -35,6 +37,7 @@ public class Job {
         this.description = description;
         
         this.userId = userId;
+        this.jobClientId = jobClientId;
 
         // make sure job has all the necessary information
         if (JOB_ID.equals("") || approximateJobDuration <= 0 || jobDeadline == null) {
@@ -42,13 +45,14 @@ public class Job {
         }
     }
 
-    public Job(String description, String hrs,LocalDateTime jobDeadline, String id, String userId) {
+    public Job(String description, String hrs,LocalDateTime jobDeadline, String id, String userId, String jobClientId) {
         increment++;
         this.JOB_ID = id;
         this.approximateJobDuration = Double.parseDouble(hrs);
         this.jobDeadline = jobDeadline;
         this.description = description;
         this.userId = userId;
+        this.jobClientId = jobClientId;
 
         // make sure job has all the necessary information
         if (JOB_ID.equals("") || approximateJobDuration <= 0 || jobDeadline == null) {
@@ -109,6 +113,10 @@ public class Job {
     }
     public void setStatusPending() {
         jobStatus = "pending";
+    }
+
+    public String getJobClientId() {
+        return jobClientId;
     }
 
 }
