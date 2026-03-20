@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Admin extends User {
-    private String adminId;
+    // private String adminId;
     private static int increment = 0;
     private static Map<User, ArrayList<Vehicle>> pendingVehicles= new HashMap<>(); //stores vehicles yet to be approved
     private static Map<User, ArrayList<Job>> pendingJobs = new HashMap<>(); //stores jobs yet to be approved
@@ -28,8 +28,8 @@ public class Admin extends User {
 
     public Admin(String username, String password, String email) {
         super(username, password, email, "Admin");
-        increment++;
-        adminId = Integer.toString(increment);
+        // increment++;
+        // adminId = Integer.toString(increment);
         
     }
     //------------------------------
@@ -44,9 +44,11 @@ public class Admin extends User {
     }
     //-----------------------
 
+    /*
     public String getAdminId() {
         return adminId;
     }
+        */
     //--------------------------
 
     public ArrayList<Vehicle> getAvailableVehicles() { //returns the list of vehicles that can be assigned jobs
