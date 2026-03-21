@@ -7,18 +7,18 @@
 
 package pages;
 
-import classes.Job;
-import classes.Owner;
 import classes.Admin;
 import classes.Client;
+import classes.Job;
+import classes.Owner;
 import classes.User;
 import classes.UserManager;
 import classes.Vehicle;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
-import java.awt.event.ActionListener;
 // ---------------------------------------------------------------
 public class HomePage extends JPanel implements Refreshable {
 
@@ -101,8 +101,8 @@ public class HomePage extends JPanel implements Refreshable {
         vehicleCard.add(new JLabel("Year: " + v.getYear())); 
         vehicleCard.add(Box.createVerticalStrut(20)); 
         vehicleCard.add(new JLabel("Approximate Residency: " + v.approxTime()));
-        vehicleCard.add(Box.createVerticalStrut(20)); 
-        vehicleCard.add(new JLabel("Owner Id: " + v.getVehicleOwnerId()));
+        // vehicleCard.add(Box.createVerticalStrut(20)); 
+        // vehicleCard.add(new JLabel("Owner Id: " + v.getVehicleOwnerId()));
         vehicleCard.add(Box.createVerticalStrut(20)); 
         vehicleCard.add(new JLabel("Day Registered: " + v.getDayRegistered()));
 
@@ -156,11 +156,11 @@ public class HomePage extends JPanel implements Refreshable {
         jobCard.setLayout(new BoxLayout(jobCard, BoxLayout.Y_AXIS));
         jobCard.add(new JLabel("Job Id: " + j.getJobClientId()));
         jobCard.add(Box.createVerticalStrut(20));
-        jobCard.add(new JLabel("Client Id: " + ((Client)user).getClientId())); 
-        jobCard.add(Box.createVerticalStrut(20));
+        // jobCard.add(new JLabel("Client Id: " + ((Client)user).getClientId())); 
+        // jobCard.add(Box.createVerticalStrut(20));
         jobCard.add(new JLabel("Job Description: " + j.getJobDescription())); 
         jobCard.add(Box.createVerticalStrut(20));
-        jobCard.add(new JLabel("Deadline: " + j.getJobDeadline()));
+        jobCard.add(new JLabel("Deadline: " + j.getJobDeadline() + " hours"));
         jobCard.add(Box.createVerticalStrut(20));
         jobCard.add(new JLabel("Duration: " + j.getApproximateJobDuration()));
 

@@ -9,7 +9,6 @@
 package pages;
 
 import classes.Admin;
-import classes.Client;
 import classes.Job;
 import classes.PlaceHolderTextField;
 import classes.User;
@@ -108,6 +107,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         jobForm.add(jobTitle);
         jobForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         jobForm.add(clientIdField);
+        jobForm.add(createFormatLabel("Enter client id for this job"));
         //jobForm.add(createFormatLabel("Your Client Id: " + ((Client)user).getClientId()));
         jobForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         jobForm.add(jobDescription);

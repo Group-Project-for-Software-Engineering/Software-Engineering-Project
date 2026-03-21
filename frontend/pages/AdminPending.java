@@ -2,7 +2,6 @@ package pages;
 
 import classes.Admin;
 import classes.Job;
-import classes.Owner;
 import classes.User;
 import classes.UserManager;
 import classes.Vehicle;
@@ -13,7 +12,6 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
-import classes.Client;
 
 public class AdminPending extends JPanel implements Refreshable{
 
@@ -90,7 +88,7 @@ public class AdminPending extends JPanel implements Refreshable{
         pendingCard.add(new JLabel("Name: " + u.getUsername())); 
         pendingCard.add(new JLabel("User Type: " + u.getUserType())); 
         pendingCard.add(new JLabel("User Id: " + u.getUserId()));
-        pendingCard.add(new JLabel("Owner Id: " + ((Owner)u).getOwnerId()));
+        // pendingCard.add(new JLabel("Owner Id: " + ((Owner)u).getOwnerId()));
         pendingCard.add(new JLabel("Vin Number: " + v.getNumber())); 
         pendingCard.add(new JLabel("Licenese Plate: " + v.getLicensePlate())); 
         pendingCard.add(new JLabel("Model: " + v.getModel()));
@@ -138,10 +136,9 @@ public class AdminPending extends JPanel implements Refreshable{
         pendingCard.add(new JLabel("Name: " + u.getUsername())); 
         pendingCard.add(new JLabel("User Type: " + u.getUserType())); 
         pendingCard.add(new JLabel("User Id: " + u.getUserId()));
-        pendingCard.add(new JLabel("Client Id: " + ((Client)u).getClientId()));
+        // pendingCard.add(new JLabel("Client Id: " + ((Client)u).getClientId()));
         pendingCard.add(new JLabel("Job Id: " + j.getJobId()));
         pendingCard.add(new JLabel("Job Description: " + j.getJobDescription())); 
-        pendingCard.add(new JLabel("Job Id: " + j.getJobId())); 
         pendingCard.add(new JLabel("Deadline: " + j.getJobDeadline()));
         pendingCard.add(new JLabel("Duration: " + j.getApproximateJobDuration()));
        

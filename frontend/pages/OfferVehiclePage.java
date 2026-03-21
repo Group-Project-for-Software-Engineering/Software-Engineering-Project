@@ -9,7 +9,6 @@
 package pages;
 
 import classes.Admin;
-import classes.Owner;
 import classes.PlaceHolderTextField;
 import classes.User;
 import classes.UserManager;
@@ -130,6 +129,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         //vehicleForm.add(ownerId);
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(ownerIdField);
+        vehicleForm.add(createFormatLabel("Enter an owner id for this vehicle"));
         //vehicleForm.add(createFormatLabel("Your Owner Id: " + ((Owner)user).getOwnerId()));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         //vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements

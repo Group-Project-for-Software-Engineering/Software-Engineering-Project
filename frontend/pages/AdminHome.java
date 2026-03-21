@@ -95,7 +95,7 @@ public class AdminHome extends JPanel implements Refreshable {
         userCard.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3)); 
 
         if(u.getUserType().equals("Owner")) {
-            userCard.add(new JLabel("Owner Id: " + ((Owner)u).getOwnerId()));
+            //userCard.add(new JLabel("Owner Id: " + ((Owner)u).getOwnerId()));
             userCard.add(new JLabel("Vehicles:"));
             for(Vehicle v: ((Owner)u).getVehicles()) {
                 userCard.add(new JLabel("[Make: " + v.getMake() + " || Model: " + v.getModel() + " || VIN: " + v.getNumber() 
@@ -105,7 +105,7 @@ public class AdminHome extends JPanel implements Refreshable {
             }
         }
         else if (u.getUserType().equals("Client")) {
-            userCard.add(new JLabel("Client Id: " + ((Client)u).getClientId()));
+            // userCard.add(new JLabel("Client Id: " + ((Client)u).getClientId()));
             userCard.add(new JLabel("Jobs:"));
             for(Job j: ((Client)u).getClientJobs()) {
                 userCard.add(new JLabel("[Job Id: " + j.getJobId() +" || Job Client Id: " + j.getJobClientId() + " || Job duration: " + j.getApproximateJobDuration() + 
@@ -113,7 +113,7 @@ public class AdminHome extends JPanel implements Refreshable {
             }
         }
         else {
-            userCard.add(new JLabel("Admin Id: " + ((Admin)u).getAdminId()));
+            // userCard.add(new JLabel("Admin Id: " + ((Admin)u).getAdminId()));
         }
 
         userCard.setBackground(new Color(153, 204, 255));
