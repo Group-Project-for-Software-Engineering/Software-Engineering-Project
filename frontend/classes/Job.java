@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 
 public class Job {
     private String JOB_ID;
-    private static int increment;
+    private static int increment = 0;
     private String description;
     private double approximateJobDuration; // in minutes or hours
     private LocalDateTime jobDeadline;

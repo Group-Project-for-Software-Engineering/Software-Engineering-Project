@@ -19,6 +19,7 @@ public class Admin extends User {
 
     private static ArrayList<Vehicle> availableVehicles = new ArrayList<>();
     private static ArrayList<Job> jobs = new ArrayList<>();
+    //the jobs being stored are ones that have been approved by the controller with the pending form.
     //--------------------------------------------
 
     public Admin(String username, String password) {
