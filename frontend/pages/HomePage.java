@@ -106,6 +106,9 @@ public class HomePage extends JPanel implements Refreshable {
         vehicleCard.add(Box.createVerticalStrut(20)); 
         vehicleCard.add(new JLabel("Day Registered: " + v.getDayRegistered()));
 
+
+        /*
+
         JButton isParkedBtn = new JButton();
 
         if(v.isAvailable()) { //vehicle is currently parked and must be sent to leaving
@@ -138,6 +141,8 @@ public class HomePage extends JPanel implements Refreshable {
         }
 
         vehicleCard.add(isParkedBtn);
+
+        */
         
         vehicleCard.setBorder(BorderFactory.createLineBorder(Color.black, 3));
 
