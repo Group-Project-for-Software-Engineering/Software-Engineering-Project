@@ -156,12 +156,30 @@ public class AdminHome extends JPanel implements Refreshable {
         // iterates through all of the jobs and adds the completion times to the stringbuilder
         for (int i = 0; i < allJobs.size(); i++) {
             Job j = allJobs.get(i);
+            int jobHours = (int) j.getApproximateJobDuration();
+            long jobMinutes = Math.round((j.getApproximateJobDuration() - jobHours) * 60);
+            int jobCompletionHours = completionTimes.get(i).intValue();
+            long jobCompletionMinutes = Math.round((completionTimes.get(i) - jobCompletionHours) * 60);
             result.append("Job ID: ").append(j.getJobId())
-                  .append(" | Duration: ").append(String.format("%.1f", j.getApproximateJobDuration()))
-                  .append(" hours")
-                  .append(" | Completion Time: ").append(String.format("%.1f", completionTimes.get(i)))
-                  .append(" hours")
-                  .append(" \n");
+                  .append(" | Duration: ");
+                  if (jobHours != 0) {
+                    result.append(jobHours)
+                    .append(" hours ");
+                  }
+                  if (jobMinutes != 0) {
+                    result.append(jobMinutes)
+                    .append(" minutes");
+                  }
+                  result.append(" | Completion Time: ");
+                  if (jobCompletionHours != 0) {
+                    result.append(jobCompletionHours)
+                    .append(" hours ");
+                  }
+                  if (jobCompletionMinutes != 0) {
+                    result.append(jobCompletionMinutes)
+                    .append (" minutes");
+                  }
+                  result.append(" \n\n");
         }
        // shows the completion times in a popup window
         JOptionPane.showMessageDialog(this, new JScrollPane(new JTextArea(result.toString())),
