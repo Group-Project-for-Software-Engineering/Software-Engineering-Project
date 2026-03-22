@@ -73,6 +73,9 @@ public class Admin extends User {
     public static ArrayList<Job> getJobs() {
         return jobs;
     }
+
+
+    
     /* 
     This method adds pending vehicles to the hashmap
     If it's the first time we are seeing the request, it also adds it to the pending requests file

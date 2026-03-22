@@ -18,6 +18,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.Instant;
 
 // ---------------------------------------------------------------
 /**
@@ -211,7 +212,7 @@ public class UserManager {
      * Put all their information in the ArrayList. Keeps registrations after application closed
      */
     /* 
-     vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId
+     vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId|timestamp
     */
     public void loadVehiclesFromFile() {
         if (!Files.exists(VEHICLES_FILE_PATH)) {
@@ -256,7 +257,7 @@ public class UserManager {
     }
 
     /* 
-     vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId
+     vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId|timestamp
     */
    //Add vehicle information to vehicle file
     public static void updateVehiclesFile(Vehicle v) {
@@ -270,8 +271,10 @@ public class UserManager {
                     StandardOpenOption.APPEND
             )) 
             {
+                Instant timestamp = Instant.now();
                 writer.write(v.getOwnerId() + "|" + v.getNumber() + "|" + v.getModel() + "|" + v.getMake() + 
-                 "|" + v.getLicensePlate() + "|" + v.getYear() + "|" + v.approxTime() + "|" + v.getDayRegistered() + "|" + v.getVehicleOwnerId());
+                 "|" + v.getLicensePlate() + "|" + v.getYear() + "|" + v.approxTime() + "|" + v.getDayRegistered() + "|" 
+                 + v.getVehicleOwnerId() + "|" + timestamp);
                 writer.newLine();
         }
         
@@ -281,7 +284,7 @@ public class UserManager {
     }
 
     /* 
-    jobs.txt format: userId|description|hrs|deadline|jobId|userJobId
+    jobs.txt format: userId|description|hrs|deadline|jobId|userJobId|timestamp
     */
    //add a job to the job file
     public static void updateJobFile(Job j) {
@@ -295,8 +298,9 @@ public class UserManager {
                     StandardOpenOption.APPEND
             )) 
             {
+                Instant timestamp = Instant.now();
                 writer.write(j.getClientId() + "|" + j.getJobDescription() + "|" + j.getApproximateJobDuration() + "|"
-                 + j.getJobDeadline() + "|" + j.getJobId() + "|" + j.getJobClientId());
+                 + j.getJobDeadline() + "|" + j.getJobId() + "|" + j.getJobClientId() + "|" + timestamp);
                 writer.newLine();
         }
         
@@ -311,7 +315,7 @@ public class UserManager {
      * Put all their information in the ArrayList. Keeps registrations after application closed
      */
      /* 
-    jobs.txt format: userId|description|hrs|deadline|jobId|userJobId
+    jobs.txt format: userId|description|hrs|deadline|jobId|userJobId|timestamp
     */
     public void loadJobsFromFile() {
         if (!Files.exists(JOBS_FILE_PATH)) {
