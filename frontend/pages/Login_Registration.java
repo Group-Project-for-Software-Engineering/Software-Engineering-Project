@@ -40,8 +40,8 @@ public class Login_Registration {
         UserManager userManager = new UserManager();
         userManager.loadVehiclesFromFile(); // this tells the program to load the vehicles from the file for the current user
         userManager.loadJobsFromFile(); // this tells the program to load the jobs from the file for the current user
-        userManager.loadPendingRequests(); //this tells the program to load pending requests for an admin to look at 
-        UserManager.loadCompletedTransactions(); //gets correct job id even for rejected jobs
+        //userManager.loadPendingRequests(); //this tells the program to load pending requests for an admin to look at 
+        //UserManager.loadCompletedTransactions(); //gets correct job id even for rejected jobs
 
         JFrame frame = new JFrame("VCRTS App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

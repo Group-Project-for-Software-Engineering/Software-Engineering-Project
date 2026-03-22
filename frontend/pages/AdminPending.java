@@ -1,7 +1,5 @@
 package pages;
 
-import classes.Admin;
-import classes.Job;
 import classes.User;
 import classes.UserManager;
 import classes.Vehicle;
@@ -9,7 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
 
@@ -50,11 +47,11 @@ public class AdminPending extends JPanel implements Refreshable{
     public void refresh() {
         listPanel.removeAll(); 
         // clear old content 
-        Map<User, ArrayList<Vehicle>> pendingVehicles= Admin.getPendingVehicles();
-        Map<User, ArrayList<Job>> pendingJobs = Admin.getPendingJobs();
+        //Map<User, ArrayList<Vehicle>> pendingVehicles= Admin.getPendingVehicles();
+        //Map<User, ArrayList<Job>> pendingJobs = Admin.getPendingJobs();
         //gets pending requests 
 
-        for (Map.Entry<User, ArrayList<Vehicle>> entry : pendingVehicles.entrySet()) {
+        /*for (Map.Entry<User, ArrayList<Vehicle>> entry : pendingVehicles.entrySet()) {
             ArrayList<Vehicle> vehicles = entry.getValue();
             User u = entry.getKey();  // get the User object
             
@@ -62,9 +59,9 @@ public class AdminPending extends JPanel implements Refreshable{
                 listPanel.add(createPendingCard(u, v)); 
                 listPanel.add(Box.createVerticalStrut(10)); //This separates the boxes
             }
-        }
+        }*/
 
-        for (Map.Entry<User, ArrayList<Job>> entry : pendingJobs.entrySet()) {
+        /*for (Map.Entry<User, ArrayList<Job>> entry : pendingJobs.entrySet()) {
             //String userId = entry.getKey();
             ArrayList<Job> jobs = entry.getValue();
             User u = entry.getKey();
@@ -73,7 +70,7 @@ public class AdminPending extends JPanel implements Refreshable{
                 listPanel.add(createPendingCard(u, j));
                 listPanel.add(Box.createVerticalStrut(10)); //This separates the boxes
             }
-        }
+        } */
 
         listPanel.revalidate(); 
         listPanel.repaint(); 
@@ -111,12 +108,12 @@ public class AdminPending extends JPanel implements Refreshable{
             refresh();
         });
     
-        rejectBtn.addActionListener(e -> {
+        /*rejectBtn.addActionListener(e -> {
             Admin.rejectVehicle(u, v);
             JOptionPane.showMessageDialog(this, "Vehicle rejected.");
             refresh();
 
-        });
+        }); */
       
         pendingCard.setBorder(BorderFactory.createLineBorder(Color.black, 3));
         
@@ -129,7 +126,7 @@ public class AdminPending extends JPanel implements Refreshable{
 
     //this creates a pending request UI for jobs
 
-    private JPanel createPendingCard(User u, Job j) {
+    /*private JPanel createPendingCard(User u, Job j) {
         JPanel pendingCard = new JPanel(); 
         pendingCard.setLayout(new GridLayout(0, 1)); 
         pendingCard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
@@ -169,7 +166,7 @@ public class AdminPending extends JPanel implements Refreshable{
 
         return pendingCard;
         
-    }
+    } */
     //-------------------------
 
 }

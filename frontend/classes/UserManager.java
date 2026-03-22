@@ -14,9 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,8 +32,8 @@ public class UserManager {
     private static final Path VEHICLES_FILE_PATH = Paths.get("VehicleInfo", "vehicles.txt"); // Currently hardcoded, change if necessary
     private static final Path JOBS_FILE_PATH = Paths.get("JobInfo", "jobs.txt"); // Currently hardcoded, change if necessary
 
-    private static final Path PENDING_TRANSACTIONS_PATH = Paths.get("Transactions", "pending_transactions.txt");
-    private static final Path COMPLETED_TRANSACTIONS_PATH = Paths.get("Transactions", "completed_transactions.txt");
+    //private static final Path PENDING_TRANSACTIONS_PATH = Paths.get("Transactions", "pending_transactions.txt");
+    //private static final Path COMPLETED_TRANSACTIONS_PATH = Paths.get("Transactions", "completed_transactions.txt");
 
     // ---------------------------------------------------------------
 
@@ -359,7 +357,7 @@ public class UserManager {
     */
    //add a new pending transaction to the file. This one is for vehicles
 
-    public static void updatePendingFile(User u,Vehicle v) {
+    /*public static void updatePendingFile(User u,Vehicle v) {
         if (!Files.exists(PENDING_TRANSACTIONS_PATH)) {
             return;
         }
@@ -379,14 +377,14 @@ public class UserManager {
         catch (IOException e) {
             // If the file is unreadable, continue with an empty in-memory list.
         }
-    }
+    } */
 
     
     /* 
     pending transaction file structure: userId|userType|description|hrs|deadline|jobId|userJobId|timestamp
     */
    //update pending transaction to file. This one is for jobs
-    public static void updatePendingFile(User u, Job j) {
+    /*public static void updatePendingFile(User u, Job j) {
         if (!Files.exists(PENDING_TRANSACTIONS_PATH)) {
             return;
         }
@@ -406,7 +404,7 @@ public class UserManager {
         catch (IOException e) {
             // If the file is unreadable, continue with an empty in-memory list.
         }
-    }
+    }*/
 
     
     /* 
@@ -416,7 +414,7 @@ public class UserManager {
         userId|userType|vin|model|make|plate|year|approxTime|day registered|vehicleOwnerId|timestamp
     */
    //On application load, add all pending requests back into the system
-    public void loadPendingRequests() {
+    /*public void loadPendingRequests() {
         if (!Files.exists(PENDING_TRANSACTIONS_PATH)) {
             return;
         }
@@ -471,11 +469,11 @@ public class UserManager {
         } catch (IOException e) {
             // If the file is unreadable, continue with an empty in-memory list.
         }
-    }
+    } */
 
     //pending transaction => completed 
     //remove old pending transaction and move it to completed file
-    public static void transactionUpdate(String uniqueForType, boolean accepted, String username, String type) throws IOException {
+    /*public static void transactionUpdate(String uniqueForType, boolean accepted, String username, String type) throws IOException {
         Path tempFile = Files.createTempFile("pending_transactions", ".txt");
         try (
             BufferedReader pendingRead  = Files.newBufferedReader(PENDING_TRANSACTIONS_PATH);
@@ -514,7 +512,7 @@ public class UserManager {
         }
         // Replace original file with the filtered temp file
         Files.move(tempFile, PENDING_TRANSACTIONS_PATH, StandardCopyOption.REPLACE_EXISTING);
-    }
+    } */
 
 
     //Make Username no longer case sensitive and trim space.
@@ -530,7 +528,7 @@ public class UserManager {
         return users;
     }
 
-    public static void loadCompletedTransactions() {
+    /* public static void loadCompletedTransactions() {
         if (!Files.exists(COMPLETED_TRANSACTIONS_PATH)) {
             return;
         }
@@ -552,6 +550,6 @@ public class UserManager {
         } catch (IOException e) {
             // If the file is unreadable, continue with an empty in-memory list.
         }
-    }
+    } */
     
 }

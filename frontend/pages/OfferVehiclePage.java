@@ -8,7 +8,7 @@
 
 package pages;
 
-import classes.Admin;
+import classes.Owner;
 import classes.PlaceHolderTextField;
 import classes.User;
 import classes.UserManager;
@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
-import classes.Owner;
 
 // ---------------------------------------------------------------
 // class that controls the offer vehicle page
@@ -188,7 +187,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
             UserManager.updateVehiclesFile(v);
 
             ((Owner)user).addVehicle(v);
-            JOptionPane.showMessageDialog(this, "Succesfully sent a vehicle request.");
+            JOptionPane.showMessageDialog(this, "Succesfully registered.");
             refresh();
         });
 
