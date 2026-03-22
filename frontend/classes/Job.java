@@ -46,7 +46,7 @@ public class Job {
     }
 
     public Job(String description, String hrs,LocalDateTime jobDeadline, String id, String userId, String jobClientId) {
-        increment++;
+        increment = Math.max(Integer.parseInt(id), increment);
         this.JOB_ID = id;
         this.approximateJobDuration = Double.parseDouble(hrs);
         this.jobDeadline = jobDeadline;

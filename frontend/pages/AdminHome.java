@@ -66,7 +66,7 @@ public class AdminHome extends JPanel implements Refreshable {
     public void refresh() { 
         listPanel.removeAll(); 
         // clear old content 
-        name_of_view.setText("All Users");
+        name_of_view.setText("Admin view: All Users");
         
         for (User u : users.getAllUsers().values()) { 
             listPanel.add(createUserCard(u));

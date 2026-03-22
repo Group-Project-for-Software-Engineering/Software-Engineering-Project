@@ -70,6 +70,7 @@ public class Admin extends User {
 
     public static void addJob(Job j) {
         jobs.add(j);
+        j.setStatusPending();
     }
 
     public static ArrayList<Job> getJobs() {
@@ -102,6 +103,8 @@ public class Admin extends User {
     Update the vehicle file 
     And move the request from pending to completed  
     */
+
+    /* 
     public static void allowVehicle(User u, Vehicle v) { 
         for(int i = 0; i < pendingVehicles.get(u).size(); i++) {
             if(pendingVehicles.get(u).get(i).getNumber().equals(v.getNumber())) {
@@ -121,6 +124,7 @@ public class Admin extends User {
         }
         
     }
+    */
     //-----------------------
 
     /* 
@@ -173,6 +177,8 @@ public class Admin extends User {
     Update the job file 
     And move the request from pending to completed  
     */
+
+    /*
     public static void allowJob(User u, Job j) { 
         for(int i = 0; i < pendingJobs.get(u).size(); i++) {
             if (pendingJobs.get(u).get(i).getJobId().equals(j.getJobId())) {
@@ -194,6 +200,7 @@ public class Admin extends User {
         }
         
     }
+    */
     //--------------------------------------
 
     /* 

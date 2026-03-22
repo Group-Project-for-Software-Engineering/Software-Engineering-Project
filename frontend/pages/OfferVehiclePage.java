@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
+import classes.Owner;
 
 // ---------------------------------------------------------------
 // class that controls the offer vehicle page
@@ -183,9 +184,10 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
             //make new vehicle from form information
             Vehicle v = new Vehicle(VIN_NUMBER, make, model, licensePlate, year, arrivalText, departureText, user.getUserId(), id);
             
-            //add the vehicle and user to pending for admin to look at
-            Admin.addPendingVehicle(user, v, true);
+            //add the vehicle to the vehicle file
+            UserManager.updateVehiclesFile(v);
 
+            ((Owner)user).addVehicle(v);
             JOptionPane.showMessageDialog(this, "Succesfully sent a vehicle request.");
             refresh();
         });

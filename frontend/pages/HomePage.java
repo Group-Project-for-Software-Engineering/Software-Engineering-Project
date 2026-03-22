@@ -65,7 +65,7 @@ public class HomePage extends JPanel implements Refreshable {
     public void refresh() {
         listPanel.removeAll();
         if(user.getUserType().equals("Owner")) {
-            name_of_view.setText("Your vehicles");
+            name_of_view.setText("Owner view: Your vehicles");
             ArrayList<Vehicle> userVehicles = ((Owner) user).getVehicles();
             for (Vehicle v : userVehicles) {
                 listPanel.add(vehicleCard(v));
@@ -73,7 +73,7 @@ public class HomePage extends JPanel implements Refreshable {
             }
         }
         else {
-            name_of_view.setText("Your jobs");
+            name_of_view.setText("Client View: Your jobs");
             ArrayList<Job> userJobs = ((Client) user).getClientJobs();
             for (Job j : userJobs) {
                 listPanel.add(jobCard(j));
@@ -165,7 +165,7 @@ public class HomePage extends JPanel implements Refreshable {
         // jobCard.add(Box.createVerticalStrut(20));
         jobCard.add(new JLabel("Job Description: " + j.getJobDescription())); 
         jobCard.add(Box.createVerticalStrut(20));
-        jobCard.add(new JLabel("Deadline: " + j.getJobDeadline() + " hours"));
+        jobCard.add(new JLabel("Deadline: " + j.getJobDeadline()));
         jobCard.add(Box.createVerticalStrut(20));
         jobCard.add(new JLabel("Duration: " + j.getApproximateJobDuration()));
 

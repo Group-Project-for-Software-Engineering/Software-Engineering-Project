@@ -261,7 +261,7 @@ public class UserManager {
      vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId
     */
    //Add vehicle information to vehicle file
-    public static void updateVehiclesFile(User u) {
+    public static void updateVehiclesFile(Vehicle v) {
         if (!Files.exists(VEHICLES_FILE_PATH)) {
             return;
         }
@@ -272,9 +272,8 @@ public class UserManager {
                     StandardOpenOption.APPEND
             )) 
             {
-                Vehicle newVehicle = ((Owner) u).getVehicles().get(((Owner) u).getVehicles().size()-1);
-                writer.write(u.getUserId() + "|" + newVehicle.getNumber() + "|" + newVehicle.getModel() + "|" + newVehicle.getMake() + 
-                 "|" + newVehicle.getLicensePlate() + "|" + newVehicle.getYear() + "|" + newVehicle.approxTime() + "|" + newVehicle.getDayRegistered() + "|" + newVehicle.getVehicleOwnerId());
+                writer.write(v.getOwnerId() + "|" + v.getNumber() + "|" + v.getModel() + "|" + v.getMake() + 
+                 "|" + v.getLicensePlate() + "|" + v.getYear() + "|" + v.approxTime() + "|" + v.getDayRegistered() + "|" + v.getVehicleOwnerId());
                 writer.newLine();
         }
         
@@ -287,7 +286,7 @@ public class UserManager {
     jobs.txt format: userId|description|hrs|deadline|jobId|userJobId
     */
    //add a job to the job file
-    public static void updateJobFile(User u) {
+    public static void updateJobFile(Job j) {
         if (!Files.exists(JOBS_FILE_PATH)) {
             return;
         }
@@ -298,9 +297,8 @@ public class UserManager {
                     StandardOpenOption.APPEND
             )) 
             {
-                Job newJob = ((Client) u).getClientJobs().get(((Client) u).getClientJobs().size()-1);
-                writer.write(u.getUserId() + "|" + newJob.getJobDescription() + "|" + newJob.getApproximateJobDuration() + "|"
-                 + newJob.getJobDeadline() + "|" + newJob.getJobId() + "|" + newJob.getJobClientId());
+                writer.write(j.getClientId() + "|" + j.getJobDescription() + "|" + j.getApproximateJobDuration() + "|"
+                 + j.getJobDeadline() + "|" + j.getJobId() + "|" + j.getJobClientId());
                 writer.newLine();
         }
         
@@ -490,7 +488,7 @@ public class UserManager {
                 String userId = parts[0];
                 String userType = parts[1];
                 String unique;
-                if(type.equals("Owner")) {
+                if(userType.equals("Owner")) {
                     unique = parts[3].trim();
                 }
                 else {

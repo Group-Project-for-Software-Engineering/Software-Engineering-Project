@@ -19,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
+import classes.Client;
 
 
 // ---------------------------------------------------------------
@@ -163,8 +164,9 @@ public class SubmitJobPage extends JPanel implements Refreshable {
             Job j = new Job(idText, duration, deadline, user.getUserId(), id);
             
             //add user and job to pending so admin can look at it 
-            Admin.addPendingJob(user, j, true);
-
+            UserManager.updateJobFile(j);
+            Admin.addJob(j);
+            ((Client)user).addJob(j);
             JOptionPane.showMessageDialog(this, "Submitted job application.");
 
             refresh();

@@ -106,7 +106,7 @@ public class AdminPending extends JPanel implements Refreshable{
         pendingCard.add(rejectBtn);
         
         acceptBtn.addActionListener(e -> {
-            Admin.allowVehicle(u, v);
+            // CHANGE THIS Admin.allowVehicle(u, v);
             JOptionPane.showMessageDialog(this, "Vehicle accepted.");
             refresh();
         });
@@ -150,7 +150,7 @@ public class AdminPending extends JPanel implements Refreshable{
         pendingCard.add(rejectBtn);
         
         acceptBtn.addActionListener(e -> {
-            Admin.allowJob(u, j);
+            //Change this Admin.allowJob(u, j);
             JOptionPane.showMessageDialog(this, "Job accepted.");
             refresh();
         });
