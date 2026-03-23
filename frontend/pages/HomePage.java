@@ -90,9 +90,11 @@ public class HomePage extends JPanel implements Refreshable {
     private JPanel vehicleCard(Vehicle v) {
         JPanel vehicleCard = new JPanel();
         vehicleCard.setLayout(new BoxLayout(vehicleCard, BoxLayout.Y_AXIS));
+        vehicleCard.add(new JLabel("Owner Vehicle Id: " + v.getVehicleOwnerId()));
+        vehicleCard.add(Box.createVerticalStrut(20)); 
         vehicleCard.add(new JLabel("Vin Number: " + v.getNumber()));
         vehicleCard.add(Box.createVerticalStrut(20)); 
-        vehicleCard.add(new JLabel("Licenese Plate: " + v.getLicensePlate())); 
+        vehicleCard.add(new JLabel("License Plate: " + v.getLicensePlate())); 
         vehicleCard.add(Box.createVerticalStrut(20)); 
         vehicleCard.add(new JLabel("Model: " + v.getModel()));
         vehicleCard.add(Box.createVerticalStrut(20)); 

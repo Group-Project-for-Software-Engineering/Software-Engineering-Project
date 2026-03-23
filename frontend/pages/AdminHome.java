@@ -161,6 +161,7 @@ public class AdminHome extends JPanel implements Refreshable {
             int jobCompletionHours = completionTimes.get(i).intValue();
             long jobCompletionMinutes = Math.round((completionTimes.get(i) - jobCompletionHours) * 60);
             result.append("Job ID: ").append(j.getJobId())
+                  .append("| Client Job ID: ").append(j.getJobClientId())
                   .append(" | Duration: ");
                   if (jobHours != 0) {
                     result.append(jobHours)
