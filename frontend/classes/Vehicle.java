@@ -63,6 +63,7 @@ public class Vehicle {
         }
     }
 
+    // ---------------------------------------------------------------
     //overloading from reading from vehicle file
     public Vehicle(String VIN_NUMBER, String make, String model, String licensePlate, String year, double approxTime, String dayRegistered
         , String userId, String vehicleOwnerId) {
@@ -114,32 +115,42 @@ public class Vehicle {
     public double approxTime() {
         return approxResidencyTime;
     }
-    //-----------------
-    //returns the day the vehicle is registered for
 
+    // ---------------------------------------------------------------
+    //returns the day the vehicle is registered for
     public String getDayRegistered() {
         return dayRegistered;
 
     }
 
+    // ---------------------------------------------------------------
+    // returns the owner ID of the vehicle
     public String getOwnerId() {
         return userId;
     }
 
+    // ---------------------------------------------------------------
+    // returns true if the vehicle is available, false otherwise
     public boolean isAvailable() {
         return isParked;
     }
 
+    // ---------------------------------------------------------------
+    // sets the vehicle to parked
     public void isParked() {
         isParked = true;
         Admin.addVehicle(this);
     }
 
+    // ---------------------------------------------------------------
+    // sets the vehicle to departed
     public void hasDeparted() {
         isParked = false;
         Admin.removeVehicle(this);
     }
 
+    // ---------------------------------------------------------------
+    // returns the owner ID of the vehicle
     public String getVehicleOwnerId() {
         return vehicleOwnerId;
     }

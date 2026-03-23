@@ -356,7 +356,33 @@ public class UserManager {
         }
     }
 
-    /* 
+    // --------------------------------------------------------------- 
+    // Make Username no longer case sensitive and trim space.
+    private String normalizeUsername(String username) {
+        if (username == null) {
+            return "";
+        }
+        return username.trim().toLowerCase();
+    }
+    //------------------------------
+
+    public Map<String, User> getAllUsers() {
+        return users;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+// *** NOT CURRENTLY USED - WILL POTENTIALLY BE UTILIZED IN THE FUTURE ***
+
+  /* 
     pending transaction file structure: userId|userType|vin|model|make|plate|year|approxTime|day registered|vehicleOwnerId|timestamp
     */
    //add a new pending transaction to the file. This one is for vehicles
@@ -519,18 +545,7 @@ public class UserManager {
     } */
 
 
-    //Make Username no longer case sensitive and trim space.
-    private String normalizeUsername(String username) {
-        if (username == null) {
-            return "";
-        }
-        return username.trim().toLowerCase();
-    }
-    //------------------------------
 
-    public Map<String, User> getAllUsers() {
-        return users;
-    }
 
     /* public static void loadCompletedTransactions() {
         if (!Files.exists(COMPLETED_TRANSACTIONS_PATH)) {
@@ -556,4 +571,3 @@ public class UserManager {
         }
     } */
     
-}

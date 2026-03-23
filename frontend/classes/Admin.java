@@ -17,19 +17,90 @@ public class Admin extends User {
     private static ArrayList<Vehicle> availableVehicles = new ArrayList<>();
     private static ArrayList<Job> jobs = new ArrayList<>();
     //the jobs being stored are ones that have been approved by the controller with the pending form.
+    
     //--------------------------------------------
-
+    // constructor for admin class => uses constructor of User class
+    // sets username and password
     public Admin(String username, String password) {
         this(username, password, "");
     }
-    //--------------------------
-
+    
+    //--------------------------------------------
+    // overloaded constructor 
+    // email is not a required field for admin
     public Admin(String username, String password, String email) {
         super(username, password, email, "Admin");
         // increment++;
         // adminId = Integer.toString(increment);
         
     }
+
+    //--------------------------------------------
+    // returns the list of vehicles that can be assigned jobs
+    public ArrayList<Vehicle> getAvailableVehicles() { 
+        return availableVehicles;
+    }
+
+    //--------------------------------------------
+    //adds to the list of current usable vehicles
+    public static void addVehicle(Vehicle v) { 
+        if(!availableVehicles.contains(v)) {
+            availableVehicles.add(v);
+        }
+        System.out.println(availableVehicles);
+    }
+
+    //--------------------------------------------
+    // removes a vehicle from the list of current available vehicles
+    public static void removeVehicle(Vehicle v) {
+        availableVehicles.remove(v);
+        System.out.println(availableVehicles);
+    }
+
+    //--------------------------------------------
+    // adds a job to the list of jobs
+    public static void addJob(Job j) {
+        jobs.add(j);
+        j.setStatusPending();
+    }
+
+    //--------------------------------------------
+    // returns the list of jobs 
+    public static ArrayList<Job> getJobs() {
+        return jobs;
+    }
+
+    //--------------------------------------------
+    // caculates completion time for a list of jobs
+    // FIFO (First In, First Out) structure
+    // Jobs are added into the arraylist in the order they are submitted 
+    public static ArrayList<Double> computeCompletionTimes() { // returns arraylist of completed times for all jobs in the order they were submitted
+        ArrayList<Double> completionTimes = new ArrayList<>();
+        double totalTime = 0;
+
+        // iterates through all jobs 
+        for(Job j : jobs) {
+            // adds the current job's duration to the total time
+            totalTime += j.getApproximateJobDuration();
+            // stores the total time for a specific job
+            completionTimes.add(totalTime);
+        }
+        // returns the arraylist of all completion times for all jobs 
+        return completionTimes;
+    }
+    //--------------------
+
+
+}
+
+
+
+
+
+
+
+// *** NOT CURRENTLY USED - WILL POTENTIALLY BE UTILIZED IN THE FUTURE ***
+
     //------------------------------
 
     /*public static Map<User, ArrayList<Vehicle>> getPendingVehicles() {
@@ -48,33 +119,6 @@ public class Admin extends User {
     }
         */
     //--------------------------
-
-    public ArrayList<Vehicle> getAvailableVehicles() { //returns the list of vehicles that can be assigned jobs
-        return availableVehicles;
-    }
-
-    public static void addVehicle(Vehicle v) { //adds to the list of current usable vehicles
-        if(!availableVehicles.contains(v)) {
-            availableVehicles.add(v);
-        }
-        System.out.println(availableVehicles);
-    }
-
-    public static void removeVehicle(Vehicle v) {
-        availableVehicles.remove(v);
-        System.out.println(availableVehicles);
-    }
-
-    public static void addJob(Job j) {
-        jobs.add(j);
-        j.setStatusPending();
-    }
-
-    public static ArrayList<Job> getJobs() {
-        return jobs;
-    }
-
-
     
     /* 
     This method adds pending vehicles to the hashmap
@@ -224,24 +268,3 @@ public class Admin extends User {
         
     } */
 
-    // caculates completion time for a list of jobs
-    // FIFO (First In, First Out) structure
-    // Jobs are added into the arraylist in the order they are submitted 
-    public static ArrayList<Double> computeCompletionTimes() { // returns arraylist of completed times for all jobs in the order they were submitted
-        ArrayList<Double> completionTimes = new ArrayList<>();
-        double totalTime = 0;
-
-        // iterates through all jobs 
-        for(Job j : jobs) {
-            // adds the current job's duration to the total time
-            totalTime += j.getApproximateJobDuration();
-            // stores the total time for a specific job
-            completionTimes.add(totalTime);
-        }
-        // returns the arraylist of all completion times for all jobs 
-        return completionTimes;
-    }
-    //--------------------
-
-
-}
