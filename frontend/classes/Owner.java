@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class Owner extends User {
     private ArrayList<Vehicle> ownerVehicles = new ArrayList<>();
-    private ArrayList<Job> ownerJobs = new ArrayList<>();
     // private String ownerId; 
     // private static int increment = 0;
 
@@ -57,14 +56,4 @@ public class Owner extends User {
 
     // ---------------------------------------------------------------
 
-    // adds a job to the owner's list of jobs
-    public void addJob(Job job) {
-        ownerJobs.add(job);
-    }
-
-    // ---------------------------------------------------------------
-    // returns => owner's list of jobs
-    public ArrayList<Job> getJobs() {
-        return ownerJobs;
-    }
 }
