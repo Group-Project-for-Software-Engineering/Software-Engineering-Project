@@ -182,8 +182,10 @@ public class AdminHome extends JPanel implements Refreshable {
                   }
                   result.append(" \n\n");
         }
-       // shows the completion times in a popup window
-        JOptionPane.showMessageDialog(this, new JScrollPane(new JTextArea(result.toString())),
+        // shows the completion times in a popup window
+        JTextArea completionTextArea = new JTextArea(result.toString());
+        completionTextArea.setEditable(false); // disables typing
+        JOptionPane.showMessageDialog(this, new JScrollPane(completionTextArea),
                 "Completion Times", JOptionPane.INFORMATION_MESSAGE);
     }
     //-----------------------------------------
