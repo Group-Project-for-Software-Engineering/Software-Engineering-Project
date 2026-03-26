@@ -12,6 +12,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.JLabel;
+
 // ---------------------------------------------------------------
 // vehicle class
 //The system shall receive and verify the vehicle's number, license plate, make, and model.
@@ -153,6 +155,13 @@ public class Vehicle {
     // returns the owner ID of the vehicle
     public String getVehicleOwnerId() {
         return vehicleOwnerId;
+    }
+
+    public String toString() {
+        return "Vehicle make" + this.getMake() + " || Model: " + this.getModel() + " || VIN: " + this.getNumber() 
+                + " || License Plate: " + this.getLicensePlate() + " || Year: " + this.getYear() + " || Approximate parked time: " + this.approxTime()
+                + " || Owner Vehicle Id: " + this.getVehicleOwnerId() 
+                +" || Day Registered " + this.getDayRegistered() + "|| User Id: " + this.getVehicleOwnerId();
     }
 
 }

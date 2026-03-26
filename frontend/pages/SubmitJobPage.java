@@ -14,13 +14,15 @@ import classes.PlaceHolderTextField;
 import classes.User;
 import classes.UserManager;
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
 import classes.Client;
-
 
 // ---------------------------------------------------------------
 // Submit Job Page
@@ -42,7 +44,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
     private JTextField clientIdField;
 
     // ---------------------------------------------------------------
-       // ---------------------------------------------------------------
+    // ---------------------------------------------------------------
     // constructor: sets user + user manager + registry
     public SubmitJobPage(JPanel cards, User user, Map<String, Refreshable> registry, UserManager users) {
         setLayout(new BorderLayout());
@@ -75,24 +77,39 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         jobTitle.setForeground(new Color(65, 105, 255));
         jobTitle.setFont(new Font("Arial", Font.PLAIN, 36));
 
-        //JLabel clientId = new JLabel("Your Client Id: " + ((Client)user).getClientId());
-       // clientId.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //clientId.setForeground(new Color(65, 105, 255));
-       // clientId.setFont(new Font("Arial", Font.PLAIN, 36));
+        // JLabel clientId = new JLabel("Your Client Id: " +
+        // ((Client)user).getClientId());
+        // clientId.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // clientId.setForeground(new Color(65, 105, 255));
+        // clientId.setFont(new Font("Arial", Font.PLAIN, 36));
 
-        clientIdField = new PlaceHolderTextField("Enter client id for this job:", 36); // adds more graphics to regular textfield
+        clientIdField = new PlaceHolderTextField("Enter client id for this job:", 36); // adds more graphics to regular
+                                                                                       // textfield
         clientIdField.setMaximumSize(clientIdField.getPreferredSize());
         clientIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        jobDescription = new PlaceHolderTextField("Job Description                    (Enter Job Description)", 36); // adds more graphics to regular textfield
+        jobDescription = new PlaceHolderTextField("Job Description                    (Enter Job Description)", 36); // adds
+                                                                                                                     // more
+                                                                                                                     // graphics
+                                                                                                                     // to
+                                                                                                                     // regular
+                                                                                                                     // textfield
         jobDescription.setMaximumSize(jobDescription.getPreferredSize());
         jobDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        jobDuration = new PlaceHolderTextField("Approximate Job Duration   (in terms of hours)", 36); // adds more graphics to regular textfield
+
+        jobDuration = new PlaceHolderTextField("Approximate Job Duration   (in terms of hours)", 36); // adds more
+                                                                                                      // graphics to
+                                                                                                      // regular
+                                                                                                      // textfield
         jobDuration.setMaximumSize(jobDuration.getPreferredSize());
         jobDuration.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        jobDeadline = new PlaceHolderTextField("Deadline                               (yyyy-mm-dd hh:mm:ss)", 36); // adds more graphics to regular textfield
+        jobDeadline = new PlaceHolderTextField("Deadline                               (yyyy-mm-dd hh:mm:ss)", 36); // adds
+                                                                                                                    // more
+                                                                                                                    // graphics
+                                                                                                                    // to
+                                                                                                                    // regular
+                                                                                                                    // textfield
         jobDeadline.setMaximumSize(jobDeadline.getPreferredSize());
         jobDeadline.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -102,14 +119,14 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         submitBtn.setBackground(new Color(77, 163, 255));
         submitBtn.setForeground(Color.DARK_GRAY);
 
-        
-        //jobForm.add(clientId);
+        // jobForm.add(clientId);
         jobForm.add(Box.createVerticalGlue());
         jobForm.add(jobTitle);
         jobForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         jobForm.add(clientIdField);
         jobForm.add(createFormatLabel("Enter client id for this job"));
-        //jobForm.add(createFormatLabel("Your Client Id: " + ((Client)user).getClientId()));
+        // jobForm.add(createFormatLabel("Your Client Id: " +
+        // ((Client)user).getClientId()));
         jobForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         jobForm.add(jobDescription);
         jobForm.add(createFormatLabel("Enter Job Description"));
@@ -133,43 +150,76 @@ public class SubmitJobPage extends JPanel implements Refreshable {
             String deadlineText = jobDeadline.getText().trim();
             String id = clientIdField.getText().trim();
 
-            if(idText.isEmpty() || durationText.isEmpty() || deadlineText.isEmpty()) {
+            if (idText.isEmpty() || durationText.isEmpty() || deadlineText.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Fields cannot be empty.");
                 return;
             }
 
-            double duration; 
-            try { 
-                duration = Double.parseDouble(durationText); 
-                if (duration <= 0) { 
-                    JOptionPane.showMessageDialog(this, "Duration must be a positive number."); 
-                    return; 
-                } 
-            } 
-            catch (NumberFormatException ex) { 
-                JOptionPane.showMessageDialog(this, "Duration must be an integer or decimal."); 
-                return; 
+            double duration;
+            try {
+                duration = Double.parseDouble(durationText);
+                if (duration <= 0) {
+                    JOptionPane.showMessageDialog(this, "Duration must be a positive number.");
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Duration must be an integer or decimal.");
+                return;
             }
 
-            LocalDateTime deadline; 
-            try { 
-                deadline = LocalDateTime.parse(deadlineText, DEADLINE_FORMAT); 
-            } 
-            catch (Exception ex) { 
-                JOptionPane.showMessageDialog(this, "Deadline must be in the format: yyyy-mm-dd hh:mm:ss\nExample: 2024-03-09 17:45:00"); 
-                return; 
+            LocalDateTime deadline;
+            try {
+                deadline = LocalDateTime.parse(deadlineText, DEADLINE_FORMAT);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Deadline must be in the format: yyyy-mm-dd hh:mm:ss\nExample: 2024-03-09 17:45:00");
+                return;
             }
 
-            //make new vehicle from form information
+            // make new vehicle from form information
             Job j = new Job(idText, duration, deadline, user.getUserId(), id);
-            
-            //add user and job to pending so admin can look at it 
-            UserManager.updateJobFile(j);
-            Admin.addJob(j);
-            ((Client)user).addJob(j);
             JOptionPane.showMessageDialog(this, "Submitted job application.");
-
             refresh();
+
+            new Thread(() -> {
+                try {
+                    Socket socket = new Socket("localhost", 9806);
+                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                    DataInputStream in = new DataInputStream(socket.getInputStream());
+
+                    out.writeUTF(j.toString());
+
+                    String ack = in.readUTF();
+                    String decision = in.readUTF();
+
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(this, "Admin decision: " + decision);
+
+                        if (decision.equals("ACCEPT")) {//if admin accpeted it, show message, add it to the jobs file
+                            UserManager.updateJobFile(j);
+                            Admin.addJob(j);
+                            ((Client) user).addJob(j);
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "One of your pending jobs has been accepted.",
+                                    "Job Acceptance",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        } else { //don't add it to file; show message
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "One of your pending jobs has been rejected.",
+                                    "Job Rejection",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    });
+
+                    socket.close();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+
         });
     }
 
@@ -192,6 +242,3 @@ public class SubmitJobPage extends JPanel implements Refreshable {
     }
 
 }
-
-
-

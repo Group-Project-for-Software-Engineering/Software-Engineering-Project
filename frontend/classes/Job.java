@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 // job class
 //The system shall receive and verify the vehicle's jobId, approximateJobDuration, and jobDeadline.
 
+import javax.swing.JLabel;
+
 public class Job {
     private String JOB_ID;
     private static int increment = 0;
@@ -117,6 +119,11 @@ public class Job {
 
     public String getJobClientId() {
         return jobClientId;
+    }
+
+    public String toString() {
+        return "Job Id: " + this.getJobId() + " || Job Client Id: " + this.getJobClientId() + " || Job duration: " + this.getApproximateJobDuration() 
+        + " || Deadline: " + this.getJobDeadline() + " || Description: " + this.getJobDescription() + "|| User Id: " + this.getClientId();
     }
 
 }

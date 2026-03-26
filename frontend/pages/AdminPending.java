@@ -3,170 +3,115 @@ package pages;
 import classes.User;
 import classes.UserManager;
 import classes.Vehicle;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
+
 import java.util.Map;
 import javax.swing.*;
+import java.util.ArrayList;
 
-public class AdminPending extends JPanel implements Refreshable{
+import classes.Request;
+import classes.VCServer;
 
-    private User user;
-    private UserManager users;
+import javax.swing.*;
+import java.awt.*;
+
+public class AdminPending extends JPanel implements Refreshable {
+
     private JPanel listPanel;
 
     public AdminPending(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
-       // user = person logged in
-       // users = every person in the system
-       this.user = user;
-       this.users = users;
 
-       setLayout(new BorderLayout());
-       add(new NavBar(cards, user, registry), BorderLayout.NORTH); //add navbar
+        setLayout(new BorderLayout());
 
-       JLabel title = new JLabel("Pending Forms", SwingConstants.CENTER); 
-       
-       add(Box.createVerticalStrut(10));
-       title.setFont(new Font("Arial", Font.BOLD, 26)); 
-       add(title); 
-       
-       // Panel that will hold all user entries 
-       listPanel = new JPanel(); 
-       listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS)); 
-       
-       // Make it scrollable 
-       JScrollPane scroll = new JScrollPane(listPanel); 
-       add(scroll, BorderLayout.CENTER); 
-       
-       refresh();
+        add(new NavBar(cards, user, registry), BorderLayout.NORTH);
+
+        JLabel title = new JLabel("Pending Requests", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 26));
+        add(title, BorderLayout.SOUTH);
+
+        listPanel = new JPanel();
+        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+
+        JScrollPane scroll = new JScrollPane(listPanel);
+        add(scroll, BorderLayout.CENTER);
+
+        //Load all requests already moved into adminVisible
+        synchronized (VCServer.adminVisible) {
+            if (!VCServer.adminVisible.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "You have pending job requests.",
+                        "Pending Jobs",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            for (Request req : VCServer.adminVisible) {
+                listPanel.add(createPendingCard(req));
+            }
+        }
+
+        listPanel.revalidate();
+        listPanel.repaint();
     }
-    //---------------------------------------
-    
+
     @Override
     public void refresh() {
-        listPanel.removeAll(); 
-        // clear old content 
-        //Map<User, ArrayList<Vehicle>> pendingVehicles= Admin.getPendingVehicles();
-        //Map<User, ArrayList<Job>> pendingJobs = Admin.getPendingJobs();
-        //gets pending requests 
+        listPanel.removeAll();
 
-        /*for (Map.Entry<User, ArrayList<Vehicle>> entry : pendingVehicles.entrySet()) {
-            ArrayList<Vehicle> vehicles = entry.getValue();
-            User u = entry.getKey();  // get the User object
-            
-            for (Vehicle v : vehicles) {
-                listPanel.add(createPendingCard(u, v)); 
-                listPanel.add(Box.createVerticalStrut(10)); //This separates the boxes
+        synchronized (VCServer.adminVisible) {
+            for (Request req : VCServer.adminVisible) {
+                listPanel.add(createPendingCard(req));
             }
-        }*/
+        }
 
-        /*for (Map.Entry<User, ArrayList<Job>> entry : pendingJobs.entrySet()) {
-            //String userId = entry.getKey();
-            ArrayList<Job> jobs = entry.getValue();
-            User u = entry.getKey();
-            
-            for (Job j : jobs) {
-                listPanel.add(createPendingCard(u, j));
-                listPanel.add(Box.createVerticalStrut(10)); //This separates the boxes
-            }
-        } */
-
-        listPanel.revalidate(); 
-        listPanel.repaint(); 
+        listPanel.revalidate();
+        listPanel.repaint();
     }
-    //-------------------------------------
 
-    //this created a UI for pending requests for vehicles
-    private JPanel createPendingCard(User u, Vehicle v) {
-        JPanel pendingCard = new JPanel(); 
-        pendingCard.setLayout(new GridLayout(0, 1)); 
-        pendingCard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-        pendingCard.add(new JLabel("Name: " + u.getUsername())); 
-        pendingCard.add(new JLabel("User Type: " + u.getUserType())); 
-        pendingCard.add(new JLabel("User Id: " + u.getUserId()));
-        // pendingCard.add(new JLabel("Owner Id: " + ((Owner)u).getOwnerId()));
-        pendingCard.add(new JLabel("Vin Number: " + v.getNumber())); 
-        pendingCard.add(new JLabel("Licenese Plate: " + v.getLicensePlate())); 
-        pendingCard.add(new JLabel("Model: " + v.getModel()));
-        pendingCard.add(new JLabel("Make: " + v.getMake()));
-        pendingCard.add(new JLabel("Year: " + v.getYear())); 
-        pendingCard.add(new JLabel("Approximate Residency: " + v.approxTime()));
-        pendingCard.add(new JLabel("Day Registered: " + v.getDayRegistered()));
-       
+    private JPanel createPendingCard(Request req) {
+
+        JPanel card = new JPanel();
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        card.setBackground(new Color(153, 204, 255));
+        card.setOpaque(true);
+        card.setMaximumSize(new Dimension(600, 200));
+
+        JLabel label = new JLabel(req.request);
+        label.setFont(new Font("Arial", Font.PLAIN, 16));
+        card.add(label);
+
         JButton acceptBtn = new JButton("Accept");
         acceptBtn.setBackground(new Color(153, 255, 153));
+
         JButton rejectBtn = new JButton("Reject");
         rejectBtn.setBackground(new Color(255, 51, 51));
 
-        pendingCard.add(acceptBtn);
-        pendingCard.add(rejectBtn);
-        
+        //Accept logic
         acceptBtn.addActionListener(e -> {
-            // CHANGE THIS Admin.allowVehicle(u, v);
-            JOptionPane.showMessageDialog(this, "Vehicle accepted.");
+            synchronized (VCServer.adminVisible) {
+                VCServer.adminVisible.remove(req);
+            }
+            synchronized (req) {
+                req.decision = "ACCEPT";
+                req.notify();
+            }
             refresh();
         });
-    
-        /*rejectBtn.addActionListener(e -> {
-            Admin.rejectVehicle(u, v);
-            JOptionPane.showMessageDialog(this, "Vehicle rejected.");
-            refresh();
 
-        }); */
-      
-        pendingCard.setBorder(BorderFactory.createLineBorder(Color.black, 3));
-        
-        pendingCard.setBackground(new Color(153, 204, 255));
-        pendingCard.setOpaque(true);
-
-        return pendingCard;
-    }
-    //------------------------------------
-
-    //this creates a pending request UI for jobs
-
-    /*private JPanel createPendingCard(User u, Job j) {
-        JPanel pendingCard = new JPanel(); 
-        pendingCard.setLayout(new GridLayout(0, 1)); 
-        pendingCard.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); 
-        pendingCard.add(new JLabel("Name: " + u.getUsername())); 
-        pendingCard.add(new JLabel("User Type: " + u.getUserType())); 
-        pendingCard.add(new JLabel("User Id: " + u.getUserId()));
-        // pendingCard.add(new JLabel("Client Id: " + ((Client)u).getClientId()));
-        pendingCard.add(new JLabel("Job Id: " + j.getJobId()));
-        pendingCard.add(new JLabel("Job Description: " + j.getJobDescription())); 
-        pendingCard.add(new JLabel("Deadline: " + j.getJobDeadline()));
-        pendingCard.add(new JLabel("Duration: " + j.getApproximateJobDuration()));
-       
-        JButton acceptBtn = new JButton("Accept");
-        acceptBtn.setBackground(new Color(153, 255, 153));
-        JButton rejectBtn = new JButton("Reject");
-        rejectBtn.setBackground(new Color(255, 51, 51));
-        pendingCard.add(acceptBtn);
-        pendingCard.add(rejectBtn);
-        
-        acceptBtn.addActionListener(e -> {
-            //Change this Admin.allowJob(u, j);
-            JOptionPane.showMessageDialog(this, "Job accepted.");
-            refresh();
-        });
-    
+        //Reject logic
         rejectBtn.addActionListener(e -> {
-            Admin.rejectJob(u, j);
-            JOptionPane.showMessageDialog(this, "Job rejected.");
+            synchronized (VCServer.adminVisible) {
+                VCServer.adminVisible.remove(req);
+            }
+            synchronized (req) {
+                req.decision = "REJECT";
+                req.notify();
+            }
             refresh();
-
         });
-      
-        pendingCard.setBorder(BorderFactory.createLineBorder(Color.black, 3)); 
 
-        pendingCard.setBackground(new Color(153, 204, 255));
-        pendingCard.setOpaque(true);
+        card.add(acceptBtn);
+        card.add(rejectBtn);
 
-        return pendingCard;
-        
-    } */
-    //-------------------------
-
+        return card;
+    }
 }

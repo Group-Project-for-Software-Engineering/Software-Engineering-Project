@@ -19,7 +19,7 @@ public class NavBar extends JPanel {
     private JButton submitJobBtn;
     private JButton offerVehicleBtn; 
     private JButton homeBtn;
-    //private JButton pendingBtn;
+    private JButton pendingBtn;
 
     // ---------------------------------------------------------------
     // constructor
@@ -47,9 +47,9 @@ public class NavBar extends JPanel {
 
         //declaration of user specific buttons
 
-        //if(user.getUserType().equals("Admin")) {
-            //pendingBtn = new JButton("Pending");
-        //}
+        if(user.getUserType().equals("Admin")) {
+            pendingBtn = new JButton("Pending");
+        }
         JButton scheduleBtn = new JButton("Schedule");
 
         if (user.getUserType().equals("Owner")) {
@@ -101,14 +101,14 @@ public class NavBar extends JPanel {
             });
         }
 
-        /* 
+        
         if (user.getUserType().equals("Admin")) {
             pendingBtn.addActionListener(e -> {
                 refreshables.get("pending").refresh();
                 ((CardLayout) cards.getLayout()).show(cards, "pending");
             });
         }
-        */
+        
 
 
         settingsBtn.addActionListener(e -> {
@@ -129,16 +129,16 @@ public class NavBar extends JPanel {
         add(Box.createHorizontalStrut(10));
 
         // TODO: SCHEDULE BUTTON IS COMMENTED OUT FOR NOW, AS SCHEDULE PAGE IS NOT IMPLEMENTED. UNCOMMENT WHEN SCHEDULE PAGE IS READY
-        // add(scheduleBtn);
+        //add(scheduleBtn);
         add(Box.createHorizontalStrut(10));
 
-        /* 
+         
 
          if (user.getUserType().equals("Admin")) {
             add(pendingBtn);
             add(Box.createHorizontalStrut(10));
         }
-        */
+        
         
         
         if (user.getUserType().equals("Owner")) {
