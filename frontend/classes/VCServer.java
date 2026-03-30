@@ -32,9 +32,9 @@ public class VCServer implements Runnable {
     public void run() {
         while (running) {
             try {
-                System.out.println("Waiting for client...");
+                System.out.println("Waiting for client/owner...");
                 Socket socket = serverSocket.accept();
-                System.out.println("Client connected!");
+                System.out.println("Client/Owner connected!");
 
                 new Thread(new ClientHandler(socket)).start();
 
