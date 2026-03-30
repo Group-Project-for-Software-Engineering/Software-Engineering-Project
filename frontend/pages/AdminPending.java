@@ -8,6 +8,8 @@ import java.awt.*;
 import java.util.Map;
 import javax.swing.*;
 
+import org.w3c.dom.css.ViewCSS;
+
 public class AdminPending extends JPanel implements Refreshable {
 
     private JPanel listPanel;
@@ -35,11 +37,13 @@ public class AdminPending extends JPanel implements Refreshable {
         // Load all requests already moved into adminVisible
         synchronized (VCServer.adminVisible) {
             if (!VCServer.adminVisible.isEmpty()) {
-                JOptionPane.showMessageDialog(
+                for(Request r: VCServer.adminVisible) {
+                    JOptionPane.showMessageDialog(
                         this,
                         "You have pending job requests.",
                         "Pending Jobs",
                         JOptionPane.INFORMATION_MESSAGE);
+                }
             }
             for (Request req : VCServer.adminVisible) {
                 listPanel.add(createPendingCard(req));
