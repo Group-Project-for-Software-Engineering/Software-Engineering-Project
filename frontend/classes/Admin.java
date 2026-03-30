@@ -12,7 +12,7 @@ public class Admin extends User {
     // private String adminId;
     // private static int increment = 0;
     //private static Map<User, ArrayList<Vehicle>> pendingVehicles= new HashMap<>(); //stores vehicles yet to be approved
-   // private static Map<User, ArrayList<Job>> pendingJobs = new HashMap<>(); //stores jobs yet to be approved
+    // private static Map<User, ArrayList<Job>> pendingJobs = new HashMap<>(); //stores jobs yet to be approved
 
     private static ArrayList<Vehicle> availableVehicles = new ArrayList<>();
     private static ArrayList<Job> jobs = new ArrayList<>();
