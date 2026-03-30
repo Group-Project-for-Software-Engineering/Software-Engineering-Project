@@ -221,13 +221,13 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                             ((Owner) user).addVehicle(v);
                             JOptionPane.showMessageDialog(
                                     null,
-                                    "One of your pending vehicles has been accepted.",
+                                    "One of your pending vehicles has been accepted. Vehicle vin: " + v.getNumber(),
                                     "Vehicle Acceptance",
                                     JOptionPane.INFORMATION_MESSAGE);
                         } else { // don't add it to file; show message
                             JOptionPane.showMessageDialog(
                                     null,
-                                    "One of your pending vehicles has been rejected.",
+                                    "One of your pending vehicles has been rejected. Vehicle vin: " + v.getNumber(),
                                     "Vehicle Rejection",
                                     JOptionPane.INFORMATION_MESSAGE);
                         }

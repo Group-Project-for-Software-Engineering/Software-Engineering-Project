@@ -201,13 +201,13 @@ public class SubmitJobPage extends JPanel implements Refreshable {
                             ((Client) user).addJob(j);
                             JOptionPane.showMessageDialog(
                                     null,
-                                    "One of your pending jobs has been accepted.",
+                                    "One of your pending jobs has been accepted. Job id: " + j.getClientId(),
                                     "Job Acceptance",
                                     JOptionPane.INFORMATION_MESSAGE);
                         } else { //don't add it to file; show message
                             JOptionPane.showMessageDialog(
                                     null,
-                                    "One of your pending jobs has been rejected.",
+                                    "One of your pending jobs has been rejected. Job id: " + j.getClientId(),
                                     "Job Rejection",
                                     JOptionPane.INFORMATION_MESSAGE);
                         }
