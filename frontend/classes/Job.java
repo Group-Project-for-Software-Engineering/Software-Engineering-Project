@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 // job class
 //The system shall receive and verify the vehicle's jobId, approximateJobDuration, and jobDeadline.
 
-import javax.swing.JLabel;
-
 public class Job {
     private String JOB_ID;
     private static int increment = 0;
@@ -93,37 +91,47 @@ public class Job {
     public void setJobDeadline(LocalDateTime jobDeadline) {
         this.jobDeadline = jobDeadline;
     }
+
     //--------------------------------------
-
-    //this method returns the job description
-
+    // This method returns the job description
     public String getJobDescription() {
         return description;
     }
-    //--------------------------
 
+    //---------------------------------------
+    // This method increases the increment by 1
     public static void increaseJobIdCount() {
         increment++;
     }
 
+    //---------------------------------------
+    // This method returns the userId associated with the client
     public String getClientId() {
         return userId;
     }
 
+    //---------------------------------------
+    // This method returns the job status
     public String getJobStatus() {
         return jobStatus;
     }
+
+    //---------------------------------------
+    // This method sets the job status to "pending"
     public void setStatusPending() {
         jobStatus = "pending";
     }
 
+    //---------------------------------------
+    // This method returns the jobClientId
     public String getJobClientId() {
         return jobClientId;
     }
 
+    @Override
     public String toString() {
-        return "Job Id: " + this.getJobId() + " || Job Client Id: " + this.getJobClientId() + " || Job duration: " + this.getApproximateJobDuration() 
-        + " || Deadline: " + this.getJobDeadline() + " || Description: " + this.getJobDescription() + "|| User Id: " + this.getClientId();
+        return "Job Id: " + this.getJobId() + " || Job Client Id: " + this.getJobClientId() + " || Job duration: " + this.getApproximateJobDuration()
+                + " || Deadline: " + this.getJobDeadline() + " || Description: " + this.getJobDescription() + "|| User Id: " + this.getClientId();
     }
 
 }

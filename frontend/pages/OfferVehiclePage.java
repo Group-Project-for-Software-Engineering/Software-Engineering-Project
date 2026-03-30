@@ -8,12 +8,18 @@
 
 package pages;
 
+import classes.Admin;
+import classes.Client;
+import classes.Job;
 import classes.Owner;
 import classes.PlaceHolderTextField;
 import classes.User;
 import classes.UserManager;
 import classes.Vehicle;
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -50,7 +56,6 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         // NavBar
         add(new NavBar(cards, user, registry), BorderLayout.NORTH);
 
-
         JPanel splitPanel = new JPanel(new GridLayout(1, 2));
 
         JPanel leftPanel = new JPanel();
@@ -75,26 +80,39 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         vehicleLabel.setForeground(new Color(65, 105, 255));
         vehicleLabel.setFont(new Font("Arial", Font.PLAIN, 36));
 
-        //JLabel ownerId = new JLabel("Your Owner Id: " + ((Owner)user).getOwnerId());
-        //ownerId.setAlignmentX(Component.CENTER_ALIGNMENT);
-       // ownerId.setForeground(new Color(65, 105, 255));
-       // ownerId.setFont(new Font("Arial", Font.PLAIN, 36));
+        // JLabel ownerId = new JLabel("Your Owner Id: " + ((Owner)user).getOwnerId());
+        // ownerId.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // ownerId.setForeground(new Color(65, 105, 255));
+        // ownerId.setFont(new Font("Arial", Font.PLAIN, 36));
 
-        
-        ownerIdField= new PlaceHolderTextField("Enter an owner id for this vehicle", 36); // adds more graphics to regular textfield
+        ownerIdField = new PlaceHolderTextField("Enter an owner id for this vehicle", 36); // adds more graphics to
+                                                                                           // regular textfield
         ownerIdField.setMaximumSize(ownerIdField.getPreferredSize());
         ownerIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
-        vehicleVin = new PlaceHolderTextField("Vin                               (XXXXXXXXXXXXXXXXX)", 36); // adds more graphics to regular textfield
+        vehicleVin = new PlaceHolderTextField("Vin                               (XXXXXXXXXXXXXXXXX)", 36); // adds more
+                                                                                                            // graphics
+                                                                                                            // to
+                                                                                                            // regular
+                                                                                                            // textfield
         vehicleVin.setMaximumSize(vehicleVin.getPreferredSize());
         vehicleVin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        vehicleMake = new PlaceHolderTextField("Make                           (Letters and/or Numbers)", 36); // adds more graphics to regular textfield
+        vehicleMake = new PlaceHolderTextField("Make                           (Letters and/or Numbers)", 36); // adds
+                                                                                                               // more
+                                                                                                               // graphics
+                                                                                                               // to
+                                                                                                               // regular
+                                                                                                               // textfield
         vehicleMake.setMaximumSize(vehicleMake.getPreferredSize());
         vehicleMake.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        vehicleModel = new PlaceHolderTextField("Model                           (Letters and/or Numbers)", 36); // adds more graphics to regular textfield
+        vehicleModel = new PlaceHolderTextField("Model                           (Letters and/or Numbers)", 36); // adds
+                                                                                                                 // more
+                                                                                                                 // graphics
+                                                                                                                 // to
+                                                                                                                 // regular
+                                                                                                                 // textfield
         vehicleModel.setMaximumSize(vehicleModel.getPreferredSize());
         vehicleModel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -114,25 +132,25 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         vehicleDeparture.setMaximumSize(vehiclePlate.getPreferredSize());
         vehicleDeparture.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         JButton submitBtn = new JButton("Submit");
         submitBtn.setFont(new Font("Arial", Font.PLAIN, 16));
         submitBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         submitBtn.setBackground(new Color(77, 163, 255));
         submitBtn.setForeground(Color.DARK_GRAY);
 
-        
-        
-        //vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
+        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between
+        // elements
         vehicleForm.add(Box.createVerticalGlue());
         vehicleForm.add(vehicleLabel);
-        //vehicleForm.add(ownerId);
+        // vehicleForm.add(ownerId);
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(ownerIdField);
         vehicleForm.add(createFormatLabel("Enter an owner id for this vehicle"));
-        //vehicleForm.add(createFormatLabel("Your Owner Id: " + ((Owner)user).getOwnerId()));
+        // vehicleForm.add(createFormatLabel("Your Owner Id: " +
+        // ((Owner)user).getOwnerId()));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
-        //vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
+        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between
+        // elements
         vehicleForm.add(vehicleVin);
         vehicleForm.add(createFormatLabel("Must be a 17-character alphanumeric string"));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
@@ -155,7 +173,6 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         vehicleForm.add(createFormatLabel("Format: yyyy-mm-dd hh:mm:ss"));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
 
-
         vehicleForm.add(submitBtn);
         vehicleForm.add(Box.createVerticalGlue());
 
@@ -173,26 +190,59 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
             String departureText = vehicleDeparture.getText().trim();
             String id = ownerIdField.getText().trim();
 
-
-            if(VIN_NUMBER.isEmpty() || make.isEmpty() || model.isEmpty() || licensePlate.isEmpty() || year.isEmpty() 
-             || arrivalText.isEmpty() || departureText.isEmpty()) {
+            if (VIN_NUMBER.isEmpty() || make.isEmpty() || model.isEmpty() || licensePlate.isEmpty() || year.isEmpty()
+                    || arrivalText.isEmpty() || departureText.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Fields cannot be empty.");
                 return;
             }
 
-            //make new vehicle from form information
-            Vehicle v = new Vehicle(VIN_NUMBER, make, model, licensePlate, year, arrivalText, departureText, user.getUserId(), id);
-            
-            //add the vehicle to the vehicle file
-            UserManager.updateVehiclesFile(v);
-
-            ((Owner)user).addVehicle(v);
-            JOptionPane.showMessageDialog(this, "Succesfully registered.");
+            // make new vehicle from form information
+            Vehicle v = new Vehicle(VIN_NUMBER, make, model, licensePlate, year, arrivalText, departureText,
+                    user.getUserId(), id);
+            JOptionPane.showMessageDialog(this, "Submitted vehicle application.");
             refresh();
+
+            new Thread(() -> {
+                try {
+                    Socket socket = new Socket("localhost", 9806);
+                    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                    DataInputStream in = new DataInputStream(socket.getInputStream());
+
+                    out.writeUTF(v.toString());
+
+                    String ack = in.readUTF();
+                    String decision = in.readUTF();
+
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(this, "Admin decision: " + decision);
+
+                        if (decision.equals("ACCEPT")) {// if admin accpeted it, show message, add it to the jobs file
+                            UserManager.updateVehiclesFile(v);
+                            ((Owner) user).addVehicle(v);
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "One of your pending vehicles has been accepted.",
+                                    "Vehicle Acceptance",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        } else { // don't add it to file; show message
+                            JOptionPane.showMessageDialog(
+                                    null,
+                                    "One of your pending vehicles has been rejected.",
+                                    "Vehicle Rejection",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    });
+
+                    socket.close();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }).start();
+
         });
 
     }
-
 
     private JLabel createFormatLabel(String text) {
         JLabel label = new JLabel(text);
@@ -201,6 +251,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         return label;
     }
+
     // ---------------------------------------------------------------
     // refreshes offer vehicle page
     @Override

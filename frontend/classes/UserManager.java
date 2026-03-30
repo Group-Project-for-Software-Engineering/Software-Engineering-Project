@@ -15,10 +15,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.time.Instant;
 
 // ---------------------------------------------------------------
 /**
@@ -271,7 +273,8 @@ public class UserManager {
                     StandardOpenOption.APPEND
             )) 
             {
-                Instant timestamp = Instant.now();
+                Instant UTCTimestamp = Instant.now();
+                ZonedDateTime timestamp = UTCTimestamp.atZone(ZoneId.of("America/New_York"));
                 writer.write(v.getOwnerId() + "|" + v.getNumber() + "|" + v.getModel() + "|" + v.getMake() + 
                  "|" + v.getLicensePlate() + "|" + v.getYear() + "|" + v.approxTime() + "|" + v.getDayRegistered() + "|" 
                  + v.getVehicleOwnerId() + "|" + timestamp);
@@ -298,7 +301,8 @@ public class UserManager {
                     StandardOpenOption.APPEND
             )) 
             {
-                Instant timestamp = Instant.now();
+                Instant UTCTimestamp = Instant.now();
+                ZonedDateTime timestamp = UTCTimestamp.atZone(ZoneId.of("America/New_York"));
                 writer.write(j.getClientId() + "|" + j.getJobDescription() + "|" + j.getApproximateJobDuration() + "|"
                  + j.getJobDeadline() + "|" + j.getJobId() + "|" + j.getJobClientId() + "|" + timestamp);
                 writer.newLine();
@@ -398,7 +402,8 @@ public class UserManager {
                     StandardOpenOption.APPEND
             )) 
             {
-                Instant timestamp = Instant.now();
+                Instant UTCTimestamp = Instant.now();
+                ZonedDateTime timestamp = UTCTimestamp.atZone(ZoneId.of("America/New_York"));
                 writer.write(u.getUserId() + "|" + u.getUserType() + "|" + v.getNumber() + "|" + v.getModel() + "|" + v.getMake() + 
                 "|" + v.getLicensePlate() + "|" + v.getYear() + "|" + v.approxTime() + "|" + v.getDayRegistered() + "|" + v.getVehicleOwnerId() + "|" + timestamp.toString());
                 writer.newLine();
@@ -425,7 +430,8 @@ public class UserManager {
                     StandardOpenOption.APPEND
             )) 
             {
-                Instant timestamp = Instant.now();
+                Instant UTCTimestamp = Instant.now();
+                ZonedDateTime timestamp = UTCTimestamp.atZone(ZoneId.of("America/New_York"));
                 writer.write(u.getUserId() + "|" + u.getUserType() + "|" + j.getJobDescription() + "|" + 
                 j.getApproximateJobDuration() + "|" + j.getJobDeadline() + "|" + j.getJobId() + "|" + j.getJobClientId() + "|" + timestamp.toString());
                 writer.newLine();

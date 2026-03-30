@@ -1,18 +1,12 @@
 package pages;
 
+import classes.Request;
 import classes.User;
 import classes.UserManager;
-import classes.Vehicle;
-
+import classes.VCServer;
+import java.awt.*;
 import java.util.Map;
 import javax.swing.*;
-import java.util.ArrayList;
-
-import classes.Request;
-import classes.VCServer;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class AdminPending extends JPanel implements Refreshable {
 
@@ -25,14 +19,18 @@ public class AdminPending extends JPanel implements Refreshable {
         add(new NavBar(cards, user, registry), BorderLayout.NORTH);
 
         JLabel title = new JLabel("Pending Requests", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 26));
-        add(title, BorderLayout.SOUTH);
+        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //add(title, BorderLayout.SOUTH);
+
+        JPanel viewPanel = new JPanel();
+        viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
 
         listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
 
         JScrollPane scroll = new JScrollPane(listPanel);
-        add(scroll, BorderLayout.CENTER);
+        //add(scroll, BorderLayout.CENTER);
 
         //Load all requests already moved into adminVisible
         synchronized (VCServer.adminVisible) {
@@ -47,6 +45,11 @@ public class AdminPending extends JPanel implements Refreshable {
                 listPanel.add(createPendingCard(req));
             }
         }
+
+        viewPanel.add(title);
+        viewPanel.add(scroll);
+
+        add(viewPanel, BorderLayout.CENTER);
 
         listPanel.revalidate();
         listPanel.repaint();
@@ -70,13 +73,15 @@ public class AdminPending extends JPanel implements Refreshable {
 
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         card.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         card.setBackground(new Color(153, 204, 255));
         card.setOpaque(true);
-        card.setMaximumSize(new Dimension(600, 200));
+        //card.setMaximumSize(new Dimension(600, 200));
 
         JLabel label = new JLabel(req.request);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
+        card.add(Box.createVerticalStrut(4));
         card.add(label);
 
         JButton acceptBtn = new JButton("Accept");
@@ -111,6 +116,7 @@ public class AdminPending extends JPanel implements Refreshable {
 
         card.add(acceptBtn);
         card.add(rejectBtn);
+        card.add(Box.createVerticalStrut(3));
 
         return card;
     }
