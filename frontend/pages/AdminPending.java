@@ -21,7 +21,7 @@ public class AdminPending extends JPanel implements Refreshable {
         JLabel title = new JLabel("Pending Requests", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //add(title, BorderLayout.SOUTH);
+        // add(title, BorderLayout.SOUTH);
 
         JPanel viewPanel = new JPanel();
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
@@ -30,9 +30,9 @@ public class AdminPending extends JPanel implements Refreshable {
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
 
         JScrollPane scroll = new JScrollPane(listPanel);
-        //add(scroll, BorderLayout.CENTER);
+        // add(scroll, BorderLayout.CENTER);
 
-        //Load all requests already moved into adminVisible
+        // Load all requests already moved into adminVisible
         synchronized (VCServer.adminVisible) {
             if (!VCServer.adminVisible.isEmpty()) {
                 JOptionPane.showMessageDialog(
@@ -77,9 +77,10 @@ public class AdminPending extends JPanel implements Refreshable {
         card.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
         card.setBackground(new Color(153, 204, 255));
         card.setOpaque(true);
-        //card.setMaximumSize(new Dimension(600, 200));
+        // card.setMaximumSize(new Dimension(600, 200));
 
-        JLabel label = new JLabel(req.request);
+        String formatted = "<html>" + req.request.replace("||", "<br>") + "</html>"; //changing the format of the .toString()
+        JLabel label = new JLabel(formatted);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
         card.add(Box.createVerticalStrut(4));
         card.add(label);
@@ -90,7 +91,7 @@ public class AdminPending extends JPanel implements Refreshable {
         JButton rejectBtn = new JButton("Reject");
         rejectBtn.setBackground(new Color(255, 51, 51));
 
-        //Accept logic
+        // Accept logic
         acceptBtn.addActionListener(e -> {
             synchronized (VCServer.adminVisible) {
                 VCServer.adminVisible.remove(req);
@@ -102,7 +103,7 @@ public class AdminPending extends JPanel implements Refreshable {
             refresh();
         });
 
-        //Reject logic
+        // Reject logic
         rejectBtn.addActionListener(e -> {
             synchronized (VCServer.adminVisible) {
                 VCServer.adminVisible.remove(req);
