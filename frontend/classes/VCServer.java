@@ -3,15 +3,13 @@ package classes;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class VCServer implements Runnable {
 
     private ServerSocket serverSocket;
     private boolean running = true;
 
-    // Requests waiting for admin review (from clients)
+    // Requests waiting for admin review (from clients) /
     public static final ArrayList<Request> pending = new ArrayList<>();
 
     // Requests the admin UI should display
