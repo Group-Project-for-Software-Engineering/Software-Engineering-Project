@@ -138,21 +138,20 @@ public class AdminHome extends JPanel implements Refreshable {
                 allJobs.addAll(((Client) u).getClientJobs());
             }
         }
-        */
-
+         */
         // if there are no jobs, show a message stating this 
         if (allJobs.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No jobs available.");
             return;
         }
-    
+
         // computes the completion times for all jobs
         // references admin.java computerCompletionTimes() method 
         ArrayList<Double> completionTimes = Admin.computeCompletionTimes();
-    
+
         // stores the completion times in a stringbuilder
         StringBuilder result = new StringBuilder("Completion Times for all jobs: \n\n");
-    
+
         // iterates through all of the jobs and adds the completion times to the stringbuilder
         for (int i = 0; i < allJobs.size(); i++) {
             Job j = allJobs.get(i);
@@ -161,26 +160,26 @@ public class AdminHome extends JPanel implements Refreshable {
             int jobCompletionHours = completionTimes.get(i).intValue();
             long jobCompletionMinutes = Math.round((completionTimes.get(i) - jobCompletionHours) * 60);
             result.append("Job ID: ").append(j.getJobId())
-                  .append("| Client Job ID: ").append(j.getJobClientId())
-                  .append(" | Duration: ");
-                  if (jobHours != 0) {
-                    result.append(jobHours)
-                    .append(" hours ");
-                  }
-                  if (jobMinutes != 0) {
-                    result.append(jobMinutes)
-                    .append(" minutes");
-                  }
-                  result.append(" | Completion Time: ");
-                  if (jobCompletionHours != 0) {
-                    result.append(jobCompletionHours)
-                    .append(" hours ");
-                  }
-                  if (jobCompletionMinutes != 0) {
-                    result.append(jobCompletionMinutes)
-                    .append (" minutes");
-                  }
-                  result.append(" \n\n");
+                    .append("| Client Job ID: ").append(j.getJobClientId())
+                    .append(" | Duration: ");
+            if (jobHours != 0) {
+                result.append(jobHours)
+                .append(" hours ");
+            }
+            if (jobMinutes != 0) {
+                result.append(jobMinutes)
+                .append(" minutes");
+            }
+            result.append(" | Completion Time: ");
+            if (jobCompletionHours != 0) {
+                result.append(jobCompletionHours)
+                .append(" hours ");
+            }
+            if (jobCompletionMinutes != 0) {
+                result.append(jobCompletionMinutes)
+                .append(" minutes");
+            }
+            result.append(" \n\n");
         }
         // shows the completion times in a popup window
         JTextArea completionTextArea = new JTextArea(result.toString());

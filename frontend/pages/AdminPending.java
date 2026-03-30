@@ -19,14 +19,18 @@ public class AdminPending extends JPanel implements Refreshable {
         add(new NavBar(cards, user, registry), BorderLayout.NORTH);
 
         JLabel title = new JLabel("Pending Requests", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 26));
-        add(title, BorderLayout.SOUTH);
+        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //add(title, BorderLayout.SOUTH);
+
+        JPanel viewPanel = new JPanel();
+        viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
 
         listPanel = new JPanel();
         listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
 
         JScrollPane scroll = new JScrollPane(listPanel);
-        add(scroll, BorderLayout.CENTER);
+        //add(scroll, BorderLayout.CENTER);
 
         //Load all requests already moved into adminVisible
         synchronized (VCServer.adminVisible) {
@@ -41,6 +45,11 @@ public class AdminPending extends JPanel implements Refreshable {
                 listPanel.add(createPendingCard(req));
             }
         }
+
+        viewPanel.add(title);
+        viewPanel.add(scroll);
+
+        add(viewPanel, BorderLayout.CENTER);
 
         listPanel.revalidate();
         listPanel.repaint();
