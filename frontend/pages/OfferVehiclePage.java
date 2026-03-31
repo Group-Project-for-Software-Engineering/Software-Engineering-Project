@@ -216,20 +216,30 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                     SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, "Admin decision: " + decision);
 
-                        if (decision.equals("ACCEPT")) {// if admin accpeted it, show message, add it to the jobs file
+                        if (decision.equals("ACCEPT")) {// if admin accepted it, show message, add it to the jobs file
                             UserManager.updateVehiclesFile(v);
                             ((Owner) user).addVehicle(v);
+                            user.addAccepted(v.toString());
+
+                            /*  
                             JOptionPane.showMessageDialog(
                                     null,
                                     "One of your pending vehicles has been accepted. Vehicle vin: " + v.getNumber(),
                                     "Vehicle Acceptance",
                                     JOptionPane.INFORMATION_MESSAGE);
-                        } else { // don't add it to file; show message
+                            */
+                        } 
+                        
+                        
+                        else { // don't add it to file; show message
+                            user.addRejected(v.toString());
+                            /* 
                             JOptionPane.showMessageDialog(
                                     null,
                                     "One of your pending vehicles has been rejected. Vehicle vin: " + v.getNumber(),
                                     "Vehicle Rejection",
                                     JOptionPane.INFORMATION_MESSAGE);
+                            */
                         }
                     });
 

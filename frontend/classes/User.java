@@ -7,7 +7,7 @@
  */
 package classes;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 // ---------------------------------------------------------------
 //this class represents a user of the system, with a username and password. It is used by UserManager to store user data in memory and persist it to a file. The Owner class extends User to add additional fields for car owners.
@@ -19,6 +19,9 @@ public class User {
     private String email;
 
     private String userType;
+
+    private ArrayList<String> rejected = new ArrayList<>();
+    private ArrayList<String> accepted = new ArrayList<>();
 
     // ---------------------------------------------------------------
     // constructor that sets the username, password, email, and user type
@@ -71,5 +74,29 @@ public class User {
     // returns the user type of the user
     public String getUserType() {
         return userType;
+    }
+
+    public ArrayList<String> getRejectedList() {
+        return rejected;
+    }
+
+    public ArrayList<String> getAcceptedList() {
+        return accepted;
+    }
+
+    public void clearRejectedList() {
+        rejected.clear();
+    }
+
+    public void clearAcceptedList() {
+        accepted.clear();
+    }
+
+    public void addAccepted(String s) {
+        accepted.add(s);
+    }
+
+    public void addRejected(String s) {
+        rejected.add(s);
     }
 }
