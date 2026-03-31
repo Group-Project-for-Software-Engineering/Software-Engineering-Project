@@ -1,3 +1,11 @@
+/* Project: Vehicular Cloud Real Time System (VCRTS)
+ * Class: VCServer.java
+ * Authors: Group 2 (Justin Cracchiolo, Lauren Rodriguez, David Choi, Tristan Huertas, Ivan Lin, Anthony Vallejo, Sebastian Villavicencio)
+ * Date: March 2026
+ * This class implements the server that listens for incoming client connections and handles them.
+ * It maintains two lists: one for pending requests from clients and another for requests that are visible to the admin.
+ * The server runs in a separate thread and can handle multiple clients simultaneously.
+ */
 package classes;
 
 import java.io.*;
