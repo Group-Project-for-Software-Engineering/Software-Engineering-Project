@@ -28,7 +28,7 @@ public class NavBar extends JPanel {
 
         // sets background color based on user type
         if (user.getUserType().equals("Admin")) {
-            setBackground(new Color(184, 134, 11)); // gold => admin
+            setBackground(new Color(128, 0, 32)); // gold => admin
         } else if (user.getUserType().equals("Owner")) {
             setBackground(new Color(46, 125, 50)); // green => owner
         } else {
