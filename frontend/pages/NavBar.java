@@ -30,7 +30,7 @@ public class NavBar extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setPreferredSize(new Dimension(1000, 60));
 
-        JLabel title = new JLabel("VCRTS");
+        JLabel title = new JLabel("VCRTS - " + user.getUserType());
         title.setForeground(Color.WHITE);
         title.setFont(new Font("Arial", Font.BOLD, 28));
 
@@ -38,7 +38,7 @@ public class NavBar extends JPanel {
             if (user != null) {
                 displayName = user.getUsername();
             }
-        JLabel welcomeLabel = new JLabel("  Welcome, " + displayName + "!");
+        JLabel welcomeLabel = new JLabel("                                Welcome, " + displayName + "!");
         welcomeLabel.setForeground(Color.WHITE);
         welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
 
@@ -119,15 +119,13 @@ public class NavBar extends JPanel {
         logoutBtn.addActionListener(e -> ((CardLayout) cards.getLayout()).show(cards, "about"));
 
         //--------------------------------------
-
-        add(Box.createHorizontalStrut(20));
         add(title);
-        add(Box.createHorizontalStrut(15));
-        add(welcomeLabel);  
+        add(Box.createHorizontalGlue());
+        add(welcomeLabel);
         add(Box.createHorizontalGlue());
         add(homeBtn);
-        add(Box.createHorizontalStrut(10));
-
+        add(Box.createHorizontalStrut(40));
+        
         // TODO: SCHEDULE BUTTON IS COMMENTED OUT FOR NOW, AS SCHEDULE PAGE IS NOT IMPLEMENTED. UNCOMMENT WHEN SCHEDULE PAGE IS READY
         //add(scheduleBtn);
         add(Box.createHorizontalStrut(10));
