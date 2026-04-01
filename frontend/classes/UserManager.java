@@ -152,6 +152,7 @@ public class UserManager {
 
                 String username = parts[0].trim();
                 String password = parts[1].trim();
+                String userId = parts[2].trim();
                 String email = parts[3].trim();
                 String type = parts[4].trim();
 
@@ -160,13 +161,13 @@ public class UserManager {
                 //If the person you just read from the file is not in the map of current users, add them
                 if (!username.isEmpty() && !users.containsKey(normalizedUsername)) {
                     if(type.equals("Owner")) {
-                        users.put(normalizedUsername, new Owner(username, password, email));
+                        users.put(normalizedUsername, new Owner(username, password, email, userId));
                     }
                     else if(type.equals("Admin")) {
-                        users.put(normalizedUsername, new Admin(username, password, email));
+                        users.put(normalizedUsername, new Admin(username, password, email, userId));
                     }
                     else {
-                        users.put(normalizedUsername, new Client(username, password, email));
+                        users.put(normalizedUsername, new Client(username, password, email, userId));
                     }
                 }
             }

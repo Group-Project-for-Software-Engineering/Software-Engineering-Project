@@ -35,6 +35,10 @@ public class Admin extends User {
         
     }
 
+    public Admin(String username, String password, String email, String userId) {
+        super(username, password, userId, email, "Admin");
+    }
+
     //--------------------------------------------
     // returns the list of vehicles that can be assigned jobs
     public ArrayList<Vehicle> getAvailableVehicles() { 
