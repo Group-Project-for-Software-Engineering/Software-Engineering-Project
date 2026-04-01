@@ -1,3 +1,9 @@
+/* Project: Vehicular Cloud Real Time System (VCRTS)
+ * Class: AdminPending.java
+ * Authors: Group 2 (Justin Cracchiolo, Lauren Rodriguez, David Choi, Tristan Huertas, Ivan Lin, Anthony Vallejo, Sebastian Villavicencio)
+ * Date: March 2026
+ * This class implements the admin view for managing pending job requests.
+ */
 package pages;
 
 import classes.Request;
