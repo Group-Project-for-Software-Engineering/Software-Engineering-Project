@@ -26,7 +26,14 @@ public class NavBar extends JPanel {
     public NavBar(JPanel cards, User user, Map<String, Refreshable> refreshables) {
         this.refreshables = refreshables;
 
-        setBackground(new Color(70, 80, 120));
+        // sets background color based on user type
+        if (user.getUserType().equals("Admin")) {
+            setBackground(new Color(184, 134, 11)); // gold => admin
+        } else if (user.getUserType().equals("Owner")) {
+            setBackground(new Color(46, 125, 50)); // green => owner
+        } else {
+            setBackground(new Color(33, 150, 243)); // blue => client
+        }
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setPreferredSize(new Dimension(1000, 60));
 

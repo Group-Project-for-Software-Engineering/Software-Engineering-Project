@@ -56,7 +56,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         JPanel splitPanel = new JPanel(new GridLayout(1, 2));
 
         JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(new Color(50, 75, 155));
+        leftPanel.setBackground(new Color(25, 118, 210));
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
         JLabel leftTitle = new JLabel("Submit Job");

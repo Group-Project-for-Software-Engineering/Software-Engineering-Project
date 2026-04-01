@@ -59,7 +59,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         JPanel splitPanel = new JPanel(new GridLayout(1, 2));
 
         JPanel leftPanel = new JPanel();
-        leftPanel.setBackground(new Color(50, 75, 155));
+        leftPanel.setBackground(new Color(27, 94, 32));
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
         JLabel leftTitle = new JLabel("Offer Vehicle");
