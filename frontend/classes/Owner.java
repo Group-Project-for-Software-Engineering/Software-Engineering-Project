@@ -44,14 +44,17 @@ public class Owner extends User {
         return ownerId; 
     }
      */
-    // ---------------------------------------------------------------
-    // adds a vehicle to the owner's list of vehicles
+
+    /**
+     * adds a vehicle to the owner's list of vehicles
+     */
     public void addVehicle(Vehicle vehicle) {
         ownerVehicles.add(vehicle);
     }
 
-    // ---------------------------------------------------------------
-    // returns => owner's list of vehicles
+    /**
+     * @return => owner's list of vehicles
+     */
     public ArrayList<Vehicle> getVehicles() {
         return ownerVehicles;
     }

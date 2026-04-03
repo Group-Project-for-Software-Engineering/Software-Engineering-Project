@@ -63,8 +63,9 @@ public class PlaceHolderTextField extends JTextField {
 
     }
 
-    // ---------------------------------------------------------------
-    // draws placeholder text
+    /**
+     * draws placeholder text
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
