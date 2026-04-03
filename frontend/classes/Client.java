@@ -18,8 +18,8 @@ public class Client extends User {
     // private static int increment = 0;
 
     /**
-     * constructor for the client class; utilizes the constructor of the User class
-     * to set the username and password
+     * constructor for the client class; utilizes the constructor of the User
+     * class to set the username and password
      */
     public Client(String username, String password) {
         this(username, password, "");

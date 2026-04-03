@@ -78,79 +78,89 @@ public class Vehicle {
         this.vehicleOwnerId = vehicleOwnerId;
     }
 
-    // implementing the getters in order to access the private variables
-
-    // ---------------------------------------------------------------
-    // returns the VIN number of the vehicle
+    /**
+     * @return the VIN number of the vehicle
+     */
     public String getNumber() {
         return VIN_NUMBER;
     }
 
-    // ---------------------------------------------------------------
-    // returns the make of the vehicle
+    /**
+     * @return the make of the vehicle
+     */
     public String getMake() {
         return make;
     }
 
-    // ---------------------------------------------------------------
-    // returns the model of the vehicle
+    /**
+     * @return the model of the vehicle
+     */
     public String getModel() {
         return model;
     }
 
-    // ---------------------------------------------------------------
-    // returns the license plate of the vehicle
+    /**
+     * @return the license plate of the vehicle
+     */
     public String getLicensePlate() {
         return licensePlate;
     }
 
-    //----------------------------
-    //returns the year 
+    /**
+     * @return the year
+     */
     public String getYear() {
         return year;
     }
 
-    //-------------------------
-    //return the residency time
+    /**
+     * @return the residency time
+     */
     public double approxTime() {
         return approxResidencyTime;
     }
 
-    // ---------------------------------------------------------------
-    //returns the day the vehicle is registered for
+    /**
+     * @return the day the vehicle is registered for
+     */
     public String getDayRegistered() {
         return dayRegistered;
 
     }
 
-    // ---------------------------------------------------------------
-    // returns the owner ID of the vehicle
+    /**
+     * @return the owner ID of the vehicle
+     */
     public String getOwnerId() {
         return userId;
     }
 
-    // ---------------------------------------------------------------
-    // returns true if the vehicle is available, false otherwise
+    /**
+     * @return true if the vehicle is available, false otherwise
+     */
     public boolean isAvailable() {
         return isParked;
     }
 
-    // ---------------------------------------------------------------
-    // sets the vehicle to parked
+    /**
+     * sets the vehicle to parked
+     */
     public void isParked() {
         isParked = true;
         Admin.addVehicle(this);
     }
 
-    // ---------------------------------------------------------------
-    // sets the vehicle to departed
+    /**
+     * sets the vehicle to departed
+     */
     public void hasDeparted() {
         isParked = false;
         Admin.removeVehicle(this);
     }
 
-    // ---------------------------------------------------------------
-    // returns the owner ID of the vehicle
+    /**
+     * @return the owner ID of the vehicle
+     */
     public String getVehicleOwnerId() {
         return vehicleOwnerId;
     }

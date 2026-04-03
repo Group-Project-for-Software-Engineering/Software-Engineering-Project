@@ -60,70 +60,81 @@ public class Job {
         }
     }
 
-    // implementing the getters and setters in order to access the private variables
+    // getters and setters
     
-    // ---------------------------------------------------------------
-    // This method returns the job ID for a specific job.
+    /**
+     * @return the job ID for a specific job.
+     */
     public String getJobId() {
         return JOB_ID;
     }
 
-    // ---------------------------------------------------------------
-    // This method returns the approximate job duration for a specific job.
+    /**
+     * @return the approximate job duration for a specific job.
+     */
     public double getApproximateJobDuration() {
         return approximateJobDuration;
     }
 
-    // ---------------------------------------------------------------
-    // This method returns the deadline for a specific job.
+    /**
+     * @return the deadline for a specific job.
+     */
     public LocalDateTime getJobDeadline() {
         return jobDeadline;
     }
 
-    // ---------------------------------------------------------------
-    // This method updates the approximate job duration for a specific job.
+    /**
+     * @return updates the approximate job duration for a specific job.
+     */
     public void setApproximateJobDuration(int approximateJobDuration) {
         this.approximateJobDuration = approximateJobDuration;
     }
 
-    // ---------------------------------------------------------------
-    // This method updates the deadline for a specific job.
+    /**
+     * @return updates the deadline for a specific job.
+     */
     public void setJobDeadline(LocalDateTime jobDeadline) {
         this.jobDeadline = jobDeadline;
     }
 
-    //--------------------------------------
-    // This method returns the job description
+    /**
+     * @return the job description for a specific job.
+     */
     public String getJobDescription() {
         return description;
     }
 
-    //---------------------------------------
-    // This method increases the increment by 1
+    /** 
+     * Increases the increment by 1
+     */
     public static void increaseJobIdCount() {
         increment++;
     }
 
-    //---------------------------------------
-    // This method returns the userId associated with the client
+    /**
+     * @return the userId associated with the client
+     */
     public String getClientId() {
         return userId;
     }
 
-    //---------------------------------------
-    // This method returns the job status
+    /**
+     * @return the job status
+     */
     public String getJobStatus() {
         return jobStatus;
     }
 
-    //---------------------------------------
-    // This method sets the job status to "pending"
+    /**
+     * Sets the job status to "pending"
+     */
     public void setStatusPending() {
         jobStatus = "pending";
     }
 
-    //---------------------------------------
-    // This method returns the jobClientId
+    /**
+     * @return the jobClientId
+     */
     public String getJobClientId() {
         return jobClientId;
     }

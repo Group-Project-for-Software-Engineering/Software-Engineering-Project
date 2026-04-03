@@ -24,8 +24,9 @@ public class User {
     private ArrayList<String> rejected = new ArrayList<>();
     private ArrayList<String> accepted = new ArrayList<>();
 
-    // ---------------------------------------------------------------
-    // constructor that sets the username, password, email, and user type
+    /**
+     * constructor that sets the username, password, email, and user type
+     */
     public User(String username, String password, String email, String userType) {
         this.username = username;
         this.password = password;
@@ -47,68 +48,79 @@ public class User {
         this.userId = userId;
     }
 
-    // ---------------------------------------------------------------
-    // returns the username of the user
+    /**
+     * @return the username of the user
+     */
     public String getUsername() {
         return username;
     }
 
-    // ---------------------------------------------------------------
-    // returns the password of the user
+    /**
+     * @return the password of the user
+     */
     public String getPassword() {
         return password;
     }
 
-    // ---------------------------------------------------------------
-    // returns the email of the user
+    /**
+     * @return the email of the user
+     */
     public String getEmail() {
         return email;
     }
 
-    // ---------------------------------------------------------------
-    // returns the user ID of the user
+    /**
+     * @return the user ID of the user
+     */
     public String getUserId() {
         return userId;
     }
 
-    // ---------------------------------------------------------------
-    // returns the user type of the user
+    /**
+     * @return the user type of the user
+     */
     public String getUserType() {
         return userType;
     }
 
-    // ---------------------------------------------------------------
-    // returns the list of rejected vehicles/jobs
+    /**
+     * @return the list of rejected vehicles/jobs
+     */
     public ArrayList<String> getRejectedList() {
         return rejected;
     }
 
-    // ---------------------------------------------------------------
-    // returns the list of accepted vehicles/jobs
+    /**
+     * @return the list of accepted vehicles/jobs
+     */
     public ArrayList<String> getAcceptedList() {
         return accepted;
     }
 
-    // ---------------------------------------------------------------
-    // clears the list of rejected vehicles/jobs
+    /**
+     * clears the list of rejected vehicles/jobs
+     */
     public void clearRejectedList() {
         rejected.clear();
     }
 
-    // ---------------------------------------------------------------
-    // clears the list of accepted vehicles/jobs
+    /**
+     * clears the list of accepted vehicles/jobs
+     */
     public void clearAcceptedList() {
         accepted.clear();
     }
 
-    // ---------------------------------------------------------------
-    // adds an accepted job/vehicle to the list
+    /**
+     * adds an accepted job/vehicle to the list
+     */
     public void addAccepted(String s) {
         accepted.add(s);
     }
 
-    // ---------------------------------------------------------------
-    // adds a rejected job/vehicle to the list
+    /**
+     * adds a rejected job/vehicle to the list
+     */
     public void addRejected(String s) {
         rejected.add(s);
     }

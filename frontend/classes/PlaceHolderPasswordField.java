@@ -18,8 +18,9 @@ public class PlaceHolderPasswordField extends JPasswordField {
 
     private final String placeHolder;
 
-    // ---------------------------------------------------------------
-    // constructor generates password field + placeholder text
+    /**
+     * constructor generates password field + placeholder text
+     */
     public PlaceHolderPasswordField(String text, int cols) {
         super(cols);
         placeHolder = text;
@@ -60,8 +61,9 @@ public class PlaceHolderPasswordField extends JPasswordField {
         });
     }
 
-    // ---------------------------------------------------------------
-    // draws placeholder text
+    /**
+     * Draws placeholder text
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
