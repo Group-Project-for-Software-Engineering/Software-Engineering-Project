@@ -20,7 +20,7 @@ import javax.swing.*;
 // ---------------------------------------------------------------
 public class HomePage extends JPanel implements Refreshable {
 
-    private JLabel name_of_view;
+    private JLabel nameOfView;
     private User user;
     private JPanel listPanel;
 
@@ -34,9 +34,9 @@ public class HomePage extends JPanel implements Refreshable {
         setLayout(new BorderLayout());
         add(new NavBar(cards, user, registry), BorderLayout.NORTH);
 
-        name_of_view = new JLabel("", SwingConstants.CENTER);
-        name_of_view.setFont(new Font("Arial", Font.BOLD, 24));
-        name_of_view.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameOfView = new JLabel("", SwingConstants.CENTER);
+        nameOfView.setFont(new Font("Arial", Font.BOLD, 24));
+        nameOfView.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel viewPanel = new JPanel();
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
@@ -47,7 +47,7 @@ public class HomePage extends JPanel implements Refreshable {
         // Make it scrollable
         JScrollPane scroll = new JScrollPane(listPanel);
 
-        viewPanel.add(name_of_view);
+        viewPanel.add(nameOfView);
         viewPanel.add(scroll);
 
         add(viewPanel, BorderLayout.CENTER);
@@ -82,7 +82,7 @@ public class HomePage extends JPanel implements Refreshable {
             user.clearAcceptedList();
             user.clearRejectedList();
 
-            name_of_view.setText("Owner view: Your vehicles");
+            nameOfView.setText("Owner view: Your vehicles");
             ArrayList<Vehicle> userVehicles = ((Owner) user).getVehicles();
             for (Vehicle v : userVehicles) {
                 listPanel.add(vehicleCard(v));
@@ -111,7 +111,7 @@ public class HomePage extends JPanel implements Refreshable {
             user.clearAcceptedList();
             user.clearRejectedList();
 
-            name_of_view.setText("Client View: Your jobs");
+            nameOfView.setText("Client View: Your jobs");
             ArrayList<Job> userJobs = ((Client) user).getClientJobs();
             for (Job j : userJobs) {
                 listPanel.add(jobCard(j));

@@ -25,7 +25,7 @@ public class AdminAssignJob extends JPanel implements Refreshable {
     private User user;
     private UserManager users;
     private JPanel listPanel;
-    private JLabel name_of_view;
+    private JLabel nameOfView;
 
     public AdminAssignJob(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
         // user = person logged in
@@ -36,9 +36,9 @@ public class AdminAssignJob extends JPanel implements Refreshable {
         setLayout(new BorderLayout());
         add(new NavBar(cards, user, registry), BorderLayout.NORTH); //create navbar
 
-        name_of_view = new JLabel("", SwingConstants.CENTER);
-        name_of_view.setFont(new Font("Arial", Font.BOLD, 24));
-        name_of_view.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameOfView = new JLabel("", SwingConstants.CENTER);
+        nameOfView.setFont(new Font("Arial", Font.BOLD, 24));
+        nameOfView.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel viewPanel = new JPanel();
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
@@ -51,7 +51,7 @@ public class AdminAssignJob extends JPanel implements Refreshable {
         JScrollPane scroll = new JScrollPane(listPanel);
         scroll.setBorder(BorderFactory.createEmptyBorder());
 
-        viewPanel.add(name_of_view);
+        viewPanel.add(nameOfView);
         viewPanel.add(scroll);
 
         add(viewPanel, BorderLayout.CENTER);
@@ -64,7 +64,7 @@ public class AdminAssignJob extends JPanel implements Refreshable {
     public void refresh() {
         listPanel.removeAll();
         // clear old content 
-        name_of_view.setText("Assign Jobs to Vehicles");
+        nameOfView.setText("Assign Jobs to Vehicles");
 
         for (User u : users.getAllUsers().values()) {
             //listPanel.add(createUserCard(u));

@@ -6,7 +6,6 @@
  * make, model, and license plate. The class validates that all required vehicle information is provided during object creation.
  */
 package classes;
-//Focus on the backend and make necessary classes to store information for the user and their vehicles (Sebastian)
 
 import java.time.Duration;
 import java.time.LocalDateTime;

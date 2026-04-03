@@ -26,7 +26,7 @@ public class AdminHome extends JPanel implements Refreshable {
     private User user;
     private UserManager users;
     private JPanel listPanel;
-    private JLabel name_of_view;
+    private JLabel nameOfView;
     private JButton calculateCompletionTimesBtn;
 
     public AdminHome(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
@@ -38,14 +38,14 @@ public class AdminHome extends JPanel implements Refreshable {
         setLayout(new BorderLayout());
         add(new NavBar(cards, user, registry), BorderLayout.NORTH); //create navbar
         
-        name_of_view = new JLabel("", SwingConstants.CENTER);
+        nameOfView = new JLabel("", SwingConstants.CENTER);
 
         calculateCompletionTimesBtn = new JButton("Calculate Completion Times");
         calculateCompletionTimesBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         calculateCompletionTimesBtn.addActionListener(e -> showCompletionTimes());
 
-        name_of_view.setFont(new Font("Arial", Font.BOLD, 24));
-        name_of_view.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameOfView.setFont(new Font("Arial", Font.BOLD, 24));
+        nameOfView.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel viewPanel = new JPanel();
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
@@ -58,7 +58,7 @@ public class AdminHome extends JPanel implements Refreshable {
         JScrollPane scroll = new JScrollPane(listPanel); 
         scroll.setBorder(BorderFactory.createEmptyBorder());
         
-        viewPanel.add(name_of_view);
+        viewPanel.add(nameOfView);
         viewPanel.add(calculateCompletionTimesBtn);
         viewPanel.add(scroll);
 
@@ -72,7 +72,7 @@ public class AdminHome extends JPanel implements Refreshable {
     public void refresh() { 
         listPanel.removeAll(); 
         // clear old content 
-        name_of_view.setText("Admin view: All Users");
+        nameOfView.setText("Admin view: All Users");
         
         for (User u : users.getAllUsers().values()) { 
             listPanel.add(createUserCard(u));
