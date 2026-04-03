@@ -123,10 +123,10 @@ public class UserManager {
     }
     //------------------------------
 
-    /** 
+    /**
      * Read all user informaton from users.txt <br>
      * Put all their information in the hashmap. Keeps registrations after application closed <br>
-     * 
+     *
      * users.txt structure: username|password|userId|email|userType
      */
     private void loadUsersFromFile() {
