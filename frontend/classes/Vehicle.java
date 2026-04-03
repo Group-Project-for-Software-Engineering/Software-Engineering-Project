@@ -169,7 +169,7 @@ public class Vehicle {
         return "Make:" + this.getMake() + " ||Model: " + this.getModel() + " || VIN: " + this.getNumber()
                 + " || License Plate: " + this.getLicensePlate() + " || Year: " + this.getYear() + " || Approximate parked time: " + this.approxTime()
                 + " || Owner Vehicle Id: " + this.getVehicleOwnerId()
-                + " || Day Registered " + this.getDayRegistered() + "|| User Id: " + this.getOwnerId();
+                + " || Day Registered: " + this.getDayRegistered() + "|| User Id: " + this.getOwnerId();
     }
 
 }

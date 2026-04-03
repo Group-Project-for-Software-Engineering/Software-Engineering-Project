@@ -62,54 +62,59 @@ public class HomePage extends JPanel implements Refreshable {
         listPanel.removeAll();
 
         if (user.getUserType().equals("Owner")) {
+            SwingUtilities.invokeLater(() -> {
+                ArrayList<String> rejected = user.getRejectedList();
+                ArrayList<String> accepted = user.getAcceptedList();
 
-            ArrayList<String> rejected = user.getRejectedList();
-            ArrayList<String> accepted = user.getAcceptedList();
-            for (String s : rejected) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "One of your pending vehicles has been rejected. Vehicle: " + s,
-                        "Vehicle Rejection",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            for (String s : accepted) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "One of your pending vehicles has been accepeted. Vehicle: " + s,
-                        "Vehicle Acception",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            user.clearAcceptedList();
-            user.clearRejectedList();
-
+                for (String s : rejected) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "One of your pending vehicles has been rejected. Vehicle: " + "<html>" + s.replace("||", "<br>") + "</html>",
+                            "Vehicle Rejection",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                for (String s : accepted) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "One of your pending vehicles has been accepeted. Vehicle: " + "<html>" + s.replace("||", "<br>") + "</html>",
+                            "Vehicle Acception",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                user.clearAcceptedList();
+                user.clearRejectedList();
+            });
             nameOfView.setText("Owner view: Your vehicles");
             ArrayList<Vehicle> userVehicles = ((Owner) user).getVehicles();
             for (Vehicle v : userVehicles) {
                 listPanel.add(vehicleCard(v));
                 listPanel.add(Box.createVerticalStrut(10)); // This separates the boxes
             }
+        }
 
-        } else {
-            ArrayList<String> rejected = user.getRejectedList();
-            ArrayList<String> accepted = user.getAcceptedList();
-            for (String s : rejected) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "One of your pending jobs has been rejected. Job: " + s,
-                        "Job Rejection",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
+        else {
+            SwingUtilities.invokeLater(() -> {
+                ArrayList<String> rejected = user.getRejectedList();
+                ArrayList<String> accepted = user.getAcceptedList();
+                for (String s : rejected) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "One of your pending jobs has been rejected. Job: " + "<html>" + s.replace("||", "<br>") + "</html>",
+                            "Job Rejection",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
 
-            for (String s : accepted) {
-                JOptionPane.showMessageDialog(
-                        null,
-                        "One of your pending jobs has been accepted. Job: " + s,
-                        "Job Acception",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
+                for (String s : accepted) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "One of your pending jobs has been accepted. Job: " +  "<html>" + s.replace("||", "<br>") + "</html>",
+                            "Job Acception",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
 
-            user.clearAcceptedList();
-            user.clearRejectedList();
+                user.clearAcceptedList();
+                user.clearRejectedList();
+
+            });
 
             nameOfView.setText("Client View: Your jobs");
             ArrayList<Job> userJobs = ((Client) user).getClientJobs();
