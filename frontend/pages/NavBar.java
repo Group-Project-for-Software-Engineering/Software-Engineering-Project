@@ -122,32 +122,31 @@ public class NavBar extends JPanel {
         add(welcomeLabel);
         add(Box.createHorizontalGlue());
         add(homeBtn);
-        add(Box.createHorizontalStrut(40));
+        add(Box.createHorizontalStrut(15));
 
         // TODO: SCHEDULE BUTTON IS COMMENTED OUT FOR NOW, AS SCHEDULE PAGE IS NOT IMPLEMENTED. UNCOMMENT WHEN SCHEDULE PAGE IS READY
         //add(scheduleBtn);
-        add(Box.createHorizontalStrut(10));
+        //add(Box.createHorizontalStrut(15));
 
         if (user.getUserType().equals("Admin")) {
             add(pendingBtn);
-            add(Box.createHorizontalStrut(10));
+            add(Box.createHorizontalStrut(15));
         }
 
         if (user.getUserType().equals("Owner")) {
             add(offerVehicleBtn);
-            add(Box.createHorizontalStrut(10));
+            add(Box.createHorizontalStrut(15));
         }
 
         if (user.getUserType().equals("Client")) {
             add(submitJobBtn);
-            add(Box.createHorizontalStrut(10));
+            add(Box.createHorizontalStrut(15));
         }
 
         // TODO: COMMENTED FOR NOW, AS SETTINGS PAGE IS NOT IMPLEMENTED. UNCOMMENT WHEN SETTINGS PAGE IS READY
         // add(settingsBtn);
-        add(Box.createHorizontalStrut(10));
         add(logoutBtn);
-        add(Box.createHorizontalStrut(30));
+        add(Box.createHorizontalStrut(20));
     }
     //-----------------------------
 
