@@ -67,34 +67,29 @@ public class UserManager {
     public boolean register(String username, String password, String email, String userType) {
         User newUser;
         String normalizedUsername = normalizeUsername(username);
-       
-        if(users.containsKey(normalizedUsername)) {
+
+        if (users.containsKey(normalizedUsername)) {
             return false;
         }
 
-        if(userType.equals("Owner")) {
+        if (userType.equals("Owner")) {
             newUser = new Owner(username, password, email);
             addUserToFile(username, password, newUser.getUserId(), email, userType);
-        }
-        else if(userType.equals("Admin")) {
+        } else if (userType.equals("Admin")) {
             newUser = new Admin(username, password, email);
             addUserToFile(username, password, newUser.getUserId(), email, userType);
-        }
-        else {
+        } else {
             newUser = new Client(username, password, email);
             addUserToFile(username, password, newUser.getUserId(), email, userType);
         }
 
-
-
         // Create and store the user once
         //User newUser = new User (username, password, "", userType);
-        
         users.put(normalizedUsername, newUser);
         // Save to file once
 
         return true;
-    }   
+    }
 
     // Validates credentials against the in-memory store. 
     //------------------------------
@@ -129,13 +124,11 @@ public class UserManager {
     //------------------------------
 
     /** 
-     * Read all user informaton from users.txt
-     * Put all their information in the hashmap. Keeps registrations after application closed
+     * Read all user informaton from users.txt <br>
+     * Put all their information in the hashmap. Keeps registrations after application closed <br>
+     * 
+     * users.txt structure: username|password|userId|email|userType
      */
-
-    /* 
-    users.txt structure: username|password|userId|email|userType
-    */
     private void loadUsersFromFile() {
         if (!Files.exists(USERS_FILE_PATH)) {
             return;
@@ -180,15 +173,12 @@ public class UserManager {
 
 
     /** 
+     * Put their information into the txt file <br>
+     * users.txt structure: username|password|userId|email|userType
      * @param username: from the user when they register
      * @param password: from the user when they register
      * @param email: from the user when they register
-     * Put their information into the txt file
      */
-    /* 
-    users.txt structure: username|password|userId|email|userType
-    */
-
     private void addUserToFile(String username, String password, String userId, String email, String userType) {
         try {
             Path parent = USERS_FILE_PATH.getParent();
@@ -210,13 +200,11 @@ public class UserManager {
     }
     //------------------------------
 
-    /** 
-     * Read all user informaton from vehicles.txt
-     * Put all their information in the ArrayList. Keeps registrations after application closed
+    /**
+     * Read all user informaton from vehicles.txt <br>
+     * Put all their information in the ArrayList. Keeps registrations after application closed <br>
+     * vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId|timestamp
      */
-    /* 
-     vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId|timestamp
-    */
     public void loadVehiclesFromFile() {
         if (!Files.exists(VEHICLES_FILE_PATH)) {
             return;
@@ -259,10 +247,12 @@ public class UserManager {
         }
     }
 
-    /* 
-     vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId|timestamp
-    */
-   //Add vehicle information to vehicle file
+    /**
+     * Add vehicle information to vehicle file <br>
+     * vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId|timestamp
+     *
+     * @param v the vehicle to be added to the file
+     */
     public static void updateVehiclesFile(Vehicle v) {
         if (!Files.exists(VEHICLES_FILE_PATH)) {
             return;
@@ -287,10 +277,12 @@ public class UserManager {
         }
     }
 
-    /* 
-    jobs.txt format: userId|description|hrs|deadline|jobId|userJobId|timestamp
-    */
-   //add a job to the job file
+    /**
+     * adds a job to the job file <br>
+     * jobs.txt format: userId|description|hrs|deadline|jobId|userJobId|timestamp
+     *
+     * @param j the job to be added to the file
+     */
     public static void updateJobFile(Job j) {
         if (!Files.exists(JOBS_FILE_PATH)) {
             return;
@@ -314,14 +306,11 @@ public class UserManager {
         }
     }
 
-
-    /** 
-     * Read all user informaton from jobs.txt
-     * Put all their information in the ArrayList. Keeps registrations after application closed
+    /**
+     * Read all user informaton from jobs.txt <br>
+     * Put all their information in the ArrayList. Keeps registrations after application closed <br>
+     * jobs.txt format: userId|description|hrs|deadline|jobId|userJobId|timestamp
      */
-     /* 
-    jobs.txt format: userId|description|hrs|deadline|jobId|userJobId|timestamp
-    */
     public void loadJobsFromFile() {
         if (!Files.exists(JOBS_FILE_PATH)) {
             return;
@@ -335,7 +324,7 @@ public class UserManager {
                 }
                 // Split using "|" as the delimiter
                 String[] parts = trimmed.split("\\|");
-              
+
                 //will have to change if more fields are added to the jobs class
                 String userId = parts[0].trim();
                 String jobDescription = parts[1].trim();
@@ -344,12 +333,12 @@ public class UserManager {
                 String id = parts[4].trim();
 
                 String jobClientId = parts[5].trim();
-                
+
                 // Add the job to the corresponding client
                 for (User user : users.values()) {
                     if (user instanceof Client && user.getUserId().equals(userId)) {
-                        Job job = new Job(jobDescription, approximateJobDuration, LocalDateTime.parse(jobDeadline), 
-                        id, user.getUserId(), jobClientId);
+                        Job job = new Job(jobDescription, approximateJobDuration, LocalDateTime.parse(jobDeadline),
+                                id, user.getUserId(), jobClientId);
                         job.setStatusPending();
                         Admin.addJob(job);
                         ((Client) user).addJob(job);

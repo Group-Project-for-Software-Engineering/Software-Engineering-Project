@@ -5,7 +5,6 @@
  * The Owner class represents a vehicle provider in the VCRTS system. It extends the User class and stores information specific to vehicle
  * owners, including their registered vehicles and approximate residency time. Owners can add vehicles to the system and manage their availability.
  */
-
 package classes;
 
 // ---------------------------------------------------------------
@@ -15,8 +14,8 @@ import java.util.ArrayList;
 // ---------------------------------------------------------------
 //The Owner class extends User to add additional fields for car owners, such as a list of their vehicles and their approximate residency time. 
 // It also includes methods to add vehicles and retrieve the owner's information.
-
 public class Owner extends User {
+
     private ArrayList<Vehicle> ownerVehicles = new ArrayList<>();
     // private String ownerId; 
     // private static int increment = 0;
@@ -44,8 +43,7 @@ public class Owner extends User {
     public String getOwnerId() {
         return ownerId; 
     }
-        */
-
+     */
     // ---------------------------------------------------------------
     // adds a vehicle to the owner's list of vehicles
     public void addVehicle(Vehicle vehicle) {
@@ -59,5 +57,4 @@ public class Owner extends User {
     }
 
     // ---------------------------------------------------------------
-
 }

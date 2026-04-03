@@ -12,6 +12,7 @@ import java.util.ArrayList;
 // ---------------------------------------------------------------
 //this class represents a user of the system, with a username and password. It is used by UserManager to store user data in memory and persist it to a file. The Owner class extends User to add additional fields for car owners.
 public class User {
+
     private static int increment = 1000;
     private String userId;
     private String username;
@@ -76,26 +77,38 @@ public class User {
         return userType;
     }
 
+    // ---------------------------------------------------------------
+    // returns the list of rejected vehicles/jobs
     public ArrayList<String> getRejectedList() {
         return rejected;
     }
 
+    // ---------------------------------------------------------------
+    // returns the list of accepted vehicles/jobs
     public ArrayList<String> getAcceptedList() {
         return accepted;
     }
 
+    // ---------------------------------------------------------------
+    // clears the list of rejected vehicles/jobs
     public void clearRejectedList() {
         rejected.clear();
     }
 
+    // ---------------------------------------------------------------
+    // clears the list of accepted vehicles/jobs
     public void clearAcceptedList() {
         accepted.clear();
     }
 
+    // ---------------------------------------------------------------
+    // adds an accepted job/vehicle to the list
     public void addAccepted(String s) {
         accepted.add(s);
     }
 
+    // ---------------------------------------------------------------
+    // adds a rejected job/vehicle to the list
     public void addRejected(String s) {
         rejected.add(s);
     }

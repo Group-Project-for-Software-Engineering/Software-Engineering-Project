@@ -14,15 +14,16 @@ import java.time.format.DateTimeFormatter;
 
 // ---------------------------------------------------------------
 // vehicle class
-//The system shall receive and verify the vehicle's number, license plate, make, and model.
+// The system shall receive and verify the vehicle's number, license plate, make, and model.
 public class Vehicle {
+
     private final String VIN_NUMBER;
     private String make;
     private String model;
     private String licensePlate;
 
     private String vehicleOwnerId;
-    
+
     private String year;
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -55,10 +56,9 @@ public class Vehicle {
         this.approxResidencyTime = approxHrs;
         dayRegistered = arrive.substring(0, 10);
 
-
         // make sure vehicle has all the necessary information
-        if (VIN_NUMBER.equals("") || make == null || model == null || licensePlate == null 
-        || year == null || approxResidencyTime == 0) {
+        if (VIN_NUMBER.equals("") || make == null || model == null || licensePlate == null
+                || year == null || approxResidencyTime == 0) {
             throw new IllegalArgumentException("Vehicle information is incomplete");
         }
     }
@@ -157,9 +157,9 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "Vehicle make" + this.getMake() + " ||\n Model: " + this.getModel() + " || VIN: " + this.getNumber() 
+        return "Vehicle make" + this.getMake() + " ||\n Model: " + this.getModel() + " || VIN: " + this.getNumber()
                 + " || License Plate: " + this.getLicensePlate() + " || Year: " + this.getYear() + " || Approximate parked time: " + this.approxTime()
-                + " || Owner Vehicle Id: " + this.getVehicleOwnerId() 
+                + " || Owner Vehicle Id: " + this.getVehicleOwnerId()
                 + " || Day Registered " + this.getDayRegistered() + "|| User Id: " + this.getVehicleOwnerId();
     }
 

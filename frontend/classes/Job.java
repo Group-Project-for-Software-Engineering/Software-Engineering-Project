@@ -5,7 +5,6 @@
  * The Job class represents a Job submitted into the VCRTS system. It stores job information including job ID,
  * estimated job duration, and job deadline. The class validates that all required job information is provided during object creation.
  */
-
 package classes;
 
 // ---------------------------------------------------------------
@@ -13,9 +12,10 @@ package classes;
 import java.time.LocalDateTime;
 // ---------------------------------------------------------------
 // job class
-//The system shall receive and verify the vehicle's jobId, approximateJobDuration, and jobDeadline.
+// The system shall receive and verify the vehicle's jobId, approximateJobDuration, and jobDeadline.
 
 public class Job {
+
     private String JOB_ID;
     private static int increment = 0;
     private String description;
@@ -35,7 +35,7 @@ public class Job {
         this.approximateJobDuration = approximateJobDuration;
         this.jobDeadline = jobDeadline;
         this.description = description;
-        
+
         this.userId = userId;
         this.jobClientId = jobClientId;
 
@@ -45,7 +45,7 @@ public class Job {
         }
     }
 
-    public Job(String description, String hrs,LocalDateTime jobDeadline, String id, String userId, String jobClientId) {
+    public Job(String description, String hrs, LocalDateTime jobDeadline, String id, String userId, String jobClientId) {
         increment = Math.max(Integer.parseInt(id), increment);
         this.JOB_ID = id;
         this.approximateJobDuration = Double.parseDouble(hrs);
@@ -61,7 +61,7 @@ public class Job {
     }
 
     // implementing the getters and setters in order to access the private variables
-
+    
     // ---------------------------------------------------------------
     // This method returns the job ID for a specific job.
     public String getJobId() {

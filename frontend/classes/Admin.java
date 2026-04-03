@@ -17,14 +17,14 @@ public class Admin extends User {
     private static ArrayList<Vehicle> availableVehicles = new ArrayList<>();
     private static ArrayList<Job> jobs = new ArrayList<>();
     //the jobs being stored are ones that have been approved by the controller with the pending form.
-    
+
     //--------------------------------------------
     // constructor for admin class => uses constructor of User class
     // sets username and password
     public Admin(String username, String password) {
         this(username, password, "");
     }
-    
+
     //--------------------------------------------
     // overloaded constructor 
     // email is not a required field for admin
@@ -32,23 +32,26 @@ public class Admin extends User {
         super(username, password, email, "Admin");
         // increment++;
         // adminId = Integer.toString(increment);
-        
+
     }
 
+    //--------------------------------------------
+    // overloaded constructor 
+    // tracks userId field for admin
     public Admin(String username, String password, String email, String userId) {
         super(username, password, userId, email, "Admin");
     }
 
     //--------------------------------------------
     // returns the list of vehicles that can be assigned jobs
-    public ArrayList<Vehicle> getAvailableVehicles() { 
+    public ArrayList<Vehicle> getAvailableVehicles() {
         return availableVehicles;
     }
 
     //--------------------------------------------
-    //adds to the list of current usable vehicles
-    public static void addVehicle(Vehicle v) { 
-        if(!availableVehicles.contains(v)) {
+    // adds to the list of current usable vehicles
+    public static void addVehicle(Vehicle v) {
+        if (!availableVehicles.contains(v)) {
             availableVehicles.add(v);
         }
         System.out.println(availableVehicles);
@@ -83,7 +86,7 @@ public class Admin extends User {
         double totalTime = 0;
 
         // iterates through all jobs 
-        for(Job j : jobs) {
+        for (Job j : jobs) {
             // adds the current job's duration to the total time
             totalTime += j.getApproximateJobDuration();
             // stores the total time for a specific job
@@ -94,42 +97,33 @@ public class Admin extends User {
     }
     //--------------------
 
-
 }
 
-
-
-
-
-
-
 // *** NOT CURRENTLY USED - WILL POTENTIALLY BE UTILIZED IN THE FUTURE ***
+//------------------------------
 
-    //------------------------------
-
-    /*public static Map<User, ArrayList<Vehicle>> getPendingVehicles() {
+/*public static Map<User, ArrayList<Vehicle>> getPendingVehicles() {
         return pendingVehicles;
     } */
-    //------------------------
+//------------------------
 
-    /*public static Map<User, ArrayList<Job>> getPendingJobs() {
+/*public static Map<User, ArrayList<Job>> getPendingJobs() {
         return pendingJobs;
     }*/
-    //-----------------------
+//-----------------------
 
-    /*
+/*
     public String getAdminId() {
         return adminId;
     }
-        */
-    //--------------------------
-    
-    /* 
+ */
+//--------------------------
+/* 
     This method adds pending vehicles to the hashmap
     If it's the first time we are seeing the request, it also adds it to the pending requests file
-    */
+ */
 
-    /*public static void addPendingVehicle(User u, Vehicle v, boolean addToPendingFile) {
+ /*public static void addPendingVehicle(User u, Vehicle v, boolean addToPendingFile) {
         if(pendingVehicles.containsKey(u)) {
             pendingVehicles.get(u).add(v);
         }
@@ -144,15 +138,14 @@ public class Admin extends User {
         
 
     } */
-    //------------------------------
-    
-    /* 
+//------------------------------
+/* 
     If admin allows vehicle than add it to that user
     Update the vehicle file 
     And move the request from pending to completed  
-    */
+ */
 
-    /* 
+ /* 
     public static void allowVehicle(User u, Vehicle v) { 
         for(int i = 0; i < pendingVehicles.get(u).size(); i++) {
             if(pendingVehicles.get(u).get(i).getNumber().equals(v.getNumber())) {
@@ -172,14 +165,14 @@ public class Admin extends User {
         }
         
     }
-    */
-    //-----------------------
+ */
+//-----------------------
 
-    /* 
+/* 
     If admin rejects a vehicle than remove it from pending list
     And move the request from pending to completed and set status to rejected 
-    */
-    /*public static void rejectVehicle(User u, Vehicle v) { 
+ */
+ /*public static void rejectVehicle(User u, Vehicle v) { 
         for(int i = 0; i < pendingVehicles.get(u).size(); i++) {
             if(pendingVehicles.get(u).get(i).getNumber().equals(v.getNumber())) {
                 pendingVehicles.get(u).remove(i);
@@ -196,13 +189,13 @@ public class Admin extends User {
         }
         
     } */
-    //----------------------------------
+//----------------------------------
 
-    /* 
+/* 
     This method adds pending jobs to the hashmap
     If it's the first time we are seeing the request, it also adds it to the pending requests file
-    */
-    /* public static void addPendingJob(User u, Job j, boolean addToPendingFile) {
+ */
+ /* public static void addPendingJob(User u, Job j, boolean addToPendingFile) {
         if(pendingJobs.containsKey(u)) {
             pendingJobs.get(u).add(j);
         }
@@ -218,15 +211,15 @@ public class Admin extends User {
         
 
     } */
-    //----------------------------------
+//----------------------------------
 
-    /* 
+/* 
     If admin allows a job than add it to that user
     Update the job file 
     And move the request from pending to completed  
-    */
+ */
 
-    /*
+ /*
     public static void allowJob(User u, Job j) { 
         for(int i = 0; i < pendingJobs.get(u).size(); i++) {
             if (pendingJobs.get(u).get(i).getJobId().equals(j.getJobId())) {
@@ -248,14 +241,14 @@ public class Admin extends User {
         }
         
     }
-    */
-    //--------------------------------------
+ */
+//--------------------------------------
 
-    /* 
+/* 
     If admin rejects a job than remove it from pending list
     And move the request from pending to completed and set status to rejected 
-    */
-    /*public static void rejectJob(User u, Job j) { 
+ */
+ /*public static void rejectJob(User u, Job j) { 
         for(int i = 0; i < pendingJobs.get(u).size(); i++) {
             if (pendingJobs.get(u).get(i).getJobId().equals(j.getJobId())) {
                 pendingJobs.get(u).remove(i);
@@ -271,4 +264,3 @@ public class Admin extends User {
         }
         
     } */
-

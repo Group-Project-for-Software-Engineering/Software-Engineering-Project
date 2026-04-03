@@ -6,15 +6,16 @@
  */
 package classes;
 
-import javax.swing.*;
 import java.awt.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 // ---------------------------------------------------------------
 public class PlaceHolderTextField extends JTextField {
+
     private String placeHolder;
 
     // ---------------------------------------------------------------

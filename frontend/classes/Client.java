@@ -5,7 +5,6 @@
  * The Client class represents a consumer in the VCRTS system who submits computational jobs. It stores the client's ID, approximate job duration,
  * and job deadline, and extends the User class to inherit authentication properties such as username and password.
  */
-
 package classes;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.ArrayList;
 // ---------------------------------------------------------------
 // utilizes the User class to set client username and password
 public class Client extends User {
+
     private ArrayList<Job> clientJobs = new ArrayList<>();
     // private String clientId; 
     // private static int increment = 0;
@@ -40,8 +40,7 @@ public class Client extends User {
     public String getClientId() {
         return clientId;
     }
-        */
-
+     */
     // ---------------------------------------------------------------
     // adds a job to the client's list of jobs
     public void addJob(Job job) {
