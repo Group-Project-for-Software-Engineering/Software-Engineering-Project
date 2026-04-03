@@ -166,10 +166,10 @@ public class Vehicle {
 
     @Override
     public String toString() {
-        return "Vehicle make" + this.getMake() + " ||\n Model: " + this.getModel() + " || VIN: " + this.getNumber()
+        return "Make" + this.getMake() + " ||Model: " + this.getModel() + " || VIN: " + this.getNumber()
                 + " || License Plate: " + this.getLicensePlate() + " || Year: " + this.getYear() + " || Approximate parked time: " + this.approxTime()
                 + " || Owner Vehicle Id: " + this.getVehicleOwnerId()
-                + " || Day Registered " + this.getDayRegistered() + "|| User Id: " + this.getVehicleOwnerId();
+                + " || Day Registered " + this.getDayRegistered() + "|| User Id: " + this.getOwnerId();
     }
 
 }
