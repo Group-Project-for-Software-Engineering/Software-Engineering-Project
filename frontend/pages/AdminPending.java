@@ -39,20 +39,19 @@ public class AdminPending extends JPanel implements Refreshable {
         // add(scroll, BorderLayout.CENTER);
 
         // Load all requests already moved into adminVisible
-        synchronized (VCServer.adminVisible) {
-            if (!VCServer.adminVisible.isEmpty()) {
-                for (Request r : VCServer.adminVisible) {
-                    JOptionPane.showMessageDialog(
+        SwingUtilities.invokeLater(() -> {
+            synchronized (VCServer.adminVisible) {
+                if (!VCServer.adminVisible.isEmpty()) {
+                    for(Request r: VCServer.adminVisible) {
+                         JOptionPane.showMessageDialog(
                             this,
-                            "You have pending job requests.",
-                            "Pending Jobs",
+                            "You have pending requests.",
+                            "Pending request",
                             JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }
-            for (Request req : VCServer.adminVisible) {
-                listPanel.add(createPendingCard(req));
-            }
-        }
+        });
 
         viewPanel.add(title);
         viewPanel.add(scroll);
@@ -87,7 +86,8 @@ public class AdminPending extends JPanel implements Refreshable {
         card.setOpaque(true);
         // card.setMaximumSize(new Dimension(600, 200));
 
-        String formatted = "<html>" + req.request.replace("||", "<br>") + "</html>"; //changing the format of the .toString()
+        String formatted = "<html>" + req.request.replace("||", "<br>") + "</html>"; // changing the format of the
+                                                                                     // .toString()
         JLabel label = new JLabel(formatted);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
         card.add(Box.createVerticalStrut(4));

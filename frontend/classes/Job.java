@@ -142,7 +142,7 @@ public class Job {
     @Override
     public String toString() {
         return "Job Id: " + this.getJobId() + " || Job Client Id: " + this.getJobClientId() + " || Job duration: " + this.getApproximateJobDuration()
-                + " || Deadline: " + this.getJobDeadline() + " || Description: " + this.getJobDescription() + "|| User Id: " + this.getClientId();
+                + " || Deadline: " + this.getJobDeadline() + " || Description: " + this.getJobDescription() + "|| User Id: " + this.getJobClientId();
     }
 
 }
