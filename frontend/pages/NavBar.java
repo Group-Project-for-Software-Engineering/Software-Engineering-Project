@@ -120,7 +120,7 @@ public class NavBar extends JPanel {
         add(title);
         add(Box.createHorizontalGlue());
         add(welcomeLabel);
-        add(Box.createHorizontalGlue());
+        add(Box.createHorizontalStrut(150));
         add(homeBtn);
         add(Box.createHorizontalStrut(15));
 
