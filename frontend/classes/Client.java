@@ -17,9 +17,10 @@ public class Client extends User {
     // private String clientId; 
     // private static int increment = 0;
 
-    // ---------------------------------------------------------------
-    // constructor for the client class; utilizes the constructor of the User class
-    // to set the username and password, and also sets the clientId.
+    /**
+     * constructor for the client class; utilizes the constructor of the User class
+     * to set the username and password
+     */
     public Client(String username, String password) {
         this(username, password, "");
     }
@@ -41,14 +42,16 @@ public class Client extends User {
         return clientId;
     }
      */
-    // ---------------------------------------------------------------
-    // adds a job to the client's list of jobs
+    /**
+     * Adds a job to the client's list of jobs.
+     */
     public void addJob(Job job) {
         clientJobs.add(job);
     }
 
-    // ---------------------------------------------------------------
-    // returns => client's list of jobs
+    /**
+     * @return client's list of jobs
+     */
     public ArrayList<Job> getClientJobs() {
         return clientJobs;
     }

@@ -3,11 +3,9 @@
 * Authors: Group 2 (Justin Cracchiolo, Lauren Rodriguez, David Choi, Tristan Huertas, Ivan Lin, Anthony Vallejo, Sebastian Villavicencio)
 * Date: February 2026
 * This program controls the home page of the VCRTS system.
-*/
-
+ */
 package pages;
 
-import classes.Admin;
 import classes.Client;
 import classes.Job;
 import classes.Owner;
@@ -15,7 +13,6 @@ import classes.User;
 import classes.UserManager;
 import classes.Vehicle;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
@@ -63,7 +60,7 @@ public class HomePage extends JPanel implements Refreshable {
     @Override
     public void refresh() {
         listPanel.removeAll();
-        
+
         if (user.getUserType().equals("Owner")) {
 
             ArrayList<String> rejected = user.getRejectedList();
@@ -113,7 +110,7 @@ public class HomePage extends JPanel implements Refreshable {
 
             user.clearAcceptedList();
             user.clearRejectedList();
-            
+
             name_of_view.setText("Client View: Your jobs");
             ArrayList<Job> userJobs = ((Client) user).getClientJobs();
             for (Job j : userJobs) {
@@ -121,7 +118,7 @@ public class HomePage extends JPanel implements Refreshable {
                 listPanel.add(Box.createVerticalStrut(10)); // This separates the boxes
             }
         }
-        
+
         listPanel.revalidate();
         listPanel.repaint();
     }
@@ -186,7 +183,6 @@ public class HomePage extends JPanel implements Refreshable {
          * vehicleCard.add(isParkedBtn);
          * 
          */
-
         vehicleCard.setBorder(BorderFactory.createLineBorder(Color.black, 3));
 
         vehicleCard.setBackground(new Color(153, 204, 255));
@@ -197,7 +193,6 @@ public class HomePage extends JPanel implements Refreshable {
     // -------------------------------
 
     // if user is a client show all their jobs
-
     private JPanel jobCard(Job j) {
         JPanel jobCard = new JPanel();
         jobCard.setLayout(new BoxLayout(jobCard, BoxLayout.Y_AXIS));

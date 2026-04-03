@@ -4,17 +4,13 @@
 * Date: February 2026
 * This program builds and controls the main Swing GUI for VCRTS, including login, registration, and home navigation using CardLayout. 
 * It connects to UserManager to support user registration and login.
-*/
-
+ */
 package pages;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Map;
-
 import classes.User;
-import classes.Vehicle;
+import java.awt.*;
+import java.util.Map;
+import javax.swing.*;
 
 // ---------------------------------------------------------------
 // controls schedule page

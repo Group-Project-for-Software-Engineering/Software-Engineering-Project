@@ -4,11 +4,11 @@
 * Date: February 2026
 * This program builds / controls the Submit Job page of the VCRTS system.
 * It allows users to enter job information and submit the job for review. Submitted jobs are then added to the pending job registry for approval by an admin.
-*/
-
+ */
 package pages;
 
 import classes.Admin;
+import classes.Client;
 import classes.Job;
 import classes.PlaceHolderTextField;
 import classes.User;
@@ -22,7 +22,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
-import classes.Client;
 
 // ---------------------------------------------------------------
 // Submit Job Page
@@ -43,7 +42,6 @@ public class SubmitJobPage extends JPanel implements Refreshable {
 
     private JTextField clientIdField;
 
-    // ---------------------------------------------------------------
     // ---------------------------------------------------------------
     // constructor: sets user + user manager + registry
     public SubmitJobPage(JPanel cards, User user, Map<String, Refreshable> registry, UserManager users) {
@@ -82,34 +80,28 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         // clientId.setAlignmentX(Component.CENTER_ALIGNMENT);
         // clientId.setForeground(new Color(65, 105, 255));
         // clientId.setFont(new Font("Arial", Font.PLAIN, 36));
+        
+        // adds more graphics to regular textfield
+        clientIdField = new PlaceHolderTextField("Enter client id for this job:", 36);
 
-        clientIdField = new PlaceHolderTextField("Enter client id for this job:", 36); // adds more graphics to regular
-                                                                                       // textfield
         clientIdField.setMaximumSize(clientIdField.getPreferredSize());
         clientIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        jobDescription = new PlaceHolderTextField("Job Description                    (Enter Job Description)", 36); // adds
-                                                                                                                     // more
-                                                                                                                     // graphics
-                                                                                                                     // to
-                                                                                                                     // regular
-                                                                                                                     // textfield
+        // adds more graphics to regular textfield
+        jobDescription = new PlaceHolderTextField("Job Description                    (Enter Job Description)", 36);
+
         jobDescription.setMaximumSize(jobDescription.getPreferredSize());
         jobDescription.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        jobDuration = new PlaceHolderTextField("Approximate Job Duration   (in terms of hours)", 36); // adds more
-                                                                                                      // graphics to
-                                                                                                      // regular
-                                                                                                      // textfield
+        // adds more graphics to regular textfield
+        jobDuration = new PlaceHolderTextField("Approximate Job Duration   (in terms of hours)", 36);
+
         jobDuration.setMaximumSize(jobDuration.getPreferredSize());
         jobDuration.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        jobDeadline = new PlaceHolderTextField("Deadline                               (yyyy-mm-dd hh:mm:ss)", 36); // adds
-                                                                                                                    // more
-                                                                                                                    // graphics
-                                                                                                                    // to
-                                                                                                                    // regular
-                                                                                                                    // textfield
+        // adds more graphics to regular textfield
+        jobDeadline = new PlaceHolderTextField("Deadline                               (yyyy-mm-dd hh:mm:ss)", 36);
+
         jobDeadline.setMaximumSize(jobDeadline.getPreferredSize());
         jobDeadline.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -208,9 +200,8 @@ public class SubmitJobPage extends JPanel implements Refreshable {
                                     "Job Acceptance",
                                     JOptionPane.INFORMATION_MESSAGE);
 
-                            */
+                             */
                         } 
-                        
                         else { //don't add it to file; show message
                             user.addRejected(j.toString());
                             /*
@@ -219,10 +210,9 @@ public class SubmitJobPage extends JPanel implements Refreshable {
                                     "One of your pending jobs has been rejected. Job id: " + j.getClientId(),
                                     "Job Rejection",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            */
+                             */
                         }
-                        
-                        
+
                     });
 
                     socket.close();

@@ -3,17 +3,13 @@
 * Authors: Group 2 (Justin Cracchiolo, Lauren Rodriguez, David Choi, Tristan Huertas, Ivan Lin, Anthony Vallejo, Sebastian Villavicencio)
 * Date: February 2026
 * This program controls the settings page of the VCRTS system.
-*/
-
+ */
 package pages;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Map;
-
 import classes.User;
-import classes.Vehicle;
+import java.awt.*;
+import java.util.Map;
+import javax.swing.*;
 
 // ---------------------------------------------------------------
 // Settings Page

@@ -4,8 +4,7 @@
 * Date: February 2026
 * This program builds and controls the main Swing GUI for VCRTS, including login, registration, and home navigation using CardLayout. 
 * It connects to UserManager to support user registration and login.
-*/
-
+ */
 package pages;
 
 import classes.PlaceHolderPasswordField;
@@ -13,7 +12,6 @@ import classes.PlaceHolderTextField;
 import classes.User;
 import classes.UserManager;
 import classes.VCServer;
-
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +20,7 @@ import javax.swing.*;
 // ---------------------------------------------------------------
 // class that controls the login and registration page
 public class Login_Registration {
+
     // once a person logs in, this holds all information for that user
     public static User currentUser;
 
@@ -42,8 +41,6 @@ public class Login_Registration {
     // method that creates the GUI for the client + owners
     private static void createAndShowGUI() {
 
-        // Possible place for loadUsersFromFile
-
         // management tool for keeping track of who creates accounts.
         UserManager userManager = new UserManager();
         userManager.loadVehiclesFromFile(); // this tells the program to load the vehicles from the file for the current user
@@ -59,7 +56,6 @@ public class Login_Registration {
         JPanel cards = new JPanel(new CardLayout());
 
         // Creation of different screens
-
         JPanel aboutPage = new JPanel(new BorderLayout());
 
         JPanel loginPage = new JPanel(new BorderLayout());
@@ -85,18 +81,18 @@ public class Login_Registration {
 
         String text = "The purpose of the Vehicular Cloud Real-Time System (VCRTS) is to utilize the unused computing power of parked vehicles by pooling their computational resources and renting them out to consumers who require computing services. \n\nVehicles parked in a dedicated parking lot serve as possible computing nodes. \n\nVCRTS manages job execution, resource allocation, real-time monitoring, and reporting to ensure everything is running smoothly. \n\nThe VCRTS attempts to optimize resources by pulling computational power from unused vehicles. \n\nThis helps maximize computing power and minimize load on other systems. \n\nAn Owner registers vehicles for use and a Client can rent a vehicle and/or can submit a job.";
         JTextArea aboutInfo = new JTextArea(text);
-        aboutInfo.setLineWrap(true); 
-        aboutInfo.setWrapStyleWord(true); 
-        aboutInfo.setEditable(false); 
-        aboutInfo.setOpaque(false);      
-        aboutInfo.setBackground(new Color(0,0,0,0));
+        aboutInfo.setLineWrap(true);
+        aboutInfo.setWrapStyleWord(true);
+        aboutInfo.setEditable(false);
+        aboutInfo.setOpaque(false);
+        aboutInfo.setBackground(new Color(0, 0, 0, 0));
         aboutInfo.setBorder(null);
         aboutInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         aboutInfo.setForeground(Color.white);
         aboutInfo.setFont(new Font("Arial", Font.PLAIN, 20));
         aboutInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         aboutInfo.setMaximumSize(new Dimension(450, Integer.MAX_VALUE));
-        aboutInfo.setOpaque(false);  
+        aboutInfo.setOpaque(false);
         aboutInfo.setForeground(Color.WHITE);
         aboutPanel.add(Box.createVerticalGlue());
         aboutPanel.add(aboutTitle);
@@ -146,15 +142,14 @@ public class Login_Registration {
         startPanel.add(Box.createVerticalStrut(30));
         startPanel.add(toRegisterButton);
         startPanel.add(Box.createVerticalGlue());
-        
+
         aboutPanel.setOpaque(true);
-        
+
         aboutPage.add(aboutPanel, BorderLayout.WEST);
         aboutPage.add(startPanel, BorderLayout.CENTER);
         // -------------------------------------------
-        
-        // Login page
 
+        // Login page
         JPanel loginSidePanel = new JPanel();
         loginSidePanel.setBackground(new Color(50, 75, 155));
         loginSidePanel.setLayout(new BoxLayout(loginSidePanel, BoxLayout.Y_AXIS)); // center everything vertically
@@ -172,7 +167,7 @@ public class Login_Registration {
         loginLabel.setForeground(new Color(65, 105, 255));
         loginLabel.setFont(new Font("Arial", Font.PLAIN, 40));
 
-        JTextField usernameTextField = new PlaceHolderTextField("Username", 20); 
+        JTextField usernameTextField = new PlaceHolderTextField("Username", 20);
         usernameTextField.setMaximumSize(usernameTextField.getPreferredSize());
         usernameTextField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -265,8 +260,7 @@ public class Login_Registration {
                     cards.add(schedule, "schedule");
                     cards.add(settings, "settings");
                     cl.show(cards, "adminHome");
-                }
-                
+                } 
                 else { // Client navbar
                     CardLayout cl = (CardLayout) cards.getLayout();
 
@@ -305,7 +299,6 @@ public class Login_Registration {
         title_label.setFont(new Font("Arial", Font.PLAIN, 50));
 
         // Add all of the elements
-
         loginPanel.add(Box.createVerticalGlue());
         loginPanel.add(loginLabel);
         loginPanel.add(Box.createVerticalStrut(30)); // creates padding between elements
@@ -342,7 +335,6 @@ public class Login_Registration {
         });
 
         // --------------------------------------------
-
         // Register screen
         JPanel registerSidePanel = new JPanel();
         registerSidePanel.setBackground(new Color(50, 75, 155));
@@ -407,7 +399,7 @@ public class Login_Registration {
 
         });
 
-        String[] userTypes = { "Client", "Owner" };
+        String[] userTypes = {"Client", "Owner"};
         // Create the JComboBox (the dropdown)
         JComboBox<String> comboBox = new JComboBox<>(userTypes);
         Dimension comboBoxSize = new Dimension(140, 28);
@@ -452,9 +444,7 @@ public class Login_Registration {
             String password = new String(regPasswordField.getPassword());
             String confirmPassword = new String(regConfirmPasswordField.getPassword());
 
-            //
             String userType = (String) comboBox.getSelectedItem();
-            //
 
             if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "All fields are required.");
@@ -474,7 +464,7 @@ public class Login_Registration {
             }
 
             if (userManager.register(username, password, email, userType)) { // creates a User with username and passwords and
-                                                                      // puts them into system
+                // puts them into system
                 JOptionPane.showMessageDialog(frame, "User " + username + " created!");
                 regUsernameField.setText("");
                 regEmailField.setText("");

@@ -4,13 +4,9 @@
 * Date: February 2026
 * This program controls the offer vehicle page of the VCRTS system. This page allows
 * a user to: offer, remove, edit, and view their vehicles.
-*/
-
+ */
 package pages;
 
-import classes.Admin;
-import classes.Client;
-import classes.Job;
 import classes.Owner;
 import classes.PlaceHolderTextField;
 import classes.User;
@@ -84,35 +80,28 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         // ownerId.setAlignmentX(Component.CENTER_ALIGNMENT);
         // ownerId.setForeground(new Color(65, 105, 255));
         // ownerId.setFont(new Font("Arial", Font.PLAIN, 36));
+        
+        // adds more graphics to regular textfield
+        ownerIdField = new PlaceHolderTextField("Enter an owner id for this vehicle", 36);
 
-        ownerIdField = new PlaceHolderTextField("Enter an owner id for this vehicle", 36); // adds more graphics to
-                                                                                           // regular textfield
         ownerIdField.setMaximumSize(ownerIdField.getPreferredSize());
         ownerIdField.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        vehicleVin = new PlaceHolderTextField("Vin                               (XXXXXXXXXXXXXXXXX)", 36); // adds more
-                                                                                                            // graphics
-                                                                                                            // to
-                                                                                                            // regular
-                                                                                                            // textfield
+        // adds more graphics to regular textfield
+        vehicleVin = new PlaceHolderTextField("Vin                               (XXXXXXXXXXXXXXXXX)", 36);
+
         vehicleVin.setMaximumSize(vehicleVin.getPreferredSize());
         vehicleVin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        vehicleMake = new PlaceHolderTextField("Make                           (Letters and/or Numbers)", 36); // adds
-                                                                                                               // more
-                                                                                                               // graphics
-                                                                                                               // to
-                                                                                                               // regular
-                                                                                                               // textfield
+        // adds more graphics to regular textfield
+        vehicleMake = new PlaceHolderTextField("Make                           (Letters and/or Numbers)", 36);
+
         vehicleMake.setMaximumSize(vehicleMake.getPreferredSize());
         vehicleMake.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        vehicleModel = new PlaceHolderTextField("Model                           (Letters and/or Numbers)", 36); // adds
-                                                                                                                 // more
-                                                                                                                 // graphics
-                                                                                                                 // to
-                                                                                                                 // regular
-                                                                                                                 // textfield
+        // adds more graphics to regular textfield
+        vehicleModel = new PlaceHolderTextField("Model                           (Letters and/or Numbers)", 36);
+
         vehicleModel.setMaximumSize(vehicleModel.getPreferredSize());
         vehicleModel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -138,8 +127,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         submitBtn.setBackground(new Color(77, 163, 255));
         submitBtn.setForeground(Color.DARK_GRAY);
 
-        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between
-        // elements
+        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(Box.createVerticalGlue());
         vehicleForm.add(vehicleLabel);
         // vehicleForm.add(ownerId);
@@ -149,8 +137,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         // vehicleForm.add(createFormatLabel("Your Owner Id: " +
         // ((Owner)user).getOwnerId()));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
-        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between
-        // elements
+        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(vehicleVin);
         vehicleForm.add(createFormatLabel("Must be a 17-character alphanumeric string"));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
@@ -227,10 +214,8 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                                     "One of your pending vehicles has been accepted. Vehicle vin: " + v.getNumber(),
                                     "Vehicle Acceptance",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            */
+                             */
                         } 
-                        
-                        
                         else { // don't add it to file; show message
                             user.addRejected(v.toString());
                             /* 
@@ -239,7 +224,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                                     "One of your pending vehicles has been rejected. Vehicle vin: " + v.getNumber(),
                                     "Vehicle Rejection",
                                     JOptionPane.INFORMATION_MESSAGE);
-                            */
+                             */
                         }
                     });
 
