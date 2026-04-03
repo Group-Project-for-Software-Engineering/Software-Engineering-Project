@@ -16,6 +16,8 @@ import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -151,7 +153,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         vehicleForm.add(createFormatLabel("Letters and/or Numbers."));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(vehicleYear);
-        vehicleForm.add(createFormatLabel("Must be 4 digit number"));
+        vehicleForm.add(createFormatLabel("Must be 4 digit number "));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(vehicleArrival);
         vehicleForm.add(createFormatLabel("Format: yyyy-mm-dd hh:mm:ss"));
@@ -180,6 +182,47 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
             if (VIN_NUMBER.isEmpty() || make.isEmpty() || model.isEmpty() || licensePlate.isEmpty() || year.isEmpty()
                     || arrivalText.isEmpty() || departureText.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Fields cannot be empty.");
+                return;
+            }
+
+            if (VIN_NUMBER.length() != 17) {
+                JOptionPane.showMessageDialog(this, "Vin number must be 17 digits");
+                return;
+            }
+
+            try {
+                if (year.length() != 4) {
+                    JOptionPane.showMessageDialog(this, "Year must be a 4 digit number");
+                    return;
+                }
+                @SuppressWarnings("unused")
+                int yearNum = Integer.parseInt(year);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Year must be an integer number");
+                return;
+            }
+
+            LocalDateTime arrival;
+            try {
+                arrival = LocalDateTime.parse(arrivalText, TS_FORMAT);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Expected arrival must be in the format: yyyy-mm-dd hh:mm:ss\nExample: 2024-03-09 17:45:00");
+                return;
+            }
+
+            LocalDateTime departure;
+            try {
+                departure = LocalDateTime.parse(departureText, TS_FORMAT);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this,
+                        "Expected departure must be in the format: yyyy-mm-dd hh:mm:ss\nExample: 2024-03-09 17:45:00");
+                return;
+            }
+
+            int duration = (int) Duration.between(arrival, departure).toHours();
+            if (duration < 1) {
+                JOptionPane.showMessageDialog(this, "Time between expected arrival and departure must be more than 1 hour");
                 return;
             }
 
