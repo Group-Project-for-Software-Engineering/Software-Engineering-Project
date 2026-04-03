@@ -33,7 +33,7 @@ public class AdminPending extends JPanel implements Refreshable {
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
 
         listPanel = new JPanel();
-        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
+        listPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 
         JScrollPane scroll = new JScrollPane(listPanel);
         // add(scroll, BorderLayout.CENTER);
@@ -68,7 +68,8 @@ public class AdminPending extends JPanel implements Refreshable {
 
         synchronized (VCServer.adminVisible) {
             for (Request req : VCServer.adminVisible) {
-                listPanel.add(createPendingCard(req));
+                JPanel card = createPendingCard(req);
+                listPanel.add(card);
             }
         }
 
@@ -80,24 +81,34 @@ public class AdminPending extends JPanel implements Refreshable {
 
         JPanel card = new JPanel();
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        card.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(Color.BLACK, 3),
+            BorderFactory.createEmptyBorder(10, 14, 10, 14)));
         card.setBackground(new Color(153, 204, 255));
         card.setOpaque(true);
-        // card.setMaximumSize(new Dimension(600, 200));
+        card.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         String formatted = "<html>" + req.request.replace("||", "<br>") + "</html>"; // changing the format of the
                                                                                      // .toString()
         JLabel label = new JLabel(formatted);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        label.setHorizontalAlignment(SwingConstants.LEFT);
         card.add(Box.createVerticalStrut(4));
         card.add(label);
 
         JButton acceptBtn = new JButton("Accept");
         acceptBtn.setBackground(new Color(153, 255, 153));
+        acceptBtn.setPreferredSize(new Dimension(110, 36));
+        acceptBtn.setFont(new Font("Arial", Font.BOLD, 20));
 
         JButton rejectBtn = new JButton("Reject");
         rejectBtn.setBackground(new Color(255, 51, 51));
+        rejectBtn.setPreferredSize(new Dimension(110, 36));
+        rejectBtn.setFont(new Font("Arial", Font.BOLD, 20));
+
+        JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        buttonRow.setOpaque(false);
 
         // Accept logic
         acceptBtn.addActionListener(e -> {
@@ -123,9 +134,17 @@ public class AdminPending extends JPanel implements Refreshable {
             refresh();
         });
 
-        card.add(acceptBtn);
-        card.add(rejectBtn);
+        buttonRow.add(acceptBtn);
+        buttonRow.add(Box.createHorizontalStrut(12));
+        buttonRow.add(rejectBtn);
+        buttonRow.setAlignmentX(Component.LEFT_ALIGNMENT);
+        card.add(Box.createVerticalStrut(6));
+        card.add(buttonRow);
         card.add(Box.createVerticalStrut(3));
+
+        Dimension preferred = card.getPreferredSize();
+        card.setPreferredSize(new Dimension(preferred.width, preferred.height));
+        card.setMaximumSize(new Dimension(preferred.width, preferred.height));
 
         return card;
     }
