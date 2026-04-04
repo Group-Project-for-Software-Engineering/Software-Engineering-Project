@@ -14,6 +14,7 @@ import java.awt.*;
 import java.util.Map;
 import javax.swing.*;
 
+
 public class AdminPending extends JPanel implements Refreshable {
 
     private JPanel listPanel;
@@ -32,12 +33,21 @@ public class AdminPending extends JPanel implements Refreshable {
         JPanel viewPanel = new JPanel();
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
 
-        listPanel = new JPanel();
-        listPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-
+        // FlowLayout used to display the cards in a row
+        // allowing for cards to automatically move to the next row when previous row is filled
+        listPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
+        //listPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        //listPanel.setLayout(new GridLayout(0,2,10,10));
         JScrollPane scroll = new JScrollPane(listPanel);
+        // disables horizontal scrollbar
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        // allows vertical scrollbar to be shown when needed
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         // add(scroll, BorderLayout.CENTER);
 
+        // prevents each panel from stretching too wide 
+        // allows cards to wrap to new rows when needed
+        listPanel.setPreferredSize(new Dimension(0, 0));
         // Load all requests already moved into adminVisible
         SwingUtilities.invokeLater(() -> {
             synchronized (VCServer.adminVisible) {
@@ -80,6 +90,9 @@ public class AdminPending extends JPanel implements Refreshable {
     private JPanel createPendingCard(Request req) {
 
         JPanel card = new JPanel();
+        // sets a consistent size for cards to be set to
+        card.setPreferredSize(new Dimension(340, 280));
+        // sets the layout of the card to be a vertical box layout
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(Color.BLACK, 3),
@@ -95,6 +108,7 @@ public class AdminPending extends JPanel implements Refreshable {
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
         label.setHorizontalAlignment(SwingConstants.LEFT);
         card.add(Box.createVerticalStrut(4));
+        label.setMaximumSize(new Dimension(320, 100));
         card.add(label);
 
         JButton acceptBtn = new JButton("Accept");
@@ -142,9 +156,11 @@ public class AdminPending extends JPanel implements Refreshable {
         card.add(buttonRow);
         card.add(Box.createVerticalStrut(3));
 
+        /* 
         Dimension preferred = card.getPreferredSize();
         card.setPreferredSize(new Dimension(preferred.width, preferred.height));
         card.setMaximumSize(new Dimension(preferred.width, preferred.height));
+        */
 
         return card;
     }
