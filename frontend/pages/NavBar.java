@@ -45,9 +45,14 @@ public class NavBar extends JPanel {
         if (user != null) {
             displayName = user.getUsername();
         }
-        JLabel welcomeLabel = new JLabel("                                Welcome, " + displayName + "!");
+        JLabel welcomeLabel = new JLabel("Welcome, " + displayName + "!");
         welcomeLabel.setForeground(Color.WHITE);
         welcomeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setOpaque(false);
+        centerPanel.add(welcomeLabel, BorderLayout.CENTER);
+
 
         homeBtn = new JButton("Home");
 
@@ -119,8 +124,9 @@ public class NavBar extends JPanel {
         //--------------------------------------
         add(title);
         add(Box.createHorizontalGlue());
-        add(welcomeLabel);
-        add(Box.createHorizontalStrut(150));
+        add(centerPanel);
+        //add(Box.createHorizontalStrut(150));
+        add(Box.createHorizontalGlue());
         add(homeBtn);
         add(Box.createHorizontalStrut(15));
 
