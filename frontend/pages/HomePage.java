@@ -69,14 +69,14 @@ public class HomePage extends JPanel implements Refreshable {
                 for (String s : rejected) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "<html>One of your pending vehicles has been rejected.<br>Vehicle: " + s.replace("||", "<br>") + "</html>",
+                            "<html>One of your pending vehicles has been rejected.<br>" + s.replace("||", "<br>") + "</html>",
                             "Vehicle Rejection",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
                 for (String s : accepted) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "<html>One of your pending vehicles has been accepeted.<br>Vehicle: " + s.replace("||", "<br>") + "</html>",
+                            "<html>One of your pending vehicles has been accepted.<br>" + s.replace("||", "<br>") + "</html>",
                             "Vehicle Acception",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -98,7 +98,7 @@ public class HomePage extends JPanel implements Refreshable {
                 for (String s : rejected) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "<html>One of your pending jobs has been rejected.<br>Job: " + s.replace("||", "<br>") + "</html>",
+                            "<html>One of your pending jobs has been rejected.<br>" + s.replace("||", "<br>") + "</html>",
                             "Job Rejection",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -106,7 +106,7 @@ public class HomePage extends JPanel implements Refreshable {
                 for (String s : accepted) {
                     JOptionPane.showMessageDialog(
                             null,
-                            "<html>One of your pending jobs has been accepted.<br>Job: " + s.replace("||", "<br>") + "</html>",
+                            "<html>One of your pending jobs has been accepted.<br>" + s.replace("||", "<br>") + "</html>",
                             "Job Acception",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
