@@ -240,7 +240,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
 
                     out.writeUTF(v.toString());
 
-                    String ack = in.readUTF();
+                    //String ack = in.readUTF();
                     String decision = in.readUTF();
 
                     SwingUtilities.invokeLater(() -> {
@@ -251,23 +251,9 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                             ((Owner) user).addVehicle(v);
                             user.addAccepted(v.toString());
 
-                            /*  
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "One of your pending vehicles has been accepted. Vehicle vin: " + v.getNumber(),
-                                    "Vehicle Acceptance",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                             */
                         } 
                         else { // don't add it to file; show message
                             user.addRejected(v.toString());
-                            /* 
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "One of your pending vehicles has been rejected. Vehicle vin: " + v.getNumber(),
-                                    "Vehicle Rejection",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                             */
                         }
                     });
 

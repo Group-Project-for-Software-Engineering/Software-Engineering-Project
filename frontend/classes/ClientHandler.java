@@ -31,7 +31,7 @@ public class ClientHandler implements Runnable {
             System.out.println("Received from client: " + data);
 
             // ACK
-            out.writeUTF("ACK");
+            //out.writeUTF("ACK");
 
             // Wrap into Request
             Request req = new Request();

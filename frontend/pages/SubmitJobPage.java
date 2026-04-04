@@ -181,7 +181,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
 
                     out.writeUTF(j.toString());
 
-                    String ack = in.readUTF();
+                    //String ack = in.readUTF();
                     String decision = in.readUTF();
 
                     SwingUtilities.invokeLater(() -> {
@@ -193,24 +193,10 @@ public class SubmitJobPage extends JPanel implements Refreshable {
                             ((Client) user).addJob(j);
                             user.addAccepted(j.toString());
 
-                            /* 
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "One of your pending jobs has been accepted. Job id: " + j.getClientId(),
-                                    "Job Acceptance",
-                                    JOptionPane.INFORMATION_MESSAGE);
-
-                             */
                         } 
                         else { //don't add it to file; show message
                             user.addRejected(j.toString());
-                            /*
-                            JOptionPane.showMessageDialog(
-                                    null,
-                                    "One of your pending jobs has been rejected. Job id: " + j.getClientId(),
-                                    "Job Rejection",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                             */
+                        
                         }
 
                     });
