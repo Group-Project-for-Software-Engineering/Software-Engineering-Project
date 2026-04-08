@@ -34,6 +34,7 @@ public class NavBar extends JPanel {
         } else {
             setBackground(new Color(33, 150, 243)); // blue => client
         }
+        
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setPreferredSize(new Dimension(1000, 60));
 
@@ -52,7 +53,6 @@ public class NavBar extends JPanel {
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.setOpaque(false);
         centerPanel.add(welcomeLabel, BorderLayout.CENTER);
-
 
         homeBtn = new JButton("Home");
 
@@ -125,7 +125,6 @@ public class NavBar extends JPanel {
         add(title);
         add(Box.createHorizontalGlue());
         add(centerPanel);
-        //add(Box.createHorizontalStrut(150));
         add(Box.createHorizontalGlue());
         add(homeBtn);
         add(Box.createHorizontalStrut(15));
