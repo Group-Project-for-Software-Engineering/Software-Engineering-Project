@@ -168,7 +168,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
                 return;
             }
 
-            // make new vehicle from form information
+            // make new job from form information
             Job j = new Job(idText, duration, deadline, user.getUserId(), id);
             JOptionPane.showMessageDialog(this, "Submitted job application.");
             refresh();
