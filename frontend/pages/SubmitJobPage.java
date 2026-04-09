@@ -7,6 +7,8 @@
  */
 package pages;
 
+import java.sql.*;
+
 import classes.Admin;
 import classes.Client;
 import classes.Job;
@@ -17,7 +19,14 @@ import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -188,7 +197,44 @@ public class SubmitJobPage extends JPanel implements Refreshable {
                         JOptionPane.showMessageDialog(this, "Admin decision: " + decision);
 
                         if (decision.equals("ACCEPT")) {//if admin accpeted it, show message, add it to the jobs file
-                            UserManager.updateJobFile(j);
+                            UserManager.updateJobFile(j); //to be removed later
+
+                            try(Connection conn = DriverManager.getConnection(Login_Registration.url,
+                                        Login_Registration.username, Login_Registration.password);) {
+                                // declares a connection to your database
+
+                                //Statement statement = conn.createStatement();
+
+                                // creates an insert query
+                                String sql = "INSERT INTO jobs"
+                                        + "(user_id, description, hrs, deadline, job_id, user_job_id, timestamp)"
+                                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                                try (PreparedStatement ps = conn.prepareStatement(sql)) {
+
+                                    ps.setInt(1, Integer.parseInt(j.getClientId()));
+                                    ps.setString(2, j.getJobDescription());
+                                    ps.setDouble(3, j.getApproximateJobDuration());
+                                    ps.setTimestamp(4, Timestamp.valueOf(j.getJobDeadline()));
+                                    ps.setInt(5, Integer.parseInt(j.getJobId()));
+                                    ps.setString(6, j.getJobClientId());
+
+                                    //timestamp handling
+                                    Instant now = Instant.now();
+                                    ZonedDateTime nyTime = now.atZone(ZoneId.of("America/New_York"));
+                                    ps.setTimestamp(7, Timestamp.valueOf(nyTime.toLocalDateTime()));
+
+                                    int row = ps.executeUpdate();
+
+                                    if (row > 0) {
+                                        System.out.println("Job was inserted!");
+                                    }
+                                }
+
+                            } catch (SQLException s) {
+                                s.printStackTrace();
+                            }
+
                             Admin.addJob(j);
                             ((Client) user).addJob(j);
                             user.addAccepted(j.toString());
