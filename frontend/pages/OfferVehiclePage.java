@@ -18,7 +18,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -251,49 +254,48 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                         JOptionPane.showMessageDialog(this, "Admin decision: " + decision);
 
                         if (decision.equals("ACCEPT")) {// if admin accepted it, show message, add it to the jobs file
-                            
-                            UserManager.updateVehiclesFile(v); //to comment out later 
 
-                            /* New stuff for sql
-                            try {
+                            UserManager.updateVehiclesFile(v); // to comment out later
+
+                            //because the connection is in a try, it java will close the connection automatically
+                            try(Connection conn = DriverManager.getConnection(Login_Registration.url,
+                                        Login_Registration.username, Login_Registration.password);) {
                                 // declares a connection to your database
-                                Connection conn = DriverManager.getConnection(Login_Registration.url,
-                                        Login_Registration.username, Login_Registration.password);
 
-                                Statement statement = conn.createStatement();
+                                //Statement statement = conn.createStatement();
 
                                 // creates an insert query
                                 String sql = "INSERT INTO vehicles"
                                         + "(user_id, vin, model, make, plate, year, approx_time, day_registered, user_owner_id, timestamp)"
                                         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                                PreparedStatement ps = conn.prepareStatement(sql);
 
-                                ps.setInt(1, v.getOwnerId());
-                                ps.setString(2, v.getNumber());
-                                ps.setString(3, v.getModel());
-                                ps.setString(4, v.getMake());
-                                ps.setString(5, v.getLicensePlate());
-                                ps.setInt(6, v.getYear());
-                                ps.setDouble(7, v.g());
-                                ps.setDate(8, java.sql.Date.valueOf(v.getDayRegistered()));
-                                ps.setString(9, v.getUserOwnerId());
-                                ps.setTimestamp(10, java.sql.Timestamp.valueOf(v.getCreatedAt()));
+                                try (PreparedStatement ps = conn.prepareStatement(sql)) {
 
-                                ps.executeUpdate();
-                                // establishes the connection session
-                                // executes the query
-                                int row = statement.executeUpdate(sql);
-                                // the return value is the indication of success or failure of the query
-                                // execution
-                                if (row > 0)
-                                    System.out.println("Data was inserted!");
+                                    ps.setInt(1, Integer.parseInt(v.getOwnerId()));
+                                    ps.setString(2, v.getNumber());
+                                    ps.setString(3, v.getModel());
+                                    ps.setString(4, v.getMake());
+                                    ps.setString(5, v.getLicensePlate());
+                                    ps.setInt(6, Integer.parseInt(v.getYear()));
+                                    ps.setDouble(7, v.approxTime());
+                                    ps.setDate(8, java.sql.Date.valueOf(v.getDayRegistered()));
+                                    ps.setString(9, v.getVehicleOwnerId());
 
-                                conn.close();
+                                    //timestamp handling
+                                    Instant now = Instant.now();
+                                    ZonedDateTime nyTime = now.atZone(ZoneId.of("America/New_York"));
+                                    ps.setTimestamp(10, Timestamp.valueOf(nyTime.toLocalDateTime()));
+
+                                    int row = ps.executeUpdate();
+
+                                    if (row > 0) {
+                                        System.out.println("Vehicle was inserted!");
+                                    }
+                                }
 
                             } catch (SQLException s) {
                                 s.printStackTrace();
                             }
-                            */
 
                             ((Owner) user).addVehicle(v);
                             user.addAccepted(v.toString());
