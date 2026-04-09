@@ -13,6 +13,8 @@ import classes.User;
 import classes.UserManager;
 import classes.VCServer;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
@@ -24,6 +26,11 @@ public class Login_Registration {
     // once a person logs in, this holds all information for that user
     public static User currentUser;
 
+    public static Connection connection = null;
+    public static String url = "jdbc:mysql://localhost:3306/vcrts";
+    public static String username = "root";
+    public static String password = "jc_cus200526";
+
     // ---------------------------------------------------------------
     // main method that generates the GUI for the client + owners
     public static void main(String[] args) {
@@ -32,6 +39,15 @@ public class Login_Registration {
         serverThread.start();
 
         VCServer.startPendingListener();
+
+        try {
+            //Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conn = DriverManager.getConnection(url, username, password);
+            System.out.println("Connected to MySQL successfully!");
+            conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // create UI when invoked
         SwingUtilities.invokeLater(() -> createAndShowGUI());
@@ -43,10 +59,13 @@ public class Login_Registration {
 
         // management tool for keeping track of who creates accounts.
         UserManager userManager = new UserManager();
-        userManager.loadVehiclesFromFile(); // this tells the program to load the vehicles from the file for the current user
+        userManager.loadVehiclesFromFile(); // this tells the program to load the vehicles from the file for the current
+                                            // user
         userManager.loadJobsFromFile(); // this tells the program to load the jobs from the file for the current user
-        //userManager.loadPendingRequests(); //this tells the program to load pending requests for an admin to look at 
-        //UserManager.loadCompletedTransactions(); //gets correct job id even for rejected jobs
+        // userManager.loadPendingRequests(); //this tells the program to load pending
+        // requests for an admin to look at
+        // UserManager.loadCompletedTransactions(); //gets correct job id even for
+        // rejected jobs
 
         JFrame frame = new JFrame("VCRTS App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,7 +86,7 @@ public class Login_Registration {
         cards.add(registerPage, "register");
         // --------------------------------------------
 
-        //About page 
+        // About page
         JPanel aboutPanel = new JPanel();
         aboutPanel.setBackground(new Color(50, 75, 155));
         aboutPanel.setLayout(new BoxLayout(aboutPanel, BoxLayout.Y_AXIS)); // center everything vertically
@@ -123,7 +142,7 @@ public class Login_Registration {
         toRegisterButton.setBackground(new Color(77, 163, 255));
         toRegisterButton.setForeground(Color.DARK_GRAY);
 
-        //register button swithces pages
+        // register button swithces pages
         toRegisterButton.addActionListener(e -> {
             CardLayout c = (CardLayout) cards.getLayout();
             c.show(cards, "register");
@@ -219,7 +238,7 @@ public class Login_Registration {
                 currentUser = userManager.getUser(user); // this tells the program the person who is logged in
 
                 // based on kind of user, navbar is different
-                if (currentUser.getUserType().equals("Owner")) {//owner navbar
+                if (currentUser.getUserType().equals("Owner")) {// owner navbar
                     CardLayout cl = (CardLayout) cards.getLayout();
 
                     Map<String, Refreshable> registry = new HashMap<>();
@@ -239,8 +258,7 @@ public class Login_Registration {
                     cards.add(offer, "offerVehicle");
                     cards.add(settings, "settings");
                     cl.show(cards, "home");
-                } 
-                else if (currentUser.getUserType().equals("Admin")) {//admin navbar
+                } else if (currentUser.getUserType().equals("Admin")) {// admin navbar
                     CardLayout cl = (CardLayout) cards.getLayout();
 
                     Map<String, Refreshable> registry = new HashMap<>();
@@ -260,8 +278,7 @@ public class Login_Registration {
                     cards.add(schedule, "schedule");
                     cards.add(settings, "settings");
                     cl.show(cards, "adminHome");
-                } 
-                else { // Client navbar
+                } else { // Client navbar
                     CardLayout cl = (CardLayout) cards.getLayout();
 
                     Map<String, Refreshable> registry = new HashMap<>();
@@ -399,7 +416,7 @@ public class Login_Registration {
 
         });
 
-        String[] userTypes = {"Client", "Owner"};
+        String[] userTypes = { "Client", "Owner" };
         // Create the JComboBox (the dropdown)
         JComboBox<String> comboBox = new JComboBox<>(userTypes);
         Dimension comboBoxSize = new Dimension(140, 28);
@@ -463,7 +480,8 @@ public class Login_Registration {
                 return;
             }
 
-            if (userManager.register(username, password, email, userType)) { // creates a User with username and passwords and
+            if (userManager.register(username, password, email, userType)) { // creates a User with username and
+                                                                             // passwords and
                 // puts them into system
                 JOptionPane.showMessageDialog(frame, "User " + username + " created!");
                 regUsernameField.setText("");

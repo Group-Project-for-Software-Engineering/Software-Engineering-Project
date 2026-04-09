@@ -7,6 +7,7 @@
  */
 package pages;
 
+import java.sql.*;
 import classes.Owner;
 import classes.PlaceHolderTextField;
 import classes.User;
@@ -82,7 +83,7 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         // ownerId.setAlignmentX(Component.CENTER_ALIGNMENT);
         // ownerId.setForeground(new Color(65, 105, 255));
         // ownerId.setFont(new Font("Arial", Font.PLAIN, 36));
-        
+
         // adds more graphics to regular textfield
         ownerIdField = new PlaceHolderTextField("Enter an owner id for this vehicle", 36);
 
@@ -129,7 +130,8 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         submitBtn.setBackground(new Color(77, 163, 255));
         submitBtn.setForeground(Color.DARK_GRAY);
 
-        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
+        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between
+        // elements
         vehicleForm.add(Box.createVerticalGlue());
         vehicleForm.add(vehicleLabel);
         // vehicleForm.add(ownerId);
@@ -139,7 +141,8 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         // vehicleForm.add(createFormatLabel("Your Owner Id: " +
         // ((Owner)user).getOwnerId()));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
-        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
+        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between
+        // elements
         vehicleForm.add(vehicleVin);
         vehicleForm.add(createFormatLabel("Must be a 17-character alphanumeric string"));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
@@ -222,7 +225,8 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
 
             int duration = (int) Duration.between(arrival, departure).toHours();
             if (duration < 1) {
-                JOptionPane.showMessageDialog(this, "Time between expected arrival and departure must be more than 1 hour");
+                JOptionPane.showMessageDialog(this,
+                        "Time between expected arrival and departure must be more than 1 hour");
                 return;
             }
 
@@ -240,19 +244,61 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
 
                     out.writeUTF(v.toString());
 
-                    //String ack = in.readUTF();
+                    // String ack = in.readUTF();
                     String decision = in.readUTF();
 
                     SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, "Admin decision: " + decision);
 
                         if (decision.equals("ACCEPT")) {// if admin accepted it, show message, add it to the jobs file
-                            UserManager.updateVehiclesFile(v);
+                            
+                            UserManager.updateVehiclesFile(v); //to comment out later 
+
+                            /* New stuff for sql
+                            try {
+                                // declares a connection to your database
+                                Connection conn = DriverManager.getConnection(Login_Registration.url,
+                                        Login_Registration.username, Login_Registration.password);
+
+                                Statement statement = conn.createStatement();
+
+                                // creates an insert query
+                                String sql = "INSERT INTO vehicles"
+                                        + "(user_id, vin, model, make, plate, year, approx_time, day_registered, user_owner_id, timestamp)"
+                                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                PreparedStatement ps = conn.prepareStatement(sql);
+
+                                ps.setInt(1, v.getOwnerId());
+                                ps.setString(2, v.getNumber());
+                                ps.setString(3, v.getModel());
+                                ps.setString(4, v.getMake());
+                                ps.setString(5, v.getLicensePlate());
+                                ps.setInt(6, v.getYear());
+                                ps.setDouble(7, v.g());
+                                ps.setDate(8, java.sql.Date.valueOf(v.getDayRegistered()));
+                                ps.setString(9, v.getUserOwnerId());
+                                ps.setTimestamp(10, java.sql.Timestamp.valueOf(v.getCreatedAt()));
+
+                                ps.executeUpdate();
+                                // establishes the connection session
+                                // executes the query
+                                int row = statement.executeUpdate(sql);
+                                // the return value is the indication of success or failure of the query
+                                // execution
+                                if (row > 0)
+                                    System.out.println("Data was inserted!");
+
+                                conn.close();
+
+                            } catch (SQLException s) {
+                                s.printStackTrace();
+                            }
+                            */
+
                             ((Owner) user).addVehicle(v);
                             user.addAccepted(v.toString());
 
-                        } 
-                        else { // don't add it to file; show message
+                        } else { // don't add it to file; show message
                             user.addRejected(v.toString());
                         }
                     });
