@@ -26,6 +26,13 @@ public class Login_Registration {
     // once a person logs in, this holds all information for that user
     public static User currentUser;
 
+    //env file if we want to do it like this 
+    
+    //public static String url = System.getenv("DB_URL");
+    //public static String username = System.getenv("DB_USER");
+    //public static String password = System.getenv("DB_PASS");
+
+    //change below so it works for you
     public static Connection connection = null;
     public static String url = "jdbc:mysql://localhost:3306/vcrts";
     public static String username = "root";
@@ -41,7 +48,7 @@ public class Login_Registration {
         VCServer.startPendingListener();
 
         try {
-            //Class.forName("com.mysql.cj.jdbc.Driver");
+            // Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection(url, username, password);
             System.out.println("Connected to MySQL successfully!");
             conn.close();
