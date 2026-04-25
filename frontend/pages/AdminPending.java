@@ -52,13 +52,13 @@ public class AdminPending extends JPanel implements Refreshable {
         SwingUtilities.invokeLater(() -> {
             synchronized (VCServer.adminVisible) {
                 if (!VCServer.adminVisible.isEmpty()) {
-                    for(Request r: VCServer.adminVisible) {
+                   // for(Request r: VCServer.adminVisible) {
                          JOptionPane.showMessageDialog(
                             this,
                             "You have pending requests.",
                             "Pending request",
                             JOptionPane.INFORMATION_MESSAGE);
-                    }
+                    //}
                 }
             }
         });

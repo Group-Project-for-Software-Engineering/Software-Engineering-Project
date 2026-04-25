@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
+//import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
 
@@ -35,9 +35,9 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
     private static final DateTimeFormatter TS_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Look up vehicles by VIN.
-    private final Map<String, Vehicle> VEHICLES_BY_VIN = new LinkedHashMap<>();
+    //private final Map<String, Vehicle> VEHICLES_BY_VIN = new LinkedHashMap<>();
 
-    private final JTextArea STATUS_AREA = new JTextArea(6, 50);
+    //private final JTextArea STATUS_AREA = new JTextArea(6, 50);
 
     private JTextField vehicleVin;
     private JTextField vehicleMake;

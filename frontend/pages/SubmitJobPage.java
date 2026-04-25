@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
+//import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
 
@@ -40,10 +40,10 @@ public class SubmitJobPage extends JPanel implements Refreshable {
     private static final DateTimeFormatter DEADLINE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Look up vehicles by JobID.
-    private final Map<String, Job> JOB_BY_JOBID = new LinkedHashMap<>();
-    private final JTextArea STATUS_AREA = new JTextArea(6, 50);
+    //private final Map<String, Job> JOB_BY_JOBID = new LinkedHashMap<>();
+    //private final JTextArea STATUS_AREA = new JTextArea(6, 50);
 
-    private final User user;
+    //private final User user;
 
     private JTextField jobDescription;
     private JTextField jobDuration;
@@ -55,7 +55,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
     // constructor: sets user + user manager + registry
     public SubmitJobPage(JPanel cards, User user, Map<String, Refreshable> registry, UserManager users) {
         setLayout(new BorderLayout());
-        this.user = user;
+        //this.user = user;
 
         // NavBar
         add(new NavBar(cards, user, registry), BorderLayout.NORTH);

@@ -23,7 +23,7 @@ import javax.swing.*;
 
 public class AdminHome extends JPanel implements Refreshable {
 
-    private User user;
+    //private User user;
     private UserManager users;
     private JPanel listPanel;
     private JLabel nameOfView;
@@ -32,7 +32,7 @@ public class AdminHome extends JPanel implements Refreshable {
     public AdminHome(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
         // user = person logged in
         // users = every person in the system
-        this.user = user;
+        //this.user = user;
         this.users = users;
 
         setLayout(new BorderLayout());
