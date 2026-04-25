@@ -35,18 +35,14 @@ public class UserManager {
     private static final Path VEHICLES_FILE_PATH = Paths.get("VehicleInfo", "vehicles.txt"); // Currently hardcoded, change if necessary
     private static final Path JOBS_FILE_PATH = Paths.get("JobInfo", "jobs.txt"); // Currently hardcoded, change if necessary
 
-    //private static final Path PENDING_TRANSACTIONS_PATH = Paths.get("Transactions", "pending_transactions.txt");
-    //private static final Path COMPLETED_TRANSACTIONS_PATH = Paths.get("Transactions", "completed_transactions.txt");
-
     // ---------------------------------------------------------------
-
     // Uses the default users file path under UserInfo/users.txt. 
     // calls other constructor
     public UserManager() {
         this(Paths.get("UserInfo", "users.txt"));
     }
-    // ---------------------------------------------------------------
 
+    // ---------------------------------------------------------------
     // Loads users from the provided file path. 
     public UserManager(Path USERS_FILE_PATH) {
         this.USERS_FILE_PATH = USERS_FILE_PATH;
@@ -54,7 +50,6 @@ public class UserManager {
     }
     
     // ---------------------------------------------------------------
-
     /** 
      * @param username: this is the users usersname when they make an account
      * @param password: this is the users password when they make an account

@@ -14,11 +14,12 @@ import java.awt.*;
 import java.util.Map;
 import javax.swing.*;
 
-
+// ---------------------------------------------------------------
 public class AdminPending extends JPanel implements Refreshable {
 
     private JPanel listPanel;
 
+    // ---------------------------------------------------------------
     public AdminPending(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
 
         setLayout(new BorderLayout());
@@ -28,7 +29,6 @@ public class AdminPending extends JPanel implements Refreshable {
         JLabel title = new JLabel("Pending Requests", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // add(title, BorderLayout.SOUTH);
 
         JPanel viewPanel = new JPanel();
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
@@ -43,7 +43,6 @@ public class AdminPending extends JPanel implements Refreshable {
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         // allows vertical scrollbar to be shown when needed
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        // add(scroll, BorderLayout.CENTER);
 
         // prevents each panel from stretching too wide 
         // allows cards to wrap to new rows when needed
@@ -72,6 +71,7 @@ public class AdminPending extends JPanel implements Refreshable {
         listPanel.repaint();
     }
 
+    // ---------------------------------------------------------------
     @Override
     public void refresh() {
         listPanel.removeAll();
@@ -87,6 +87,7 @@ public class AdminPending extends JPanel implements Refreshable {
         listPanel.repaint();
     }
 
+    // ---------------------------------------------------------------
     private JPanel createPendingCard(Request req) {
 
         JPanel card = new JPanel();
@@ -155,12 +156,6 @@ public class AdminPending extends JPanel implements Refreshable {
         card.add(Box.createVerticalStrut(6));
         card.add(buttonRow);
         card.add(Box.createVerticalStrut(3));
-
-        /* 
-        Dimension preferred = card.getPreferredSize();
-        card.setPreferredSize(new Dimension(preferred.width, preferred.height));
-        card.setMaximumSize(new Dimension(preferred.width, preferred.height));
-        */
 
         return card;
     }

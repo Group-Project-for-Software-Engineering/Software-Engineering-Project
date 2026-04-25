@@ -267,6 +267,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         clientIdField.setText("");
     }
 
+    // ---------------------------------------------------------------
     private JLabel createFormatLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.ITALIC, 12));

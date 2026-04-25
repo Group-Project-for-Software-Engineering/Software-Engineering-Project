@@ -16,10 +16,12 @@ public class ClientHandler implements Runnable {
 
     private final Socket socket;
 
+    //--------------------------------------------
     public ClientHandler(Socket socket) {
         this.socket = socket;
     }
 
+    //--------------------------------------------
     @Override
     public void run() {
         try (Socket s = socket;

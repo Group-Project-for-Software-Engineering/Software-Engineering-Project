@@ -18,6 +18,7 @@ public class PlaceHolderPasswordField extends JPasswordField {
 
     private final String placeHolder;
 
+    // ---------------------------------------------------------------
     /**
      * constructor generates password field + placeholder text
      */
@@ -61,6 +62,7 @@ public class PlaceHolderPasswordField extends JPasswordField {
         });
     }
 
+    // ---------------------------------------------------------------
     /**
      * Draws placeholder text
      */

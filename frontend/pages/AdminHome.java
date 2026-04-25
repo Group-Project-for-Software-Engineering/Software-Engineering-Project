@@ -29,6 +29,7 @@ public class AdminHome extends JPanel implements Refreshable {
     private JLabel nameOfView;
     private JButton calculateCompletionTimesBtn;
 
+    // ---------------------------------------------------------------
     public AdminHome(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
         // user = person logged in
         // users = every person in the system
@@ -66,8 +67,8 @@ public class AdminHome extends JPanel implements Refreshable {
         
         refresh();
     }
-    //----------------------------
 
+    // ---------------------------------------------------------------
     @Override 
     public void refresh() { 
         listPanel.removeAll(); 
@@ -82,8 +83,8 @@ public class AdminHome extends JPanel implements Refreshable {
         listPanel.revalidate(); 
         listPanel.repaint(); 
     }
-    //----------------------------
-
+    
+    // ---------------------------------------------------------------
     //creates a card for each user for the admin to see. The content show is based on the type of user
     private JPanel createUserCard (User u) { 
         JPanel userCard = new JPanel(); 
@@ -128,7 +129,7 @@ public class AdminHome extends JPanel implements Refreshable {
         return userCard; 
     }
 
-
+    // ---------------------------------------------------------------
     // helper method to show the completion times for all jobs
     // computes the completion times using the FIFO (First In, First Out) structure
     // jobs are added into the arraylist in the order they are submitted

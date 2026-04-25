@@ -34,11 +34,6 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
     // Date Format
     private static final DateTimeFormatter TS_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    // Look up vehicles by VIN.
-    //private final Map<String, Vehicle> VEHICLES_BY_VIN = new LinkedHashMap<>();
-
-    //private final JTextArea STATUS_AREA = new JTextArea(6, 50);
-
     private JTextField vehicleVin;
     private JTextField vehicleMake;
     private JTextField vehicleModel;
@@ -81,11 +76,6 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         vehicleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         vehicleLabel.setForeground(new Color(65, 105, 255));
         vehicleLabel.setFont(new Font("Arial", Font.PLAIN, 36));
-
-        // JLabel ownerId = new JLabel("Your Owner Id: " + ((Owner)user).getOwnerId());
-        // ownerId.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // ownerId.setForeground(new Color(65, 105, 255));
-        // ownerId.setFont(new Font("Arial", Font.PLAIN, 36));
 
         // adds more graphics to regular textfield
         ownerIdField = new PlaceHolderTextField("Enter an owner id for this vehicle", 36);
@@ -133,16 +123,11 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
         submitBtn.setBackground(new Color(77, 163, 255));
         submitBtn.setForeground(Color.DARK_GRAY);
 
-        // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between
-        // elements
         vehicleForm.add(Box.createVerticalGlue());
         vehicleForm.add(vehicleLabel);
-        // vehicleForm.add(ownerId);
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         vehicleForm.add(ownerIdField);
         vehicleForm.add(createFormatLabel("Enter an owner id for this vehicle"));
-        // vehicleForm.add(createFormatLabel("Your Owner Id: " +
-        // ((Owner)user).getOwnerId()));
         vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between elements
         // vehicleForm.add(Box.createVerticalStrut(20)); // creates padding between
         // elements
@@ -246,8 +231,6 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                     DataInputStream in = new DataInputStream(socket.getInputStream());
 
                     out.writeUTF(v.toString());
-
-                    // String ack = in.readUTF();
                     String decision = in.readUTF();
 
                     SwingUtilities.invokeLater(() -> {

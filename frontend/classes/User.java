@@ -24,6 +24,7 @@ public class User {
     private ArrayList<String> rejected = new ArrayList<>();
     private ArrayList<String> accepted = new ArrayList<>();
 
+    // ---------------------------------------------------------------
     /**
      * constructor that sets the username, password, email, and user type
      */
@@ -38,6 +39,7 @@ public class User {
 
     }
 
+    // ---------------------------------------------------------------
     //this overloaded constructor is for reading users from the text file. They already have assigned user ids
     public User(String username, String password, String userId, String email, String userType) {
         this.username = username;
@@ -48,6 +50,7 @@ public class User {
         this.userId = userId;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the username of the user
      */
@@ -55,6 +58,7 @@ public class User {
         return username;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the password of the user
      */
@@ -62,6 +66,7 @@ public class User {
         return password;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the email of the user
      */
@@ -69,6 +74,7 @@ public class User {
         return email;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the user ID of the user
      */
@@ -76,6 +82,7 @@ public class User {
         return userId;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the user type of the user
      */
@@ -83,6 +90,7 @@ public class User {
         return userType;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the list of rejected vehicles/jobs
      */
@@ -90,6 +98,7 @@ public class User {
         return rejected;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the list of accepted vehicles/jobs
      */
@@ -97,6 +106,7 @@ public class User {
         return accepted;
     }
 
+    // ---------------------------------------------------------------
     /**
      * clears the list of rejected vehicles/jobs
      */
@@ -104,6 +114,7 @@ public class User {
         rejected.clear();
     }
 
+    // ---------------------------------------------------------------
     /**
      * clears the list of accepted vehicles/jobs
      */
@@ -111,6 +122,7 @@ public class User {
         accepted.clear();
     }
 
+    // ---------------------------------------------------------------
     /**
      * adds an accepted job/vehicle to the list
      */
@@ -118,6 +130,7 @@ public class User {
         accepted.add(s);
     }
 
+    // ---------------------------------------------------------------
     /**
      * adds a rejected job/vehicle to the list
      */
