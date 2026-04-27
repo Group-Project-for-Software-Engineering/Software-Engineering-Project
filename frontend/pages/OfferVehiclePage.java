@@ -7,7 +7,7 @@
  */
 package pages;
 
-import java.sql.*;
+import classes.DatabaseConfig;
 import classes.Owner;
 import classes.PlaceHolderTextField;
 import classes.User;
@@ -17,13 +17,13 @@ import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.sql.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-//import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
 
@@ -241,8 +241,9 @@ public class OfferVehiclePage extends JPanel implements Refreshable {
                             UserManager.updateVehiclesFile(v); // to comment out later
 
                             //because the connection is in a try, it java will close the connection automatically
-                            try(Connection conn = DriverManager.getConnection(Login_Registration.url,
-                                        Login_Registration.username, Login_Registration.password);) {
+                            try (Connection conn = DriverManager.getConnection(DatabaseConfig.getURL(),
+                                    DatabaseConfig.getUsername(),
+                                    DatabaseConfig.getPassword());) {
                                 // declares a connection to your database
 
                                 //Statement statement = conn.createStatement();
