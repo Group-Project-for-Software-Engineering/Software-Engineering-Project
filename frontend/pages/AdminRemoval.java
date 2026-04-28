@@ -34,37 +34,30 @@ public class AdminRemoval extends JPanel implements Refreshable {
     private UserManager users;
     private JPanel listPanel;
     private JLabel nameOfView;
-    
 
     // ---------------------------------------------------------------
     public AdminRemoval(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
-        // user = person logged in
-        // users = every person in the system
-        // this.user = user;
         this.users = users;
 
         setLayout(new BorderLayout());
-        add(new NavBar(cards, user, registry), BorderLayout.NORTH); // create navbar
+        add(new NavBar(cards, user, registry), BorderLayout.NORTH);
 
         nameOfView = new JLabel("", SwingConstants.CENTER);
-
         nameOfView.setFont(new Font("Arial", Font.BOLD, 24));
         nameOfView.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel viewPanel = new JPanel();
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
 
-        // Panel that will hold all user entries
-        listPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
-        listPanel.setPreferredSize(new Dimension(0, 0));
+        // 4 cards per row
+        listPanel = new JPanel();
+        listPanel.setLayout(new GridLayout(0, 4, 20, 20));
+        // 0 rows to start with; 2 columns; 20px horizontal + vertical gaps
 
         JScrollPane scroll = new JScrollPane(listPanel);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scroll.setAlignmentX(Component.CENTER_ALIGNMENT);
-        scroll.setPreferredSize(new Dimension(1500, 600));
-        scroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
 
         viewPanel.add(Box.createVerticalStrut(15));
         viewPanel.add(nameOfView);
@@ -76,13 +69,11 @@ public class AdminRemoval extends JPanel implements Refreshable {
         refresh();
     }
 
-    // ---------------------------------------------------------------
     @Override
     public void refresh() {
         listPanel.removeAll();
-        // clear old content
         nameOfView.setText("Admin Removal: All User Vehicles and Jobs");
-        
+
         for (User u : users.getAllUsers().values()) {
             createUserCard(u);
         }
@@ -132,7 +123,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
 
                 JButton removeBtn = new JButton("Remove");
                 removeBtn.setBackground(new Color(255, 51, 51));
-                removeBtn.setPreferredSize(new Dimension(110, 36));
+                removeBtn.setPreferredSize(new Dimension(150, 36));
                 removeBtn.setFont(new Font("Arial", Font.BOLD, 20));
 
                 // Remove logic: remove from file, database, and user list
@@ -177,7 +168,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 card.add(buttonRow);
                 card.add(Box.createVerticalStrut(3));
                 listPanel.add(card);
-                
+
             }
         }
 
@@ -219,13 +210,13 @@ public class AdminRemoval extends JPanel implements Refreshable {
 
                 JButton removeBtn = new JButton("Remove");
                 removeBtn.setBackground(new Color(255, 51, 51));
-                removeBtn.setPreferredSize(new Dimension(110, 36));
+                removeBtn.setPreferredSize(new Dimension(150, 36));
                 removeBtn.setFont(new Font("Arial", Font.BOLD, 20));
                 buttonRow.add(removeBtn);
                 card.add(Box.createVerticalStrut(8));
                 card.add(buttonRow);
                 listPanel.add(card);
-                
+
                 // Remove logic: remove from file, database, and user list
                 removeBtn.addActionListener(e -> {
                     ((Client) u).removeJob(j); // remove job from the users list
