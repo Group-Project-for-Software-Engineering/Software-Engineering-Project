@@ -117,8 +117,8 @@ public class NavBar extends JPanel {
 
         if (user.getUserType().equals("Admin")) {
             removeBtn.addActionListener(e -> {
-                refreshables.get("removal").refresh();
-                ((CardLayout) cards.getLayout()).show(cards, "removal");
+                refreshables.get("adminRemoval").refresh();
+                ((CardLayout) cards.getLayout()).show(cards, "adminRemoval");
             });
         }
 

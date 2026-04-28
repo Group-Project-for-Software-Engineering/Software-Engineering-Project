@@ -7,7 +7,6 @@
  */
 package pages;
 
-import classes.DatabaseConfig;
 import classes.PlaceHolderPasswordField;
 import classes.PlaceHolderTextField;
 import classes.User;
@@ -26,7 +25,18 @@ public class Login_Registration {
 
     // once a person logs in, this holds all information for that user
     public static User currentUser;
+
+    //env file if we want to do it like this 
+    
+    //public static String url = System.getenv("DB_URL");
+    //public static String username = System.getenv("DB_USER");
+    //public static String password = System.getenv("DB_PASS");
+
+    //change below so it works for you
     public static Connection connection = null;
+    public static String url = "jdbc:mysql://localhost:3306/vcrts";
+    public static String username = "root";
+    public static String password = "jc_cus200526";
 
     // ---------------------------------------------------------------
     // main method that generates the GUI for the client + owners
@@ -39,11 +49,7 @@ public class Login_Registration {
 
         try {
             // Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(
-                    DatabaseConfig.getURL(),
-                    DatabaseConfig.getUsername(),
-                    DatabaseConfig.getPassword()
-            );
+            Connection conn = DriverManager.getConnection(url, username, password);
             System.out.println("Connected to MySQL successfully!");
             conn.close();
         } catch (Exception e) {
@@ -265,22 +271,22 @@ public class Login_Registration {
                     Map<String, Refreshable> registry = new HashMap<>();
                     AdminHome home = new AdminHome(cards, currentUser, userManager, registry);
                     AdminPending pending = new AdminPending(cards, currentUser, userManager, registry);
-                    AdminRemoval removal = new AdminRemoval(cards, currentUser, userManager,registry);
+                    AdminRemoval removal = new AdminRemoval(cards, currentUser, userManager, registry);
                     SchedulePage schedule = new SchedulePage(cards, currentUser, registry);
                     Settings settings = new Settings(cards, currentUser, registry);
 
                     // These cards can now be refreshed when looked up in the hashmap
                     registry.put("adminHome", home);
                     registry.put("pending", pending);
+                    registry.put("adminRemoval", removal);
                     registry.put("schedule", schedule);
                     registry.put("settings", settings);
-                    registry.put("removal", removal);
 
                     cards.add(home, "adminHome");
                     cards.add(pending, "pending");
+                    cards.add(removal, "adminRemoval");
                     cards.add(schedule, "schedule");
                     cards.add(settings, "settings");
-                    cards.add(removal, "removal");
                     cl.show(cards, "adminHome");
                 } else { // Client navbar
                     CardLayout cl = (CardLayout) cards.getLayout();

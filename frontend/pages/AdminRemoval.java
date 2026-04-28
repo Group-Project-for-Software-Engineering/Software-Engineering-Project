@@ -1,3 +1,9 @@
+/* Project: Vehicular Cloud Real Time System (VCRTS)
+ * Class: AdminRemoval.java
+ * Authors: Group 2 (Justin Cracchiolo, Lauren Rodriguez, David Choi, Tristan Huertas, Ivan Lin, Anthony Vallejo, Sebastian Villavicencio)
+ * Date: April 2026
+ * This class implements the admin view for removing jobs and/or vehicles.
+ */
 package pages;
 
 import classes.Admin;
@@ -28,6 +34,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
     private UserManager users;
     private JPanel listPanel;
     private JLabel nameOfView;
+    
 
     // ---------------------------------------------------------------
     public AdminRemoval(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
@@ -48,14 +55,20 @@ public class AdminRemoval extends JPanel implements Refreshable {
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
 
         // Panel that will hold all user entries
-        listPanel = new JPanel();
-        listPanel.setLayout(new BoxLayout(listPanel, BoxLayout.Y_AXIS));
-        listPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        // Make it scrollable
-        JScrollPane scroll = new JScrollPane(listPanel);
-        scroll.setBorder(BorderFactory.createEmptyBorder());
+        listPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
+        listPanel.setPreferredSize(new Dimension(0, 0));
 
+        JScrollPane scroll = new JScrollPane(listPanel);
+        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+
+        scroll.setAlignmentX(Component.CENTER_ALIGNMENT);
+        scroll.setPreferredSize(new Dimension(1500, 600));
+        scroll.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
+
+        viewPanel.add(Box.createVerticalStrut(15));
         viewPanel.add(nameOfView);
+        viewPanel.add(Box.createVerticalStrut(15));
         viewPanel.add(scroll);
 
         add(viewPanel, BorderLayout.CENTER);
@@ -69,10 +82,9 @@ public class AdminRemoval extends JPanel implements Refreshable {
         listPanel.removeAll();
         // clear old content
         nameOfView.setText("Admin Removal: All User Vehicles and Jobs");
-
+        
         for (User u : users.getAllUsers().values()) {
-            listPanel.add(createUserCard(u));
-            listPanel.add(Box.createVerticalStrut(10)); // This separates the boxes
+            createUserCard(u);
         }
 
         listPanel.revalidate();
@@ -81,35 +93,42 @@ public class AdminRemoval extends JPanel implements Refreshable {
 
     // ---------------------------------------------------------------
     // creates a card for each vehicle or job in the system
-    private JPanel createUserCard(User u) {
-
-        JPanel container = new JPanel();
-        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+    private void createUserCard(User u) {
 
         if (u.getUserType().equals("Owner")) {
             for (Vehicle v : ((Owner) u).getVehicles()) {
 
                 JPanel card = new JPanel();
+                card.setPreferredSize(new Dimension(340, 280));
                 card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+                card.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.BLACK, 3),
+                        BorderFactory.createEmptyBorder(10, 14, 10, 14)));
                 card.setBackground(new Color(153, 204, 255));
-                card.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+                card.setOpaque(true);
+                card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-                card.add(new JLabel("Vehicle:"));
-                card.add(new JLabel(
-                        "[User Id: " + u.getUserId() +
-                                " || Make: " + v.getMake() +
-                                " || Model: " + v.getModel() +
-                                " || VIN: " + v.getNumber() +
-                                " || License Plate: " + v.getLicensePlate() +
-                                " || Year: " + v.getYear() +
-                                " || Approx. Parked Time: " + v.approxTime() +
-                                " || Owner Vehicle Id: " + v.getVehicleOwnerId() +
-                                " || Day Registered: " + v.getDayRegistered() + "]"));
+                String formatted = "<html>"
+                        + "Vehicle:<br>"
+                        + "User Id: " + u.getUserId() + "<br>"
+                        + "Make: " + v.getMake() + "<br>"
+                        + "Model: " + v.getModel() + "<br>"
+                        + "VIN: " + v.getNumber() + "<br>"
+                        + "License Plate: " + v.getLicensePlate() + "<br>"
+                        + "Year: " + v.getYear() + "<br>"
+                        + "Approx. Parked Time: " + v.approxTime() + "<br>"
+                        + "Owner Vehicle Id: " + v.getVehicleOwnerId() + "<br>"
+                        + "Day Registered: " + v.getDayRegistered()
+                        + "</html>";
 
-                card.add(new JLabel("Name: " + u.getUsername()));
-                card.add(new JLabel("Email: " + u.getEmail()));
-                card.add(new JLabel("User Type: " + u.getUserType()));
-                card.add(new JLabel("User Id: " + u.getUserId()));
+                JLabel label = new JLabel(formatted);
+                label.setFont(new Font("Arial", Font.PLAIN, 16));
+                label.setAlignmentX(Component.LEFT_ALIGNMENT);
+                label.setHorizontalAlignment(SwingConstants.LEFT);
+
+                card.add(Box.createVerticalStrut(4));
+                label.setMaximumSize(new Dimension(320, 100));
+                card.add(label);
 
                 JButton removeBtn = new JButton("Remove");
                 removeBtn.setBackground(new Color(255, 51, 51));
@@ -148,9 +167,17 @@ public class AdminRemoval extends JPanel implements Refreshable {
                     refresh();
                 });
 
-                card.add(removeBtn);
-                container.add(card);
-                container.add(Box.createVerticalStrut(10));
+                JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+                buttonRow.setOpaque(false);
+                buttonRow.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+                buttonRow.add(removeBtn);
+
+                card.add(Box.createVerticalStrut(6));
+                card.add(buttonRow);
+                card.add(Box.createVerticalStrut(3));
+                listPanel.add(card);
+                
             }
         }
 
@@ -158,34 +185,51 @@ public class AdminRemoval extends JPanel implements Refreshable {
             for (Job j : ((Client) u).getClientJobs()) {
 
                 JPanel card = new JPanel();
+                card.setPreferredSize(new Dimension(340, 280));
                 card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+                card.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(Color.BLACK, 3),
+                        BorderFactory.createEmptyBorder(10, 14, 10, 14)));
                 card.setBackground(new Color(153, 204, 255));
-                card.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+                card.setOpaque(true);
+                card.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-                card.add(new JLabel("Job:"));
-                card.add(new JLabel(
-                        "[User Id: " + u.getUserId() +
-                                " || Job Id: " + j.getJobId() +
-                                " || Client Id: " + j.getJobClientId() +
-                                " || Duration: " + j.getApproximateJobDuration() +
-                                " || Deadline: " + j.getJobDeadline() +
-                                " || Description: " + j.getJobDescription() + "]"));
+                String formatted = "<html>"
+                        + "Job:<br>"
+                        + "User Id: " + u.getUserId() + "<br>"
+                        + "Job Id: " + j.getJobId() + "<br>"
+                        + "Client Id: " + j.getJobClientId() + "<br>"
+                        + "Duration: " + j.getApproximateJobDuration() + "<br>"
+                        + "Deadline: " + j.getJobDeadline() + "<br>"
+                        + "Description: " + j.getJobDescription()
+                        + "</html>";
 
-                card.add(new JLabel("Name: " + u.getUsername()));
-                card.add(new JLabel("Email: " + u.getEmail()));
-                card.add(new JLabel("User Type: " + u.getUserType()));
-                card.add(new JLabel("User Id: " + u.getUserId()));
+                JLabel label = new JLabel(formatted);
+                label.setFont(new Font("Arial", Font.PLAIN, 16));
+                label.setAlignmentX(Component.LEFT_ALIGNMENT);
+                label.setHorizontalAlignment(SwingConstants.LEFT);
+
+                card.add(Box.createVerticalStrut(4));
+                label.setMaximumSize(new Dimension(320, 100));
+                card.add(label);
+
+                JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+                buttonRow.setOpaque(false);
+                buttonRow.setAlignmentX(Component.LEFT_ALIGNMENT);
 
                 JButton removeBtn = new JButton("Remove");
                 removeBtn.setBackground(new Color(255, 51, 51));
                 removeBtn.setPreferredSize(new Dimension(110, 36));
                 removeBtn.setFont(new Font("Arial", Font.BOLD, 20));
-
+                buttonRow.add(removeBtn);
+                card.add(Box.createVerticalStrut(8));
+                card.add(buttonRow);
+                listPanel.add(card);
+                
                 // Remove logic: remove from file, database, and user list
                 removeBtn.addActionListener(e -> {
                     ((Client) u).removeJob(j); // remove job from the users list
                     UserManager.removeJobFromFile(j.getJobId()); // remove job from the file
-
                     // Remove from SQL database
                     try (Connection conn = DriverManager.getConnection(
                             DatabaseConfig.getURL(),
@@ -195,7 +239,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                         String sql = "DELETE FROM jobs WHERE job_id = ?";
 
                         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                            stmt.setString(1, j.getJobId()); // VIN is the unique key
+                            stmt.setString(1, j.getJobId()); // JobID is the unique key
                             int rows = stmt.executeUpdate();
 
                             if (rows > 0) {
@@ -204,21 +248,14 @@ public class AdminRemoval extends JPanel implements Refreshable {
                                 System.out.println("No matching job found in SQL.");
                             }
                         }
-                        
+
                     } catch (SQLException s) {
                         s.printStackTrace();
                     }
 
                     refresh();
                 });
-
-                card.add(removeBtn);
-                container.add(card);
-                container.add(Box.createVerticalStrut(10));
             }
         }
-
-        return container;
     }
-
 }
