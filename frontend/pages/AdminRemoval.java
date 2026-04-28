@@ -6,6 +6,7 @@
  */
 package pages;
 
+// ---------------------------------------------------------------
 import classes.Client;
 import classes.DatabaseConfig;
 import classes.Job;
@@ -14,6 +15,7 @@ import classes.User;
 import classes.UserManager;
 import classes.Vehicle;
 
+// ---------------------------------------------------------------
 import java.util.Map;
 import javax.swing.*;
 import java.awt.*;
@@ -22,13 +24,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+// ---------------------------------------------------------------
 public class AdminRemoval extends JPanel implements Refreshable {
 
     // private User user;
     private UserManager users;
     private JPanel listPanel;
     private JLabel nameOfView;
-    
 
     // ---------------------------------------------------------------
     public AdminRemoval(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
@@ -71,12 +73,13 @@ public class AdminRemoval extends JPanel implements Refreshable {
     }
 
     // ---------------------------------------------------------------
+    // allows for the UI to be refreshed + rebuilds cards
     @Override
     public void refresh() {
         listPanel.removeAll();
         // clear old content
         nameOfView.setText("Admin Removal: All User Vehicles and Jobs");
-        
+
         for (User u : users.getAllUsers().values()) {
             createUserCard(u);
         }
@@ -87,8 +90,12 @@ public class AdminRemoval extends JPanel implements Refreshable {
 
     // ---------------------------------------------------------------
     // creates a card for each vehicle or job in the system
+    // owner => generates vehicle cards
+    // client => generates job cards
     private void createUserCard(User u) {
 
+        // OWNER SIDE
+        // Vehicle Cards will be generated
         if (u.getUserType().equals("Owner")) {
             for (Vehicle v : ((Owner) u).getVehicles()) {
 
@@ -102,6 +109,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 card.setOpaque(true);
                 card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+                // allows for formatting of vehicle details
                 String formatted = "<html>"
                         + "Vehicle:<br>"
                         + "User Id: " + u.getUserId() + "<br>"
@@ -124,6 +132,8 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 label.setMaximumSize(new Dimension(320, 100));
                 card.add(label);
 
+                // logic to remove a vehicle
+                // removes from the database and txt files
                 JButton removeBtn = new JButton("Remove");
                 removeBtn.setBackground(new Color(255, 51, 51));
                 removeBtn.setPreferredSize(new Dimension(110, 36));
@@ -171,10 +181,12 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 card.add(buttonRow);
                 card.add(Box.createVerticalStrut(3));
                 listPanel.add(card);
-                
+
             }
         }
 
+        // CLIENT SIDE
+        // Job Cards will be generated
         else if (u.getUserType().equals("Client")) {
             for (Job j : ((Client) u).getClientJobs()) {
 
@@ -188,6 +200,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 card.setOpaque(true);
                 card.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+                // Formats job details
                 String formatted = "<html>"
                         + "Job:<br>"
                         + "User Id: " + u.getUserId() + "<br>"
@@ -219,7 +232,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 card.add(Box.createVerticalStrut(8));
                 card.add(buttonRow);
                 listPanel.add(card);
-                
+
                 // Remove logic: remove from file, database, and user list
                 removeBtn.addActionListener(e -> {
                     ((Client) u).removeJob(j); // remove job from the users list
