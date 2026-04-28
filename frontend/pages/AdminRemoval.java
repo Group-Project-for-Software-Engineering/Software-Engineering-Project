@@ -6,17 +6,16 @@
  */
 package pages;
 
-import classes.Admin;
+// ---------------------------------------------------------------
 import classes.Client;
 import classes.DatabaseConfig;
 import classes.Job;
 import classes.Owner;
 import classes.User;
 import classes.UserManager;
-import classes.VCServer;
 import classes.Vehicle;
 
-import java.util.ArrayList;
+// ---------------------------------------------------------------
 import java.util.Map;
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +23,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
+// ---------------------------------------------------------------
 public class AdminRemoval extends JPanel implements Refreshable {
 
     // private User user;
@@ -69,6 +66,8 @@ public class AdminRemoval extends JPanel implements Refreshable {
         refresh();
     }
 
+    // ---------------------------------------------------------------
+    // allows for the UI to be refreshed + rebuilds cards
     @Override
     public void refresh() {
         listPanel.removeAll();
@@ -84,8 +83,12 @@ public class AdminRemoval extends JPanel implements Refreshable {
 
     // ---------------------------------------------------------------
     // creates a card for each vehicle or job in the system
+    // owner => generates vehicle cards
+    // client => generates job cards
     private void createUserCard(User u) {
 
+        // OWNER SIDE
+        // Vehicle Cards will be generated
         if (u.getUserType().equals("Owner")) {
             for (Vehicle v : ((Owner) u).getVehicles()) {
 
@@ -99,6 +102,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 card.setOpaque(true);
                 card.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+                // allows for formatting of vehicle details
                 String formatted = "<html>"
                         + "Vehicle:<br>"
                         + "User Id: " + u.getUserId() + "<br>"
@@ -121,6 +125,8 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 label.setMaximumSize(new Dimension(320, 100));
                 card.add(label);
 
+                // logic to remove a vehicle
+                // removes from the database and txt files
                 JButton removeBtn = new JButton("Remove");
                 removeBtn.setBackground(new Color(255, 51, 51));
                 removeBtn.setPreferredSize(new Dimension(150, 36));
@@ -172,6 +178,8 @@ public class AdminRemoval extends JPanel implements Refreshable {
             }
         }
 
+        // CLIENT SIDE
+        // Job Cards will be generated
         else if (u.getUserType().equals("Client")) {
             for (Job j : ((Client) u).getClientJobs()) {
 
@@ -185,6 +193,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 card.setOpaque(true);
                 card.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+                // Formats job details
                 String formatted = "<html>"
                         + "Job:<br>"
                         + "User Id: " + u.getUserId() + "<br>"
