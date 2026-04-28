@@ -77,6 +77,7 @@ public class Vehicle {
         this.vehicleOwnerId = vehicleOwnerId;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the VIN number of the vehicle
      */
@@ -84,6 +85,7 @@ public class Vehicle {
         return VIN_NUMBER;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the make of the vehicle
      */
@@ -91,6 +93,7 @@ public class Vehicle {
         return make;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the model of the vehicle
      */
@@ -98,6 +101,7 @@ public class Vehicle {
         return model;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the license plate of the vehicle
      */
@@ -105,6 +109,7 @@ public class Vehicle {
         return licensePlate;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the year
      */
@@ -112,6 +117,7 @@ public class Vehicle {
         return year;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the residency time
      */
@@ -119,6 +125,7 @@ public class Vehicle {
         return approxResidencyTime;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the day the vehicle is registered for
      */
@@ -127,6 +134,7 @@ public class Vehicle {
 
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the owner ID of the vehicle
      */
@@ -134,6 +142,7 @@ public class Vehicle {
         return userId;
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return true if the vehicle is available, false otherwise
      */
@@ -141,6 +150,7 @@ public class Vehicle {
         return isParked;
     }
 
+    // ---------------------------------------------------------------
     /**
      * sets the vehicle to parked
      */
@@ -149,6 +159,7 @@ public class Vehicle {
         Admin.addVehicle(this);
     }
 
+    // ---------------------------------------------------------------
     /**
      * sets the vehicle to departed
      */
@@ -157,6 +168,7 @@ public class Vehicle {
         Admin.removeVehicle(this);
     }
 
+    // ---------------------------------------------------------------
     /**
      * @return the owner ID of the vehicle
      */
@@ -164,6 +176,7 @@ public class Vehicle {
         return vehicleOwnerId;
     }
 
+    // ---------------------------------------------------------------
     @Override
     public String toString() {
         return "Make:" + this.getMake() + " ||Model: " + this.getModel() + " || VIN: " + this.getNumber()

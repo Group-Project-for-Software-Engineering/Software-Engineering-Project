@@ -63,6 +63,7 @@ public class PlaceHolderTextField extends JTextField {
 
     }
 
+    // ---------------------------------------------------------------
     /**
      * draws placeholder text
      */

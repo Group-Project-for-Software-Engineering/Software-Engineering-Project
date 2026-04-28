@@ -23,16 +23,17 @@ import javax.swing.*;
 
 public class AdminHome extends JPanel implements Refreshable {
 
-    private User user;
+    //private User user;
     private UserManager users;
     private JPanel listPanel;
     private JLabel nameOfView;
     private JButton calculateCompletionTimesBtn;
 
+    // ---------------------------------------------------------------
     public AdminHome(JPanel cards, User user, UserManager users, Map<String, Refreshable> registry) {
         // user = person logged in
         // users = every person in the system
-        this.user = user;
+        //this.user = user;
         this.users = users;
 
         setLayout(new BorderLayout());
@@ -66,8 +67,8 @@ public class AdminHome extends JPanel implements Refreshable {
         
         refresh();
     }
-    //----------------------------
 
+    // ---------------------------------------------------------------
     @Override 
     public void refresh() { 
         listPanel.removeAll(); 
@@ -82,8 +83,8 @@ public class AdminHome extends JPanel implements Refreshable {
         listPanel.revalidate(); 
         listPanel.repaint(); 
     }
-    //----------------------------
-
+    
+    // ---------------------------------------------------------------
     //creates a card for each user for the admin to see. The content show is based on the type of user
     private JPanel createUserCard (User u) { 
         JPanel userCard = new JPanel(); 
@@ -118,9 +119,6 @@ public class AdminHome extends JPanel implements Refreshable {
                 " || Deadline: " + j.getJobDeadline() + " || Description: " + j.getJobDescription() + "]"));
             }
         }
-        else {
-            // userCard.add(new JLabel("Admin Id: " + ((Admin)u).getAdminId()));
-        }
 
         userCard.setBackground(new Color(153, 204, 255));
         userCard.setOpaque(true);
@@ -128,7 +126,7 @@ public class AdminHome extends JPanel implements Refreshable {
         return userCard; 
     }
 
-
+    // ---------------------------------------------------------------
     // helper method to show the completion times for all jobs
     // computes the completion times using the FIFO (First In, First Out) structure
     // jobs are added into the arraylist in the order they are submitted
@@ -137,14 +135,6 @@ public class AdminHome extends JPanel implements Refreshable {
         ArrayList<Job> allJobs = new ArrayList<>();
         allJobs = Admin.getJobs();
 
-        /* 
-        // iterates through all of the users and gets their jobs if they are a client
-        for (User u : users.getAllUsers().values()) {
-            if ("Client".equals(u.getUserType())) {
-                allJobs.addAll(((Client) u).getClientJobs());
-            }
-        }
-         */
         // if there are no jobs, show a message stating this 
         if (allJobs.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No jobs available.");

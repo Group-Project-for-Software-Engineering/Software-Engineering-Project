@@ -127,8 +127,8 @@ public class HomePage extends JPanel implements Refreshable {
         listPanel.revalidate();
         listPanel.repaint();
     }
-    // ---------------------------
 
+    // ---------------------------------------------------------------
     // if user is an owner show all their vehicles
     private JPanel vehicleCard(Vehicle v) {
         JPanel vehicleCard = new JPanel();
@@ -146,48 +146,9 @@ public class HomePage extends JPanel implements Refreshable {
         vehicleCard.add(new JLabel("Year: " + v.getYear()));
         vehicleCard.add(Box.createVerticalStrut(20));
         vehicleCard.add(new JLabel("Approximate Residency: " + v.approxTime()));
-        // vehicleCard.add(Box.createVerticalStrut(20));
-        // vehicleCard.add(new JLabel("Owner Id: " + v.getVehicleOwnerId()));
         vehicleCard.add(Box.createVerticalStrut(20));
         vehicleCard.add(new JLabel("Day Registered: " + v.getDayRegistered()));
 
-        /*
-         * 
-         * JButton isParkedBtn = new JButton();
-         * 
-         * if(v.isAvailable()) { //vehicle is currently parked and must be sent to
-         * leaving
-         * vehicleCard.add(Box.createVerticalStrut(20));
-         * isParkedBtn.setText("Vehicle is departing");
-         * 
-         * for (ActionListener al : isParkedBtn.getActionListeners()) {
-         * isParkedBtn.removeActionListener(al);
-         * }
-         * isParkedBtn.addActionListener(e -> {
-         * Admin.removeVehicle(v);
-         * v.hasDeparted();
-         * refresh();
-         * });
-         * 
-         * }
-         * else { //vehicle is not parked and is arriving
-         * vehicleCard.add(Box.createVerticalStrut(20));
-         * isParkedBtn.setText("Vehicle has arrived");
-         * 
-         * for (ActionListener al : isParkedBtn.getActionListeners()) {
-         * isParkedBtn.removeActionListener(al);
-         * }
-         * 
-         * isParkedBtn.addActionListener(e -> {
-         * Admin.addVehicle(v);
-         * v.isParked();
-         * refresh();
-         * });
-         * }
-         * 
-         * vehicleCard.add(isParkedBtn);
-         * 
-         */
         vehicleCard.setBorder(BorderFactory.createLineBorder(Color.black, 3));
 
         vehicleCard.setBackground(new Color(153, 204, 255));
@@ -195,16 +156,14 @@ public class HomePage extends JPanel implements Refreshable {
 
         return vehicleCard;
     }
-    // -------------------------------
 
+    // ---------------------------------------------------------------
     // if user is a client show all their jobs
     private JPanel jobCard(Job j) {
         JPanel jobCard = new JPanel();
         jobCard.setLayout(new BoxLayout(jobCard, BoxLayout.Y_AXIS));
         jobCard.add(new JLabel("Job Id: " + j.getJobClientId()));
         jobCard.add(Box.createVerticalStrut(20));
-        // jobCard.add(new JLabel("Client Id: " + ((Client)user).getClientId()));
-        // jobCard.add(Box.createVerticalStrut(20));
         jobCard.add(new JLabel("Job Description: " + j.getJobDescription()));
         jobCard.add(Box.createVerticalStrut(20));
         jobCard.add(new JLabel("Deadline: " + j.getJobDeadline()));

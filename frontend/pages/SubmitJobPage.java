@@ -7,10 +7,9 @@
  */
 package pages;
 
-import java.sql.*;
-
 import classes.Admin;
 import classes.Client;
+import classes.DatabaseConfig;
 import classes.Job;
 import classes.PlaceHolderTextField;
 import classes.User;
@@ -19,16 +18,12 @@ import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.swing.*;
 
@@ -40,10 +35,10 @@ public class SubmitJobPage extends JPanel implements Refreshable {
     private static final DateTimeFormatter DEADLINE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     // Look up vehicles by JobID.
-    private final Map<String, Job> JOB_BY_JOBID = new LinkedHashMap<>();
-    private final JTextArea STATUS_AREA = new JTextArea(6, 50);
+    //private final Map<String, Job> JOB_BY_JOBID = new LinkedHashMap<>();
+    //private final JTextArea STATUS_AREA = new JTextArea(6, 50);
 
-    private final User user;
+    //private final User user;
 
     private JTextField jobDescription;
     private JTextField jobDuration;
@@ -55,7 +50,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
     // constructor: sets user + user manager + registry
     public SubmitJobPage(JPanel cards, User user, Map<String, Refreshable> registry, UserManager users) {
         setLayout(new BorderLayout());
-        this.user = user;
+        //this.user = user;
 
         // NavBar
         add(new NavBar(cards, user, registry), BorderLayout.NORTH);
@@ -199,8 +194,9 @@ public class SubmitJobPage extends JPanel implements Refreshable {
                         if (decision.equals("ACCEPT")) {//if admin accpeted it, show message, add it to the jobs file
                             UserManager.updateJobFile(j); //to be removed later
 
-                            try(Connection conn = DriverManager.getConnection(Login_Registration.url,
-                                        Login_Registration.username, Login_Registration.password);) {
+                            try(Connection conn = DriverManager.getConnection(DatabaseConfig.getURL(),
+                                    DatabaseConfig.getUsername(),
+                                    DatabaseConfig.getPassword());) {
                                 // declares a connection to your database
 
                                 //Statement statement = conn.createStatement();
@@ -267,6 +263,7 @@ public class SubmitJobPage extends JPanel implements Refreshable {
         clientIdField.setText("");
     }
 
+    // ---------------------------------------------------------------
     private JLabel createFormatLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.ITALIC, 12));

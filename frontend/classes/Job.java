@@ -45,6 +45,7 @@ public class Job {
         }
     }
 
+    // ---------------------------------------------------------------
     public Job(String description, String hrs, LocalDateTime jobDeadline, String id, String userId, String jobClientId) {
         increment = Math.max(Integer.parseInt(id), increment);
         this.JOB_ID = id;
@@ -60,15 +61,14 @@ public class Job {
         }
     }
 
-    // getters and setters
-    
-    /**
-     * @return the job ID for a specific job.
-     */
+    // ---------------------------------------------------------------
+    // @return the job ID for a specific job.
     public String getJobId() {
         return JOB_ID;
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * @return the approximate job duration for a specific job.
      */
@@ -76,6 +76,8 @@ public class Job {
         return approximateJobDuration;
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * @return the deadline for a specific job.
      */
@@ -83,6 +85,8 @@ public class Job {
         return jobDeadline;
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * @return updates the approximate job duration for a specific job.
      */
@@ -90,6 +94,8 @@ public class Job {
         this.approximateJobDuration = approximateJobDuration;
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * @return updates the deadline for a specific job.
      */
@@ -97,6 +103,8 @@ public class Job {
         this.jobDeadline = jobDeadline;
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * @return the job description for a specific job.
      */
@@ -104,6 +112,8 @@ public class Job {
         return description;
     }
 
+
+    // ---------------------------------------------------------------
     /** 
      * Increases the increment by 1
      */
@@ -111,6 +121,8 @@ public class Job {
         increment++;
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * @return the userId associated with the client
      */
@@ -118,6 +130,8 @@ public class Job {
         return userId;
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * @return the job status
      */
@@ -125,6 +139,8 @@ public class Job {
         return jobStatus;
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * Sets the job status to "pending"
      */
@@ -132,6 +148,8 @@ public class Job {
         jobStatus = "pending";
     }
 
+
+    // ---------------------------------------------------------------
     /**
      * @return the jobClientId
      */
@@ -139,6 +157,7 @@ public class Job {
         return jobClientId;
     }
 
+    // ---------------------------------------------------------------
     @Override
     public String toString() {
         return "Job Id: " + this.getJobId() + " || Job Client Id: " + this.getJobClientId() + " || Job duration: " + this.getApproximateJobDuration()

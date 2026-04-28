@@ -42,16 +42,14 @@ public class Admin extends User {
         super(username, password, userId, email, "Admin");
     }
 
-    /**
-     * @return the list of vehicles that can be assigned jobs
-     */
+    //--------------------------------------------
+    // @return the list of vehicles that can be assigned jobs
     public ArrayList<Vehicle> getAvailableVehicles() {
         return availableVehicles;
     }
 
-    /**
-     * adds to the list of current usable vehicles
-     */
+    //--------------------------------------------
+    // adds to the list of current usable vehicles
     public static void addVehicle(Vehicle v) {
         if (!availableVehicles.contains(v)) {
             availableVehicles.add(v);
@@ -59,29 +57,27 @@ public class Admin extends User {
         System.out.println(availableVehicles);
     }
 
-    /**
-     * removes a vehicle from the list of current available vehicles
-     */
+    //--------------------------------------------
+    // removes a vehicle from the list of current available vehicles
     public static void removeVehicle(Vehicle v) {
         availableVehicles.remove(v);
         System.out.println(availableVehicles);
     }
 
-    /**
-     * adds a job to the list of jobs
-     */
+    //--------------------------------------------
+    // adds a job to the list of jobs
     public static void addJob(Job j) {
         jobs.add(j);
         j.setStatusPending();
     }
 
-    /**
-     * @return the list of jobs
-     */
+    //--------------------------------------------
+    // @return the list of jobs
     public static ArrayList<Job> getJobs() {
         return jobs;
     }
 
+    //--------------------------------------------
     /**
      * caculates completion time for a list of jobs <br>
      * FIFO (First In, First Out) structure <br>
