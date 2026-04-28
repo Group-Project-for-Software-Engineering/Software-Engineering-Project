@@ -265,6 +265,7 @@ public class Login_Registration {
                     Map<String, Refreshable> registry = new HashMap<>();
                     AdminHome home = new AdminHome(cards, currentUser, userManager, registry);
                     AdminPending pending = new AdminPending(cards, currentUser, userManager, registry);
+                    AdminRemoval removal = new AdminRemoval(cards, currentUser, userManager,registry);
                     SchedulePage schedule = new SchedulePage(cards, currentUser, registry);
                     Settings settings = new Settings(cards, currentUser, registry);
 
@@ -273,11 +274,13 @@ public class Login_Registration {
                     registry.put("pending", pending);
                     registry.put("schedule", schedule);
                     registry.put("settings", settings);
+                    registry.put("removal", removal);
 
                     cards.add(home, "adminHome");
                     cards.add(pending, "pending");
                     cards.add(schedule, "schedule");
                     cards.add(settings, "settings");
+                    cards.add(removal, "removal");
                     cl.show(cards, "adminHome");
                 } else { // Client navbar
                     CardLayout cl = (CardLayout) cards.getLayout();

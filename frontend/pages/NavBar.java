@@ -20,6 +20,7 @@ public class NavBar extends JPanel {
     private JButton offerVehicleBtn;
     private JButton homeBtn;
     private JButton pendingBtn;
+    private JButton removeBtn;
 
     // ---------------------------------------------------------------
     // constructor
@@ -34,7 +35,7 @@ public class NavBar extends JPanel {
         } else {
             setBackground(new Color(33, 150, 243)); // blue => client
         }
-        
+
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         setPreferredSize(new Dimension(1000, 60));
 
@@ -56,9 +57,10 @@ public class NavBar extends JPanel {
 
         homeBtn = new JButton("Home");
 
-        //declaration of user specific buttons
+        // declaration of user specific buttons
         if (user.getUserType().equals("Admin")) {
             pendingBtn = new JButton("Pending");
+            removeBtn = new JButton("Remove Job/Vehicle");
         }
         JButton scheduleBtn = new JButton("Schedule");
 
@@ -73,15 +75,14 @@ public class NavBar extends JPanel {
         JButton settingsBtn = new JButton("Settings");
         JButton logoutBtn = new JButton("Log Out");
 
-        //--------------------------------------------
-        //event listeners for buttons. Some buttons are restricted based on user
+        // --------------------------------------------
+        // event listeners for buttons. Some buttons are restricted based on user
         if (user.getUserType().equals("Admin")) {
             homeBtn.addActionListener(e -> {
                 refreshables.get("adminHome").refresh();
                 ((CardLayout) cards.getLayout()).show(cards, "adminHome");
             });
-        } 
-        else {
+        } else {
             homeBtn.addActionListener(e -> {
                 refreshables.get("home").refresh();
                 ((CardLayout) cards.getLayout()).show(cards, "home");
@@ -114,6 +115,13 @@ public class NavBar extends JPanel {
             });
         }
 
+        if (user.getUserType().equals("Admin")) {
+            removeBtn.addActionListener(e -> {
+                refreshables.get("removal").refresh();
+                ((CardLayout) cards.getLayout()).show(cards, "removal");
+            });
+        }
+
         settingsBtn.addActionListener(e -> {
             refreshables.get("settings").refresh();
             ((CardLayout) cards.getLayout()).show(cards, "settings");
@@ -121,7 +129,7 @@ public class NavBar extends JPanel {
 
         logoutBtn.addActionListener(e -> ((CardLayout) cards.getLayout()).show(cards, "about"));
 
-        //--------------------------------------
+        // --------------------------------------
         add(title);
         add(Box.createHorizontalGlue());
         add(centerPanel);
@@ -129,8 +137,13 @@ public class NavBar extends JPanel {
         add(homeBtn);
         add(Box.createHorizontalStrut(15));
 
-if (user.getUserType().equals("Admin")) {
+        if (user.getUserType().equals("Admin")) {
             add(pendingBtn);
+            add(Box.createHorizontalStrut(15));
+        }
+
+        if (user.getUserType().equals("Admin")) {
+            add(removeBtn);
             add(Box.createHorizontalStrut(15));
         }
 
@@ -146,11 +159,11 @@ if (user.getUserType().equals("Admin")) {
         add(logoutBtn);
         add(Box.createHorizontalStrut(20));
     }
-    //-----------------------------
+    // -----------------------------
 
-    //adds pointer to a given navbar page
+    // adds pointer to a given navbar page
     public void register(String name, Refreshable page) {
         refreshables.put(name, page);
     }
-    //--------------------------
+    // --------------------------
 }
