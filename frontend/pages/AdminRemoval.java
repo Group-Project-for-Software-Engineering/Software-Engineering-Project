@@ -6,17 +6,14 @@
  */
 package pages;
 
-import classes.Admin;
 import classes.Client;
 import classes.DatabaseConfig;
 import classes.Job;
 import classes.Owner;
 import classes.User;
 import classes.UserManager;
-import classes.VCServer;
 import classes.Vehicle;
 
-import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
 import java.awt.*;
@@ -24,9 +21,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 
 public class AdminRemoval extends JPanel implements Refreshable {
 
