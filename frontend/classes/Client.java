@@ -53,5 +53,6 @@ public class Client extends User {
 
     public void removeJob(Job j) {
         clientJobs.remove(j);
+        Admin.removeJob(j);
     }
 }

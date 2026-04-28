@@ -77,6 +77,10 @@ public class Admin extends User {
         return jobs;
     }
 
+    public static void removeJob(Job j) {
+        jobs.remove(j);
+    }
+
     //--------------------------------------------
     /**
      * caculates completion time for a list of jobs <br>
