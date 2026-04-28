@@ -50,4 +50,8 @@ public class Client extends User {
     public ArrayList<Job> getClientJobs() {
         return clientJobs;
     }
+
+    public void removeJob(Job j) {
+        clientJobs.remove(j);
+    }
 }

@@ -30,32 +30,34 @@ import java.util.Map;
 
 public class UserManager {
 
-    private Map<String, User> users = new HashMap<>(); //username => User
+    private Map<String, User> users = new HashMap<>(); // username => User
     private final Path USERS_FILE_PATH;
-    private static final Path VEHICLES_FILE_PATH = Paths.get("VehicleInfo", "vehicles.txt"); // Currently hardcoded, change if necessary
-    private static final Path JOBS_FILE_PATH = Paths.get("JobInfo", "jobs.txt"); // Currently hardcoded, change if necessary
+    private static final Path VEHICLES_FILE_PATH = Paths.get("VehicleInfo", "vehicles.txt"); // Currently hardcoded,
+                                                                                             // change if necessary
+    private static final Path JOBS_FILE_PATH = Paths.get("JobInfo", "jobs.txt"); // Currently hardcoded, change if
+                                                                                 // necessary
 
     // ---------------------------------------------------------------
-    // Uses the default users file path under UserInfo/users.txt. 
+    // Uses the default users file path under UserInfo/users.txt.
     // calls other constructor
     public UserManager() {
         this(Paths.get("UserInfo", "users.txt"));
     }
 
     // ---------------------------------------------------------------
-    // Loads users from the provided file path. 
+    // Loads users from the provided file path.
     public UserManager(Path USERS_FILE_PATH) {
         this.USERS_FILE_PATH = USERS_FILE_PATH;
         loadUsersFromFile();
     }
-    
+
     // ---------------------------------------------------------------
-    /** 
+    /**
      * @param username: this is the users usersname when they make an account
      * @param password: this is the users password when they make an account
-     * @param email: this is the users email when they make an account
-     * @param Username undergoes normalization 
-     * @see User is put into the system 
+     * @param email:    this is the users email when they make an account
+     * @param Username  undergoes normalization
+     * @see User is put into the system
      * @return boolean: force person to register again or put them to login screen
      */
 
@@ -79,48 +81,50 @@ public class UserManager {
         }
 
         // Create and store the user once
-        //User newUser = new User (username, password, "", userType);
+        // User newUser = new User (username, password, "", userType);
         users.put(normalizedUsername, newUser);
         // Save to file once
 
         return true;
     }
 
-    // Validates credentials against the in-memory store. 
-    //------------------------------
+    // Validates credentials against the in-memory store.
+    // ------------------------------
 
-    /** 
+    /**
      * @param username: this is the users username from the login screen
      * @param password: this is the users password from the login screen
-     * @param Username undergoes normalization 
+     * @param Username  undergoes normalization
      * @see User information is looked up in hashmap from UserManager
-     * @return boolean: allows user into application if username and password are valid
+     * @return boolean: allows user into application if username and password are
+     *         valid
      */
     public boolean login(String username, String password) {
         String normalizedUsername = normalizeUsername(username);
-        User user = users.get(normalizedUsername); //gets user data from username
-        if(user == null) {
+        User user = users.get(normalizedUsername); // gets user data from username
+        if (user == null) {
             return false;
         }
-        return user.getPassword().equals(password); //checks that password is correct
+        return user.getPassword().equals(password); // checks that password is correct
     }
-    //------------------------------
+    // ------------------------------
 
-    /** 
+    /**
      * @param username: this is the users username
-     * @param Username undergoes normalization 
+     * @param Username  undergoes normalization
      * @see User information is looked up in hashmap from UserManager
      * @return boolean: User information from User class
      */
     public User getUser(String username) {
         String normalizedUsername = normalizeUsername(username);
-        return users.get(normalizedUsername); //get user object from hashamp
+        return users.get(normalizedUsername); // get user object from hashamp
     }
-    //------------------------------
+    // ------------------------------
 
     /**
      * Read all user informaton from users.txt <br>
-     * Put all their information in the hashmap. Keeps registrations after application closed <br>
+     * Put all their information in the hashmap. Keeps registrations after
+     * application closed <br>
      *
      * users.txt structure: username|password|userId|email|userType
      */
@@ -146,15 +150,14 @@ public class UserManager {
 
                 String normalizedUsername = normalizeUsername(username);
 
-                //If the person you just read from the file is not in the map of current users, add them
+                // If the person you just read from the file is not in the map of current users,
+                // add them
                 if (!username.isEmpty() && !users.containsKey(normalizedUsername)) {
-                    if(type.equals("Owner")) {
+                    if (type.equals("Owner")) {
                         users.put(normalizedUsername, new Owner(username, password, email, userId));
-                    }
-                    else if(type.equals("Admin")) {
+                    } else if (type.equals("Admin")) {
                         users.put(normalizedUsername, new Admin(username, password, email, userId));
-                    }
-                    else {
+                    } else {
                         users.put(normalizedUsername, new Client(username, password, email, userId));
                     }
                 }
@@ -164,15 +167,15 @@ public class UserManager {
             // If the file is unreadable, continue with an empty in-memory list.
         }
     }
-    //-----------------
+    // -----------------
 
-
-    /** 
+    /**
      * Put their information into the txt file <br>
      * users.txt structure: username|password|userId|email|userType
+     * 
      * @param username: from the user when they register
      * @param password: from the user when they register
-     * @param email: from the user when they register
+     * @param email:    from the user when they register
      */
     private void addUserToFile(String username, String password, String userId, String email, String userType) {
         try {
@@ -184,8 +187,7 @@ public class UserManager {
                     USERS_FILE_PATH,
                     StandardCharsets.UTF_8,
                     StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND
-            )) {
+                    StandardOpenOption.APPEND)) {
                 writer.write(username + "|" + password + "|" + userId + "|" + email + "|" + userType);
                 writer.newLine();
             }
@@ -193,12 +195,14 @@ public class UserManager {
             // If the write fails, keep the user in memory for this session.
         }
     }
-    //------------------------------
+    // ------------------------------
 
     /**
      * Read all user informaton from vehicles.txt <br>
-     * Put all their information in the ArrayList. Keeps registrations after application closed <br>
-     * vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId|timestamp
+     * Put all their information in the ArrayList. Keeps registrations after
+     * application closed <br>
+     * vehicle txt format: userId|vin|model|make|plate|year|approxTime|day
+     * registered|userOwnerId|timestamp
      */
     public void loadVehiclesFromFile() {
         if (!Files.exists(VEHICLES_FILE_PATH)) {
@@ -213,9 +217,9 @@ public class UserManager {
                 }
                 // Split using "|" as the delimiter
                 String[] parts = trimmed.split("\\|");
-              
+
                 String userId = parts[0].trim();
-                //String ownerId = parts[1].trim();
+                // String ownerId = parts[1].trim();
                 String vinNumber = parts[1].trim();
                 String make = parts[2].trim();
                 String model = parts[3].trim();
@@ -224,15 +228,15 @@ public class UserManager {
                 String approxTime = parts[6].trim();
                 String dayRegistered = parts[7].trim();
                 String vehicleOwnerId = parts[8].trim();
-               
-                
-                //User u = users.get(normalizedUsername);
-                
+
+                // User u = users.get(normalizedUsername);
+
                 // Add the vehicle to the corresponding owner
                 for (User user : users.values()) {
                     if (user instanceof Owner && user.getUserId().equals(userId)) {
-                        Vehicle vehicle = new Vehicle(vinNumber, make, model, licensePlate, year, Double.parseDouble(approxTime),
-                         dayRegistered, user.getUserId(), vehicleOwnerId);
+                        Vehicle vehicle = new Vehicle(vinNumber, make, model, licensePlate, year,
+                                Double.parseDouble(approxTime),
+                                dayRegistered, user.getUserId(), vehicleOwnerId);
                         ((Owner) user).addVehicle(vehicle);
                     }
                 }
@@ -244,7 +248,8 @@ public class UserManager {
 
     /**
      * Add vehicle information to vehicle file <br>
-     * vehicle txt format: userId|vin|model|make|plate|year|approxTime|day registered|userOwnerId|timestamp
+     * vehicle txt format: userId|vin|model|make|plate|year|approxTime|day
+     * registered|userOwnerId|timestamp
      *
      * @param v the vehicle to be added to the file
      */
@@ -253,20 +258,19 @@ public class UserManager {
             return;
         }
         try (BufferedWriter writer = Files.newBufferedWriter(
-                    VEHICLES_FILE_PATH,
-                    StandardCharsets.UTF_8,
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND
-            )) 
-            {
-                Instant UTCTimestamp = Instant.now();
-                ZonedDateTime timestamp = UTCTimestamp.atZone(ZoneId.of("America/New_York"));
-                writer.write(v.getOwnerId() + "|" + v.getNumber() + "|" + v.getModel() + "|" + v.getMake() + 
-                 "|" + v.getLicensePlate() + "|" + v.getYear() + "|" + v.approxTime() + "|" + v.getDayRegistered() + "|" 
-                 + v.getVehicleOwnerId() + "|" + timestamp);
-                writer.newLine();
+                VEHICLES_FILE_PATH,
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND)) {
+            Instant UTCTimestamp = Instant.now();
+            ZonedDateTime timestamp = UTCTimestamp.atZone(ZoneId.of("America/New_York"));
+            writer.write(v.getOwnerId() + "|" + v.getNumber() + "|" + v.getModel() + "|" + v.getMake() +
+                    "|" + v.getLicensePlate() + "|" + v.getYear() + "|" + v.approxTime() + "|" + v.getDayRegistered()
+                    + "|"
+                    + v.getVehicleOwnerId() + "|" + timestamp);
+            writer.newLine();
         }
-        
+
         catch (IOException e) {
             // If the file is unreadable, continue with an empty in-memory list.
         }
@@ -283,19 +287,17 @@ public class UserManager {
             return;
         }
         try (BufferedWriter writer = Files.newBufferedWriter(
-                    JOBS_FILE_PATH,
-                    StandardCharsets.UTF_8,
-                    StandardOpenOption.CREATE,
-                    StandardOpenOption.APPEND
-            )) 
-            {
-                Instant UTCTimestamp = Instant.now();
-                ZonedDateTime timestamp = UTCTimestamp.atZone(ZoneId.of("America/New_York"));
-                writer.write(j.getClientId() + "|" + j.getJobDescription() + "|" + j.getApproximateJobDuration() + "|"
-                 + j.getJobDeadline() + "|" + j.getJobId() + "|" + j.getJobClientId() + "|" + timestamp);
-                writer.newLine();
+                JOBS_FILE_PATH,
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.APPEND)) {
+            Instant UTCTimestamp = Instant.now();
+            ZonedDateTime timestamp = UTCTimestamp.atZone(ZoneId.of("America/New_York"));
+            writer.write(j.getClientId() + "|" + j.getJobDescription() + "|" + j.getApproximateJobDuration() + "|"
+                    + j.getJobDeadline() + "|" + j.getJobId() + "|" + j.getJobClientId() + "|" + timestamp);
+            writer.newLine();
         }
-        
+
         catch (IOException e) {
             // If the file is unreadable, continue with an empty in-memory list.
         }
@@ -303,7 +305,8 @@ public class UserManager {
 
     /**
      * Read all user informaton from jobs.txt <br>
-     * Put all their information in the ArrayList. Keeps registrations after application closed <br>
+     * Put all their information in the ArrayList. Keeps registrations after
+     * application closed <br>
      * jobs.txt format: userId|description|hrs|deadline|jobId|userJobId|timestamp
      */
     public void loadJobsFromFile() {
@@ -320,7 +323,7 @@ public class UserManager {
                 // Split using "|" as the delimiter
                 String[] parts = trimmed.split("\\|");
 
-                //will have to change if more fields are added to the jobs class
+                // will have to change if more fields are added to the jobs class
                 String userId = parts[0].trim();
                 String jobDescription = parts[1].trim();
                 String approximateJobDuration = parts[2].trim();
@@ -344,8 +347,86 @@ public class UserManager {
             // If the file is unreadable, continue with an empty in-memory list.
         }
     }
+    // -------------------------------------------------------------------------------
+    public static boolean removeVehicleFromFile(String vinToRemove) {
+        try {
+            if (!Files.exists(VEHICLES_FILE_PATH)) {
+                return false;
+            }
 
-    // --------------------------------------------------------------- 
+            Path tempFile = Paths.get("VehicleInfo", "vehicles_temp.txt");
+
+            try (BufferedReader reader = Files.newBufferedReader(VEHICLES_FILE_PATH, StandardCharsets.UTF_8);
+                    BufferedWriter writer = Files.newBufferedWriter(tempFile, StandardCharsets.UTF_8,
+                            StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String trimmed = line.trim();
+                    if (trimmed.isEmpty())
+                        continue;
+
+                    String[] parts = trimmed.split("\\|");
+                    String vin = parts[1].trim(); // VIN is the second field
+
+                    if (!vin.equals(vinToRemove)) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
+                }
+            }
+
+            // Replace original file
+            Files.delete(VEHICLES_FILE_PATH);
+            Files.move(tempFile, VEHICLES_FILE_PATH);
+
+            return true;
+
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    // ------------------------------------------------------------------
+    public static boolean removeJobFromFile(String jobIdToRemove) {
+        try {
+            if (!Files.exists(JOBS_FILE_PATH)) {
+                return false;
+            }
+
+            Path tempFile = Paths.get("JobInfo", "jobs_temp.txt");
+
+            try (BufferedReader reader = Files.newBufferedReader(JOBS_FILE_PATH, StandardCharsets.UTF_8);
+                    BufferedWriter writer = Files.newBufferedWriter(tempFile, StandardCharsets.UTF_8,
+                            StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String trimmed = line.trim();
+                    if (trimmed.isEmpty())
+                        continue;
+
+                    String[] parts = trimmed.split("\\|");
+                    String jobId = parts[4].trim(); // jobId is the 5th field
+
+                    if (!jobId.equals(jobIdToRemove)) {
+                        writer.write(line);
+                        writer.newLine();
+                    }
+                }
+            }
+
+            Files.delete(JOBS_FILE_PATH);
+            Files.move(tempFile, JOBS_FILE_PATH);
+
+            return true;
+
+        } catch (IOException e) {
+            return false;
+        }
+    }
+    // ---------------------------------------------------------------
+
     // Make Username no longer case sensitive and trim space.
     private String normalizeUsername(String username) {
         if (username == null) {
@@ -353,10 +434,9 @@ public class UserManager {
         }
         return username.trim().toLowerCase();
     }
-    //------------------------------
+    // ------------------------------
 
     public Map<String, User> getAllUsers() {
         return users;
     }
 }
-

@@ -2,6 +2,7 @@ package pages;
 
 import classes.Admin;
 import classes.Client;
+import classes.DatabaseConfig;
 import classes.Job;
 import classes.Owner;
 import classes.User;
@@ -13,6 +14,13 @@ import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 public class AdminRemoval extends JPanel implements Refreshable {
 
@@ -108,13 +116,38 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 removeBtn.setPreferredSize(new Dimension(110, 36));
                 removeBtn.setFont(new Font("Arial", Font.BOLD, 20));
 
-                // Remove logic
+                // Remove logic: remove from file, database, and user list
                 removeBtn.addActionListener(e -> {
-                    
+
+                    ((Owner) u).removeVehicle(v); // remove vehicle from the users list
+                    UserManager.removeVehicleFromFile(v.getNumber()); // remove vehicle from file
+
+                    // Remove from SQL database
+                    try (Connection conn = DriverManager.getConnection(
+                            DatabaseConfig.getURL(),
+                            DatabaseConfig.getUsername(),
+                            DatabaseConfig.getPassword())) {
+
+                        String sql = "DELETE FROM vehicles WHERE vin = ?";
+
+                        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                            stmt.setString(1, v.getNumber()); // VIN is the unique key
+                            int rows = stmt.executeUpdate();
+
+                            if (rows > 0) {
+                                System.out.println("Vehicle removed from SQL database.");
+                            } else {
+                                System.out.println("No matching vehicle found in SQL.");
+                            }
+                        }
+
+                    } catch (SQLException s) {
+                        s.printStackTrace();
+                    }
+
                     refresh();
                 });
 
-                
                 card.add(removeBtn);
                 container.add(card);
                 container.add(Box.createVerticalStrut(10));
@@ -148,9 +181,34 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 removeBtn.setPreferredSize(new Dimension(110, 36));
                 removeBtn.setFont(new Font("Arial", Font.BOLD, 20));
 
-                // Remove logic
+                // Remove logic: remove from file, database, and user list
                 removeBtn.addActionListener(e -> {
-                    
+                    ((Client) u).removeJob(j); // remove job from the users list
+                    UserManager.removeJobFromFile(j.getJobId()); // remove job from the file
+
+                    // Remove from SQL database
+                    try (Connection conn = DriverManager.getConnection(
+                            DatabaseConfig.getURL(),
+                            DatabaseConfig.getUsername(),
+                            DatabaseConfig.getPassword())) {
+
+                        String sql = "DELETE FROM jobs WHERE job_id = ?";
+
+                        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                            stmt.setString(1, j.getJobId()); // VIN is the unique key
+                            int rows = stmt.executeUpdate();
+
+                            if (rows > 0) {
+                                System.out.println("Job removed from SQL database.");
+                            } else {
+                                System.out.println("No matching job found in SQL.");
+                            }
+                        }
+                        
+                    } catch (SQLException s) {
+                        s.printStackTrace();
+                    }
+
                     refresh();
                 });
 

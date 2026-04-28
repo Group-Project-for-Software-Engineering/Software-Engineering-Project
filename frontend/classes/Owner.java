@@ -54,4 +54,8 @@ public class Owner extends User {
     public ArrayList<Vehicle> getVehicles() {
         return ownerVehicles;
     }
+
+    public void removeVehicle(Vehicle v) {
+        ownerVehicles.remove(v);
+    }
 }
