@@ -65,6 +65,7 @@ public class HomePage extends JPanel implements Refreshable {
             SwingUtilities.invokeLater(() -> {
                 ArrayList<String> rejected = user.getRejectedList();
                 ArrayList<String> accepted = user.getAcceptedList();
+                ArrayList<String> removed = user.getRemovedList();
 
                 for (String s : rejected) {
                     JOptionPane.showMessageDialog(
@@ -80,8 +81,16 @@ public class HomePage extends JPanel implements Refreshable {
                             "Vehicle Acception",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
+                for (String s : removed) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "<html>One of your vehicles has been removed.<br>" + s,
+                            "Vehicle Removed",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
                 user.clearAcceptedList();
                 user.clearRejectedList();
+                user.clearRemovedList();
             });
             nameOfView.setText("Owner view: Your vehicles");
             ArrayList<Vehicle> userVehicles = ((Owner) user).getVehicles();
@@ -95,6 +104,8 @@ public class HomePage extends JPanel implements Refreshable {
             SwingUtilities.invokeLater(() -> {
                 ArrayList<String> rejected = user.getRejectedList();
                 ArrayList<String> accepted = user.getAcceptedList();
+                ArrayList<String> removed = user.getRemovedList();
+
                 for (String s : rejected) {
                     JOptionPane.showMessageDialog(
                             null,
@@ -110,9 +121,17 @@ public class HomePage extends JPanel implements Refreshable {
                             "Job Acception",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
+                for (String s : removed) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "<html>One of your jobs has been removed.<br>" + s,
+                            "Job Removed",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
 
                 user.clearAcceptedList();
                 user.clearRejectedList();
+                user.clearRemovedList();
 
             });
 

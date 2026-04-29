@@ -23,6 +23,7 @@ public class User {
 
     private ArrayList<String> rejected = new ArrayList<>();
     private ArrayList<String> accepted = new ArrayList<>();
+    private ArrayList<String> removed = new ArrayList<>();
 
     // ---------------------------------------------------------------
     /**
@@ -136,5 +137,17 @@ public class User {
      */
     public void addRejected(String s) {
         rejected.add(s);
+    }
+
+    public void clearRemovedList() {
+        removed.clear();
+    }
+
+    public void addRemoved(String s) {
+        removed.add(s);
+    }
+
+    public ArrayList<String> getRemovedList() {
+        return removed;
     }
 }

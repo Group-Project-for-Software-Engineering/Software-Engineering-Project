@@ -132,7 +132,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 removeBtn.setPreferredSize(new Dimension(150, 36));
                 removeBtn.setFont(new Font("Arial", Font.BOLD, 20));
 
-                // Remove logic: remove from file, database, and user list
+                // Remove logic: remove from file, database, and user list + notification
                 removeBtn.addActionListener(e -> {
 
                     ((Owner) u).removeVehicle(v); // remove vehicle from the users list
@@ -156,6 +156,14 @@ public class AdminRemoval extends JPanel implements Refreshable {
                                 System.out.println("No matching vehicle found in SQL.");
                             }
                         }
+
+                        JOptionPane.showMessageDialog(
+                            this,
+                            "You have removed the following: \n" + formatted,
+                            "Removed vehicle",
+                            JOptionPane.INFORMATION_MESSAGE);
+                        
+                        u.addRemoved(formatted); //send notification to user
 
                     } catch (SQLException s) {
                         s.printStackTrace();
@@ -226,7 +234,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 card.add(buttonRow);
                 listPanel.add(card);
 
-                // Remove logic: remove from file, database, and user list
+                // Remove logic: remove from file, database, and user list + notification
                 removeBtn.addActionListener(e -> {
                     ((Client) u).removeJob(j); // remove job from the users list
                     UserManager.removeJobFromFile(j.getJobId()); // remove job from the file
@@ -248,6 +256,14 @@ public class AdminRemoval extends JPanel implements Refreshable {
                                 System.out.println("No matching job found in SQL.");
                             }
                         }
+
+                        JOptionPane.showMessageDialog(
+                            this,
+                            "You have removed the following: \n" + formatted,
+                            "Removed job",
+                            JOptionPane.INFORMATION_MESSAGE);
+                            
+                         u.addRemoved(formatted); //send notification to user
 
                     } catch (SQLException s) {
                         s.printStackTrace();
