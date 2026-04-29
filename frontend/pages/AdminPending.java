@@ -48,16 +48,17 @@ public class AdminPending extends JPanel implements Refreshable {
         // allows cards to wrap to new rows when needed
         listPanel.setPreferredSize(new Dimension(0, 0));
         // Load all requests already moved into adminVisible
+        
         SwingUtilities.invokeLater(() -> {
             synchronized (VCServer.adminVisible) {
                 if (!VCServer.adminVisible.isEmpty()) {
-                   // for(Request r: VCServer.adminVisible) {
+                   for(Request r: VCServer.adminVisible) {
                          JOptionPane.showMessageDialog(
                             this,
-                            "You have pending requests.",
+                            "You have a new pending request.",
                             "Pending request",
                             JOptionPane.INFORMATION_MESSAGE);
-                    //}
+                    }
                 }
             }
         });
