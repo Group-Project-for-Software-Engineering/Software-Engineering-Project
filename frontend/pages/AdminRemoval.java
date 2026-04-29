@@ -47,10 +47,9 @@ public class AdminRemoval extends JPanel implements Refreshable {
         viewPanel.setLayout(new BoxLayout(viewPanel, BoxLayout.Y_AXIS));
 
         // 4 cards per row
-        listPanel = new JPanel();
-        listPanel.setLayout(new GridLayout(0, 4, 20, 20));
-        // 0 rows to start with; 2 columns; 20px horizontal + vertical gaps
-
+        listPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 20));
+        listPanel.setPreferredSize(new Dimension(0, 0));
+        
         JScrollPane scroll = new JScrollPane(listPanel);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
