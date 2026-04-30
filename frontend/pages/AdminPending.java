@@ -123,7 +123,7 @@ public class AdminPending extends JPanel implements Refreshable {
         rejectBtn.setPreferredSize(new Dimension(110, 36));
         rejectBtn.setFont(new Font("Arial", Font.BOLD, 20));
 
-        JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
         buttonRow.setOpaque(false);
 
         // Accept logic
