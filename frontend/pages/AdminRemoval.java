@@ -171,7 +171,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                     refresh();
                 });
 
-                JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+                JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
                 buttonRow.setOpaque(false);
                 buttonRow.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -220,7 +220,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 label.setMaximumSize(new Dimension(320, 100));
                 card.add(label);
 
-                JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+                JPanel buttonRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
                 buttonRow.setOpaque(false);
                 buttonRow.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -228,6 +228,7 @@ public class AdminRemoval extends JPanel implements Refreshable {
                 removeBtn.setBackground(new Color(255, 51, 51));
                 removeBtn.setPreferredSize(new Dimension(150, 36));
                 removeBtn.setFont(new Font("Arial", Font.BOLD, 20));
+
                 buttonRow.add(removeBtn);
                 card.add(Box.createVerticalStrut(8));
                 card.add(buttonRow);
